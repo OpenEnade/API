@@ -14,7 +14,7 @@ public class ModalidadeController {
     
     @RequestMapping(method = RequestMethod.GET)
     public @ResponseBody ResponseEntity<Modalidade[]> index() {
-        return  new ResponseEntity<>(Modalidade.values(), HttpStatus.OK);
+        return new ResponseEntity<>(Modalidade.values(), HttpStatus.OK);
     }
 
 }
