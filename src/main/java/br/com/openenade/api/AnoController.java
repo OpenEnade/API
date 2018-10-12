@@ -2,6 +2,7 @@ package br.com.openenade.api;
 
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,9 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping(path = "/ano")
+@RequestMapping(path = AnoController.ENDPOINT)
 public class AnoController {
 
+    public static final String ENDPOINT = "/shops";
+    
     @Autowired
     private AnoService service;
 
@@ -35,20 +38,42 @@ public class AnoController {
 
     @PostMapping
     public ResponseEntity<String> saveAno(@RequestBody Ano ano) {
+        try {
+            service.addAno(ano);
+            return ResponseEntity.status(HttpStatus.OK).body("{\"Response\": \" OK \"}");
 
-        return service.addAno(ano);
+        } catch (Exception e) {
+
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("{\"Response\": \"" + e.getLocalizedMessage() +  "\"}");
+        }
     }
 
-    @PutMapping(path = "/{ano}")
+    @PutMapping
     public ResponseEntity<String> updateAno(@RequestBody Ano ano) {
+        try {
+            service.updateAno(ano);
+            return ResponseEntity.status(HttpStatus.OK).body("{\"Response\": \" OK \"}");
 
-        return service.updateAno(ano);
+        } catch (Exception e) {
+
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("{\"Response\": \"" + e.getLocalizedMessage() +  "\"}");
+        }
     }
 
     @DeleteMapping(path = "/{ano}")
     public ResponseEntity<String> updateAno(@PathVariable(name = "ano") Integer ano) {
 
-        return service.deleteAno(ano);
+        try {
+            service.deleteAno(ano);
+            return ResponseEntity.status(HttpStatus.OK).body("{\"Response\": \" OK \"}");
+
+        } catch (Exception e) {
+
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("{\"Response\": \"" + e.getLocalizedMessage() +  "\"}");
+        }
     }
 
 

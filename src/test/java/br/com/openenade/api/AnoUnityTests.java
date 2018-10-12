@@ -36,8 +36,7 @@ public class AnoUnityTests {
             System.out.println(e.getMessage());
         }
 
-        assertEquals(ano, repository.getElemmentByAno(2016));
-
+        assertEquals(ano, repository.getByAno(2016));
     }
 
 
@@ -48,7 +47,6 @@ public class AnoUnityTests {
 
         Ano ano1 = new Ano();
         Ano ano2 = new Ano();
-
 
         ano1.setAno(2016);
         ano2.setAno(2017);
@@ -79,10 +77,7 @@ public class AnoUnityTests {
 
         Ano ano1 = new Ano();
 
-
         ano1.setAno(2016);
-
-
 
         try {
 
@@ -93,11 +88,11 @@ public class AnoUnityTests {
             System.out.println(e.getMessage());
         }
 
-        assertEquals(ano1, repository.getElemmentByAno(2016));
+        assertEquals(ano1, repository.getByAno(2016));
 
         this.repository.deleteByAno(2016);
 
-        assertEquals(null, repository.getElemmentByAno(2016));
+        assertEquals(null, repository.getByAno(2016));
 
     }
 

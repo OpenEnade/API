@@ -5,7 +5,7 @@ import br.com.openenade.api.Ano;
 
 public interface AnoRepository extends JpaRepository<Ano, String> {
 
-    public Ano getElemmentByAno(Integer ano);
+    public Ano getByAno(Integer ano);
 
     public void deleteByAno(Integer ano);
 

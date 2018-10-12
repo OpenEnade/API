@@ -20,45 +20,26 @@ public class AnoService {
 
         return this.repository.findAll();
     }
-
-    public ResponseEntity<String> addAno(Ano ano) {
-
-        try {
-            this.repository.save(ano);
-            return ResponseEntity.status(HttpStatus.OK).body("{\"Response\": \" OK \"}");
-
-        } catch (Exception e) {
-
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("{\"Response\": \" BAD REQUEST \"}");
-
-        }
-    }
-
-    public ResponseEntity<String> updateAno(Ano ano) {
-
-        return this.addAno(ano);
-    }
-
-    public ResponseEntity<String> deleteAno(Integer ano) {
-
-        try {
-            this.repository.deleteByAno(ano);
-
-            return ResponseEntity.status(HttpStatus.OK).body("{\"Response\": \" OK \"}");
-
-        } catch (Exception e) {
-
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("{\"Response\": \"" + e.getMessage() + "\"}");
-
-        }
-    }
-
+    
     public Ano getAno(Integer ano) {
 
-        return this.repository.getElemmentByAno(ano);
-
+        return this.repository.getByAno(ano);
     }
 
+    public void addAno(Ano ano) {
+
+        this.repository.save(ano);
+    }
+
+    public void updateAno(Ano ano) {
+
+        this.addAno(ano);
+    }
+
+    public void deleteAno(Integer ano) {
+
+        this.repository.deleteByAno(ano);
+    }
+
+  
 }
