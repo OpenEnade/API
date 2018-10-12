@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = AnoController.ENDPOINT)
 public class AnoController {
 
-    public static final String ENDPOINT = "/shops";
+    public static final String ENDPOINT = "/ano";
     
     @Autowired
     private AnoService service;
