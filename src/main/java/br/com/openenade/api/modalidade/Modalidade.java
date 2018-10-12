@@ -8,11 +8,11 @@ public enum Modalidade {
     private String value;
 
     private Modalidade() {
-
+        
     }
 
     private Modalidade(String value) {
-
+        this.value = value;
     }
 
     @JsonValue
