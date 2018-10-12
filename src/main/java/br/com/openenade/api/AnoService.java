@@ -37,16 +37,7 @@ public class AnoService {
 
     public ResponseEntity<String> updateAno(Ano ano) {
 
-        try {
-            this.repository.save(ano);
-            return ResponseEntity.status(HttpStatus.OK).body("{\"Response\": \" OK \"}");
-
-        } catch (Exception e) {
-
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("{\"Response\": \" BAD REQUEST \"}");
-
-        }
+        return this.addAno(ano);
     }
 
     public ResponseEntity<String> deleteAno(Integer ano) {
@@ -67,7 +58,7 @@ public class AnoService {
     public Ano getAno(Integer ano) {
 
         return this.repository.getElemmentByAno(ano);
-        
+
     }
 
 }
