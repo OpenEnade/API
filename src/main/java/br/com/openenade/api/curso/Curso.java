@@ -1,14 +1,19 @@
 package br.com.openenade.api.curso;
 
+import javax.persistence.Id;
+import javax.persistence.Entity;
 import br.com.openenade.api.modalidade.Modalidade;
 
+@Entity
 public class Curso {
+
+    @Id
+    private long codigoCurso;
 
     private String nome;
     private long codigoArea;
-    private long codigoCurso;
     private Modalidade modalidade;
-    
+
     public Curso(String nome, long codigoArea, long codigoCurso, Modalidade modalidade) {
         super();
         this.nome = nome;
@@ -35,10 +40,6 @@ public class Curso {
 
     public long getCodigoCurso() {
         return codigoCurso;
-    }
-
-    public void setCodigoCurso(long codigoCurso) {
-        this.codigoCurso = codigoCurso;
     }
 
     public Modalidade getModalidade() {
