@@ -54,4 +54,10 @@ public class Curso {
         this.modalidade = modalidade;
     }
 
+    @Override
+    public String toString() {
+        return "Curso [codigoCurso=" + codigoCurso + ", nome=" + nome + ", codigoArea=" + codigoArea
+                + ", modalidade=" + modalidade + "]";
+    }
+
 }
