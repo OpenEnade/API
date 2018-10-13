@@ -14,6 +14,10 @@ public class Curso {
     private long codigoArea;
     private Modalidade modalidade;
 
+    public Curso() {
+
+    }
+
     public Curso(String nome, long codigoArea, long codigoCurso, Modalidade modalidade) {
         super();
         this.nome = nome;
