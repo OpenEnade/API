@@ -1,5 +1,8 @@
 package br.com.openenade.api.curso;
 
+import java.util.Optional;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,8 +23,14 @@ public class CursoController {
 
     @ResponseBody
     @GetMapping(path = "/{codigo}")
-    public Curso getCursoByCodigo(@PathVariable(name = "codigo") Long codigo) {
-        return this.service.getCursoByCodigo(codigo);
+    public ResponseEntity<Curso> getCursoByCodigo(@PathVariable(name = "codigo") Long codigo) {
+        Optional<Curso> optCurso = this.service.getCursoByCodigo(codigo);
+
+        if (optCurso.isPresent()) {
+            return new ResponseEntity<>(optCurso.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
 }
