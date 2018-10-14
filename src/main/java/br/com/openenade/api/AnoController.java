@@ -24,6 +24,9 @@ public class AnoController {
     @Autowired
     private AnoService service;
 
+    @Autowired
+    Utils utils;
+
     @GetMapping
     public Collection<Ano> getAnos() {
 
@@ -38,14 +41,15 @@ public class AnoController {
 
     @PostMapping
     public ResponseEntity<String> saveAno(@RequestBody Ano ano) {
+
         try {
             service.addAno(ano);
-            return ResponseEntity.status(HttpStatus.OK).body("{\"Response\": \" OK \"}");
+            return utils.getResponseEntity(HttpStatus.OK, "OK");
 
         } catch (Exception e) {
 
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("{\"Response\": \"" + e.getLocalizedMessage() + "\"}");
+            return utils.getResponseEntity(HttpStatus.BAD_REQUEST, e.getMessage());
+
         }
     }
 
@@ -60,12 +64,11 @@ public class AnoController {
 
         try {
             service.deleteAno(ano);
-            return ResponseEntity.status(HttpStatus.OK).body("{\"Response\": \" OK \"}");
+            return utils.getResponseEntity(HttpStatus.OK, "OK");
 
         } catch (Exception e) {
 
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("{\"Response\": \"" + e.getLocalizedMessage() + "\"}");
+            return utils.getResponseEntity(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
 }
