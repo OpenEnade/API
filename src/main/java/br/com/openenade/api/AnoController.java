@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class AnoController {
 
     public static final String ENDPOINT = "/ano";
+    
+    public static final String ANO_ID = "/{ano}";
 
     @Autowired
     private AnoService service;
@@ -31,7 +33,7 @@ public class AnoController {
         return service.getAllAnos();
     }
 
-    @GetMapping(path = "/{ano}")
+    @GetMapping(path = ANO_ID)
     public Ano getAno(@PathVariable(name = "ano") Integer ano) {
 
         return service.getAno(ano);
@@ -57,7 +59,7 @@ public class AnoController {
         return this.saveAno(ano);
     }
 
-    @DeleteMapping(path = "/{ano}")
+    @DeleteMapping(path = ANO_ID)
     public ResponseEntity<String> updateAno(@PathVariable(name = "ano") Integer ano) {
 
         try {

@@ -30,14 +30,7 @@ public class AnoUnityTests {
 
         ano.setAno(2016);
 
-        try {
-            this.service.addAno(ano);
-
-        } catch (Exception e) {
-
-            System.out.println(e.getMessage());
-        }
-
+        this.service.addAno(ano);
         assertEquals(ano, service.getAno(2016));
     }
 
