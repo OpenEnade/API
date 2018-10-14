@@ -21,7 +21,7 @@ public class AnoController {
 
     public static final String ENDPOINT = "/ano";
     
-    public static final String ANO_ID = "/{ano}";
+    public static final String ANO_ID = "ano";
 
     @Autowired
     private AnoService service;
@@ -33,8 +33,8 @@ public class AnoController {
         return service.getAllAnos();
     }
 
-    @GetMapping(path = ANO_ID)
-    public Ano getAno(@PathVariable(name = "ano") Integer ano) {
+    @GetMapping(path = "{/" + ANO_ID + "}")
+    public Ano getAno(@PathVariable(name = ANO_ID) Integer ano) {
 
         return service.getAno(ano);
     }
@@ -59,8 +59,8 @@ public class AnoController {
         return this.saveAno(ano);
     }
 
-    @DeleteMapping(path = ANO_ID)
-    public ResponseEntity<String> updateAno(@PathVariable(name = "ano") Integer ano) {
+    @DeleteMapping(path = "{/" + ANO_ID + "}")
+    public ResponseEntity<String> updateAno(@PathVariable(name = ANO_ID) Integer ano) {
 
         try {
             service.deleteAno(ano);
