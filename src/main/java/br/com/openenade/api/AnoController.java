@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AnoController {
 
     public static final String ENDPOINT = "/ano";
-    
+
     @Autowired
     private AnoService service;
 
@@ -29,7 +29,7 @@ public class AnoController {
 
         return service.getAllAnos();
     }
-    
+
     @GetMapping(path = "/{ano}")
     public Ano getAno(@PathVariable(name = "ano") Integer ano) {
 
@@ -45,21 +45,14 @@ public class AnoController {
         } catch (Exception e) {
 
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("{\"Response\": \"" + e.getLocalizedMessage() +  "\"}");
+                    .body("{\"Response\": \"" + e.getLocalizedMessage() + "\"}");
         }
     }
 
     @PutMapping
     public ResponseEntity<String> updateAno(@RequestBody Ano ano) {
-        try {
-            service.updateAno(ano);
-            return ResponseEntity.status(HttpStatus.OK).body("{\"Response\": \" OK \"}");
 
-        } catch (Exception e) {
-
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("{\"Response\": \"" + e.getLocalizedMessage() +  "\"}");
-        }
+        return this.saveAno(ano);
     }
 
     @DeleteMapping(path = "/{ano}")
@@ -72,9 +65,7 @@ public class AnoController {
         } catch (Exception e) {
 
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("{\"Response\": \"" + e.getLocalizedMessage() +  "\"}");
+                    .body("{\"Response\": \"" + e.getLocalizedMessage() + "\"}");
         }
     }
-
-
 }

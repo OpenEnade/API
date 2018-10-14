@@ -18,6 +18,8 @@ public class AnoUnityTests {
     @Autowired
     private AnoRepository repository;
 
+    @Autowired
+    private AnoService service;
 
     @Test
     public void addAnoTest() {
@@ -29,14 +31,14 @@ public class AnoUnityTests {
         ano.setAno(2016);
 
         try {
-            this.repository.save(ano);
+            this.service.addAno(ano);
 
         } catch (Exception e) {
 
             System.out.println(e.getMessage());
         }
 
-        assertEquals(ano, repository.getByAno(2016));
+        assertEquals(ano, service.getAno(2016));
     }
 
 
@@ -56,17 +58,10 @@ public class AnoUnityTests {
         list.add(ano1);
         list.add(ano2);
 
-        try {
+        this.service.addAno(ano1);
+        this.service.addAno(ano2);
 
-            this.repository.save(ano1);
-            this.repository.save(ano2);
-
-        } catch (Exception e) {
-
-            System.out.println(e.getMessage());
-        }
-
-        assertEquals(list, repository.findAll());
+        assertEquals(list, service.getAllAnos());
 
     }
 
@@ -79,20 +74,13 @@ public class AnoUnityTests {
 
         ano1.setAno(2016);
 
-        try {
+        this.service.addAno(ano1);
 
-            this.repository.save(ano1);
+        assertEquals(ano1, service.getAno(2016));
 
-        } catch (Exception e) {
+        this.service.deleteAno(2016);
 
-            System.out.println(e.getMessage());
-        }
-
-        assertEquals(ano1, repository.getByAno(2016));
-
-        this.repository.deleteByAno(2016);
-
-        assertEquals(null, repository.getByAno(2016));
+        assertEquals(null, service.getAno(2016));
 
     }
 
