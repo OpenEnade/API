@@ -42,11 +42,11 @@ public class AnoController {
 
         try {
             service.addAno(ano);
-            return Utils.getResponseEntity(HttpStatus.OK, "OK");
+            return AnoUtils.getResponseEntity(HttpStatus.OK, "OK");
 
         } catch (Exception e) {
 
-            return Utils.getResponseEntity(HttpStatus.BAD_REQUEST, e.getMessage());
+            return AnoUtils.getResponseEntity(HttpStatus.BAD_REQUEST, e.getMessage());
 
         }
     }
@@ -62,11 +62,11 @@ public class AnoController {
 
         try {
             service.deleteAno(ano);
-            return Utils.getResponseEntity(HttpStatus.OK, "OK");
+            return AnoUtils.getResponseEntity(HttpStatus.OK, "OK");
 
         } catch (Exception e) {
 
-            return Utils.getResponseEntity(HttpStatus.BAD_REQUEST, e.getMessage());
+            return AnoUtils.getResponseEntity(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
 }

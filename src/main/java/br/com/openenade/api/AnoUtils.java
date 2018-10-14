@@ -3,7 +3,7 @@ package br.com.openenade.api;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-public class Utils {
+public class AnoUtils {
 
 
     public static ResponseEntity<String> getResponseEntity(HttpStatus status, String message) {
