@@ -24,8 +24,6 @@ public class AnoController {
     @Autowired
     private AnoService service;
 
-    @Autowired
-    Utils utils;
 
     @GetMapping
     public Collection<Ano> getAnos() {
@@ -44,11 +42,11 @@ public class AnoController {
 
         try {
             service.addAno(ano);
-            return utils.getResponseEntity(HttpStatus.OK, "OK");
+            return Utils.getResponseEntity(HttpStatus.OK, "OK");
 
         } catch (Exception e) {
 
-            return utils.getResponseEntity(HttpStatus.BAD_REQUEST, e.getMessage());
+            return Utils.getResponseEntity(HttpStatus.BAD_REQUEST, e.getMessage());
 
         }
     }
@@ -64,11 +62,11 @@ public class AnoController {
 
         try {
             service.deleteAno(ano);
-            return utils.getResponseEntity(HttpStatus.OK, "OK");
+            return Utils.getResponseEntity(HttpStatus.OK, "OK");
 
         } catch (Exception e) {
 
-            return utils.getResponseEntity(HttpStatus.BAD_REQUEST, e.getMessage());
+            return Utils.getResponseEntity(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
 }
