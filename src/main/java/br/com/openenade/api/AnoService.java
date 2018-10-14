@@ -2,12 +2,8 @@ package br.com.openenade.api;
 
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import br.com.openenade.api.Ano;
-import br.com.openenade.api.AnoRepository;
 
 @Service
 @Transactional
@@ -23,7 +19,7 @@ public class AnoService {
     
     public Ano getAno(Integer ano) {
 
-        return this.repository.getByAno(ano);
+        return this.repository.findByAno(ano);
     }
 
     public void addAno(Ano ano) {
