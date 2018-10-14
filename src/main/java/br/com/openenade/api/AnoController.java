@@ -33,7 +33,7 @@ public class AnoController {
         return service.getAllAnos();
     }
 
-    @GetMapping(path = "{/" + ANO_ID + "}")
+    @GetMapping(path = "/{" + ANO_ID + "}")
     public Ano getAno(@PathVariable(name = ANO_ID) Integer ano) {
 
         return service.getAno(ano);
@@ -59,7 +59,7 @@ public class AnoController {
         return this.saveAno(ano);
     }
 
-    @DeleteMapping(path = "{/" + ANO_ID + "}")
+    @DeleteMapping(path = "/{" + ANO_ID + "}")
     public ResponseEntity<String> updateAno(@PathVariable(name = ANO_ID) Integer ano) {
 
         try {
