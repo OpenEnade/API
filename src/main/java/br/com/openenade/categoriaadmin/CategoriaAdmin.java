@@ -13,7 +13,7 @@ public enum CategoriaAdmin {
         
     }
     
-    CategoriaAdmin(String value) {
+    private CategoriaAdmin(String value) {
         this.value = value;
     }
  
