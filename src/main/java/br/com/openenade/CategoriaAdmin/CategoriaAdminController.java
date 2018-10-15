@@ -20,6 +20,5 @@ public class CategoriaAdminController {
         
         return new ResponseEntity<>(CategoriaAdmin.values(), HttpStatus.OK);
     }
-    
-    
+   
 }
