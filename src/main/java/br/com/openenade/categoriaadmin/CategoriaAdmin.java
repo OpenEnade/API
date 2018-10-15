@@ -9,12 +9,16 @@ public enum CategoriaAdmin {
     
     private String value;
     
+    private CategoriaAdmin() {
+        
+    }
+    
     CategoriaAdmin(String value) {
         this.value = value;
     }
  
     @JsonValue
-    public String getCategoriaAdm() {
-        return value;
+    public String getValue() {
+        return this.value;
     }
 }

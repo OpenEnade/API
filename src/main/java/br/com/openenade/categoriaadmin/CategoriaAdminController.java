@@ -16,7 +16,7 @@ public class CategoriaAdminController {
     public static final String ENDPOINT = "/categoria-admin";
     
     @RequestMapping(method = RequestMethod.GET)
-    public @ResponseBody ResponseEntity<CategoriaAdmin[]> getCategoriaAdmin() {
+    public @ResponseBody ResponseEntity<CategoriaAdmin[]> index() {
         
         return new ResponseEntity<>(CategoriaAdmin.values(), HttpStatus.OK);
     }
