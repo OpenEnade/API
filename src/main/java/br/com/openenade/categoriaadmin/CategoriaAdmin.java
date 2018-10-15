@@ -1,4 +1,4 @@
-package br.com.openenade.CategoriaAdmin;
+package br.com.openenade.categoriaadmin;
 
 
 import com.fasterxml.jackson.annotation.JsonValue;
