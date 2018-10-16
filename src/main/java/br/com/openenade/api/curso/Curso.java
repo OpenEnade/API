@@ -11,7 +11,8 @@ import br.com.openenade.api.modalidade.Modalidade;
 public class Curso {
 
     @Id
-    private long codigoCurso;
+    @NotNull(message = "'codigoCurso' não pode ser nulo.")
+    private Long codigoCurso;
 
     @NotBlank(message = "'nome' não pode ser vazio.")
     private String nome;
