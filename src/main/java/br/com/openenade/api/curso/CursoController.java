@@ -26,13 +26,13 @@ public class CursoController {
 
     @PostMapping
     public void postCurso(@Valid @RequestBody Curso newCurso) {
-
+        this.service.save(newCurso);
     }
 
     @ResponseBody
     @GetMapping(path = "/{codigo}")
     public ResponseEntity<Curso> getCursoByCodigo(@PathVariable(name = "codigo") Long codigo) {
-        Optional<Curso> optCurso = this.service.getCursoByCodigo(codigo);
+        Optional<Curso> optCurso = this.service.getByCodigo(codigo);
 
         if (optCurso.isPresent()) {
             return new ResponseEntity<>(optCurso.get(), HttpStatus.OK);

@@ -1,5 +1,6 @@
 package br.com.openenade.api.curso;
 
+import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +11,16 @@ public class CursoService {
     @Autowired
     private CursoRepository repository;
 
-    public Optional<Curso> getCursoByCodigo(Long codigo) {
-        return this.repository.findById(codigo);
-    }
-
-    public void saveCurso(Curso curso) {
+    public void save(Curso curso) {
         this.repository.save(curso);
+    }
+    
+    public List<Curso> getAll() {
+        return this.repository.findAll();
+    }
+    
+    public Optional<Curso> getByCodigo(Long codigo) {
+        return this.repository.findById(codigo);
     }
 
 }
