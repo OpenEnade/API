@@ -14,11 +14,11 @@ public class CursoService {
     public void save(Curso curso) {
         this.repository.save(curso);
     }
-    
+
     public List<Curso> getAll() {
         return this.repository.findAll();
     }
-    
+
     public Optional<Curso> getByCodigo(Long codigo) {
         return this.repository.findById(codigo);
     }

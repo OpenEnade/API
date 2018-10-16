@@ -1,5 +1,6 @@
 package br.com.openenade.api.curso;
 
+import java.util.List;
 import java.util.Optional;
 import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -27,6 +28,12 @@ public class CursoController {
     @PostMapping
     public void postCurso(@Valid @RequestBody Curso newCurso) {
         this.service.save(newCurso);
+    }
+
+    @GetMapping
+    @ResponseBody
+    public ResponseEntity<List<Curso>> getAll() {
+        return new ResponseEntity<>(this.service.getAll(), HttpStatus.OK);
     }
 
     @ResponseBody
