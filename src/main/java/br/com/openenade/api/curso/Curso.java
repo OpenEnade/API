@@ -2,6 +2,9 @@ package br.com.openenade.api.curso;
 
 import javax.persistence.Id;
 import javax.persistence.Entity;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.PositiveOrZero;
 import br.com.openenade.api.modalidade.Modalidade;
 
 @Entity
@@ -10,8 +13,14 @@ public class Curso {
     @Id
     private long codigoCurso;
 
+    @NotBlank(message = "'nome' não pode ser vazio.")
     private String nome;
-    private long codigoArea;
+
+    @NotNull(message = "'codigoArea' não pode ser nulo.")
+    @PositiveOrZero(message = "'codigoArea' precisa ser positivo.")
+    private Long codigoArea;
+
+    @NotNull(message = "Você precisa especificar uma 'modalidade' de ensino.")
     private Modalidade modalidade;
 
     public Curso() {
@@ -38,7 +47,7 @@ public class Curso {
         return codigoArea;
     }
 
-    public void setCodigoArea(long codigoArea) {
+    public void setCodigoArea(Long codigoArea) {
         this.codigoArea = codigoArea;
     }
 
