@@ -1,4 +1,4 @@
-package br.com.openenade.api;
+package br.com.openenade.api.ano;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
