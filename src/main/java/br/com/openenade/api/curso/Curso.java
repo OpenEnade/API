@@ -44,7 +44,7 @@ public class Curso {
         this.nome = nome;
     }
 
-    public long getCodigoArea() {
+    public Long getCodigoArea() {
         return codigoArea;
     }
 
@@ -52,8 +52,12 @@ public class Curso {
         this.codigoArea = codigoArea;
     }
 
-    public long getCodigoCurso() {
+    public Long getCodigoCurso() {
         return codigoCurso;
+    }
+
+    public void setCodigoCurso(Long codigoCurso) {
+        this.codigoCurso = codigoCurso;
     }
 
     public Modalidade getModalidade() {
