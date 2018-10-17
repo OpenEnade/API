@@ -1,4 +1,4 @@
-package br.com.openenade.api;
+package br.com.openenade.api.ano;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

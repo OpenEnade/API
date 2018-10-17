@@ -1,4 +1,4 @@
-package br.com.openenade.categoriaadmin;
+package br.com.openenade.api.categoriaadmin;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

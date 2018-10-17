@@ -1,4 +1,4 @@
-package br.com.openenade.api;
+package br.com.openenade.api.ano;
 
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
