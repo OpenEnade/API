@@ -21,6 +21,8 @@ public class RegiaoServiceTests {
     public void saveTest() {
         Regiao regiao = new Regiao("DF");
         this.service.save(regiao);
+        Regiao aux = this.service.getBySigla("DF").get();
+        assertEquals("DF", aux.getSigla());
     }
     
     @Test
