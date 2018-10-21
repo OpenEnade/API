@@ -1,8 +1,11 @@
 package br.com.openenade.api.regiao;
 
+
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
+
 
 @Entity
 public class Regiao {

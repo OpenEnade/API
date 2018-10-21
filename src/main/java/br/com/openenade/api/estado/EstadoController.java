@@ -1,4 +1,4 @@
-package br.com.openenade.api.regiao;
+package br.com.openenade.api.estado;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,42 +18,45 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping(path = RegiaoController.ENDPOINT)
-public class RegiaoController {
-    
-    public static final String ENDPOINT = "regiao";
+@RequestMapping(path = EstadoController.ENDPOINT)
+public class EstadoController {
+
+    public static final String ENDPOINT = "/estado"  ;
     
     @Autowired
-    private RegiaoService service;
+    private EstadoService service;
     
     @PostMapping
-    public void postRegiao(@Valid @RequestBody Regiao regiao) {
-        this.service.save(regiao);
+    public void postEstado(@Valid @RequestBody Estado estado) {
+        this.service.save(estado);
     }
     
     @GetMapping
     @ResponseBody
-    public ResponseEntity<List<Regiao>> getAll() {
+    public ResponseEntity<List<Estado>> getAll() {
         return new ResponseEntity<>(this.service.getAll(), HttpStatus.OK);
     }
     
     @ResponseBody
-    @GetMapping(path = "/{sigla}")
-    public ResponseEntity<Regiao> getRegiaoBySigla(@PathVariable(name = "sigla") String sigla){
-        Optional<Regiao> optRegiao = this.service.getBySigla(sigla);
+    @GetMapping(path = "/{siglaEstado}")
+    public ResponseEntity<Estado> getEstadoBySigla( 
+            @PathVariable(name = "siglaEstado") String siglaEstado){
         
-        if(optRegiao.isPresent()) {
-            return new ResponseEntity<>(optRegiao.get(), HttpStatus.OK);
+        Optional<Estado> optEstado = this.service.getBySiglaEstado(siglaEstado);
+        
+        if(optEstado.isPresent()) {
+            return new ResponseEntity<>(optEstado.get(), HttpStatus.OK);
         }else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         
     }
     
-    @DeleteMapping(path = "/{sigla}")
-    public ResponseEntity<Regiao> deleteRegiaoBySigla(@PathVariable(name = "sigla") String sigla){
+    @DeleteMapping(path = "/{siglaEstado}")
+    public ResponseEntity<Estado> deleteEstadoBySigla(
+            @PathVariable(name = "siglaEstado") String siglaEstado){
         try {
-            service.deleteRegiaoBySigla(sigla);
+            service.deleteEstadoBySiglaEstado(siglaEstado);
             return new ResponseEntity<>(HttpStatus.OK);
 
         } catch (Exception e) {
@@ -61,5 +64,4 @@ public class RegiaoController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
-    
 }
