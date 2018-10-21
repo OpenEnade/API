@@ -53,7 +53,7 @@ public class RegiaoController {
     @DeleteMapping(path = "/{sigla}")
     public ResponseEntity<Regiao> deleteRegiaoBySigla(@PathVariable(name = "sigla") String sigla){
         try {
-            service.deleteSigla(sigla);
+            service.deleteRegiaoBySigla(sigla);
             return new ResponseEntity<>(HttpStatus.OK);
 
         } catch (Exception e) {
