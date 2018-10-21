@@ -1,9 +1,9 @@
-package br.com.openenade.api.ano;
+package br.com.openenade.api.utils;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-public class AnoUtils {
+public class GeneralUtils {
 
 
     public static ResponseEntity<String> getResponseEntity(HttpStatus status, String message) {

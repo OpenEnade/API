@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import br.com.openenade.api.utils.GeneralUtils;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -44,11 +45,11 @@ public class EstadoController {
 
         try {
             service.addEstado(estado);
-            return EstadoUtils.getResponseEntity(HttpStatus.OK, "OK");
+            return GeneralUtils.getResponseEntity(HttpStatus.OK, "OK");
 
         } catch (Exception e) {
 
-            return EstadoUtils.getResponseEntity(HttpStatus.BAD_REQUEST, e.getMessage());
+            return GeneralUtils.getResponseEntity(HttpStatus.BAD_REQUEST, e.getMessage());
 
         }
     }
@@ -64,11 +65,11 @@ public class EstadoController {
 
         try {
             service.deleteAno(sigla);
-            return EstadoUtils.getResponseEntity(HttpStatus.OK, "OK");
+            return GeneralUtils.getResponseEntity(HttpStatus.OK, "OK");
 
         } catch (Exception e) {
 
-            return EstadoUtils.getResponseEntity(HttpStatus.BAD_REQUEST, e.getMessage());
+            return GeneralUtils.getResponseEntity(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
 }

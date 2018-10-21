@@ -17,7 +17,7 @@ public class Estado {
 
     @Override
     public String toString() {
-        return "Estado [sigla=" + sigla + ", regiao=" + regiao + "]";
+        return sigla + " : " + regiao;
     }
 
     public String getSigla() {
@@ -39,8 +39,12 @@ public class Estado {
     @Override
     public int hashCode() {
         final int prime = 31;
+        
         int result = 1;
-        result = prime * result + ((sigla == null) ? 0 : sigla.hashCode());
+        
+        result = prime * result + 
+        
+        ((sigla == null) ? 0 : this.getSigla().hashCode());
         return result;
     }
 
@@ -48,15 +52,20 @@ public class Estado {
     public boolean equals(Object obj) {
         if (this == obj)
             return true;
+        
         if (obj == null)
             return false;
+        
         if (getClass() != obj.getClass())
             return false;
+        
         Estado other = (Estado) obj;
-        if (sigla == null) {
+        
+        if (this.getSigla() == null) {
             if (other.sigla != null)
                 return false;
-        } else if (!sigla.equals(other.sigla))
+       
+        } else if (!this.getSigla().equals(other.sigla))
             return false;
         return true;
     }
