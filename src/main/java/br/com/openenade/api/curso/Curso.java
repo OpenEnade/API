@@ -2,6 +2,8 @@ package br.com.openenade.api.curso;
 
 import javax.persistence.Id;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.NotBlank;
@@ -21,6 +23,7 @@ public class Curso {
     @Positive(message = "'codigoArea' precisa ser positivo.")
     private Long codigoArea;
 
+    @Enumerated(EnumType.STRING)
     @NotNull(message = "Você precisa especificar uma 'modalidade' de ensino.")
     private Modalidade modalidade;
 
