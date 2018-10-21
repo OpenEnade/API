@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import java.util.List;
+import java.util.Optional;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,9 @@ public class RegiaoServiceTests {
 
     @Autowired
     private RegiaoService service;
+    
+    @Autowired
+    private RegiaoRepository repository;
     
     @Test
     public void saveTest() {
@@ -48,6 +52,8 @@ public class RegiaoServiceTests {
     
     @Test
     public void getBySiglaTest() {
+        this.repository.deleteAll();
+        
         Regiao df = new Regiao("DF");
         Regiao sp = new Regiao("SP");
         Regiao pb = new Regiao("PB");
@@ -56,9 +62,25 @@ public class RegiaoServiceTests {
         this.service.save(sp);
         this.service.save(pb);
         
+        
         Regiao regiao = this.service.getBySigla("SP").get();
         
         assertEquals(regiao, sp);
         
+       
+        
+    }
+    
+    @Test
+    public void deleteRegiaoBySiglaTest() {
+        this.repository.deleteAll();
+        
+        Regiao df = new Regiao("DF");
+        
+        this.service.save(df);
+        
+        this.service.deleteRegiaoBySigla(df.getSigla());
+        
+        assertEquals(Optional.empty(), this.service.getBySigla(df.getSigla()));
     }
 }

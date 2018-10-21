@@ -4,8 +4,10 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class RegiaoService {
     
     @Autowired
@@ -23,7 +25,7 @@ public class RegiaoService {
         return this.repository.findById(sigla);
     }
     
-    public void deleteSigla(String sigla) {
+    public void deleteRegiaoBySigla(String sigla) {
         this.repository.deleteBySigla(sigla);
     }
 }
