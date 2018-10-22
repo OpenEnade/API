@@ -3,9 +3,9 @@ package br.com.openenade.api.municipio;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import br.com.openenade.api.estado.Estado;
 
 @Entity
@@ -15,7 +15,7 @@ public class Municipio {
     private Long codigo;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "siglaEstado_id")
+    @NotNull(message = "'estado' não pode ser nulo.")
     private Estado estado;
 
     @NotBlank(message = "'nome' não pode ser vazio.")
