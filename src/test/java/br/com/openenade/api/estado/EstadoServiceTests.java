@@ -19,9 +19,6 @@ public class EstadoServiceTests {
     @Autowired
     private EstadoService service;
     
-    @Autowired
-    private EstadoRepository repository;
-    
     
     @Test
     public void saveTest() {
@@ -34,10 +31,10 @@ public class EstadoServiceTests {
     
     @Test
     public void getAllTest() {
+ 
         Regiao df = new Regiao("DF");
         Regiao sp = new Regiao("SP");
         
-
         Estado as = new Estado("AS", df);
         Estado es = new Estado("ES", sp);
         Estado te = new Estado("TE", sp);
@@ -58,8 +55,7 @@ public class EstadoServiceTests {
     
     @Test
     public void getBySiglaEstadoTest() {
-        this.repository.deleteAll();
-        
+
         Regiao df = new Regiao("DF");
         
         Estado as = new Estado("AS", df);
@@ -78,7 +74,6 @@ public class EstadoServiceTests {
     
     @Test
     public void deleteEstadoBySiglaTest() {
-        this.repository.deleteAll();
         
         Regiao df = new Regiao("DF");
         

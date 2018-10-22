@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit4.SpringRunner;
 import br.com.openenade.api.estado.Estado;
 import br.com.openenade.api.regiao.Regiao;
@@ -85,7 +86,7 @@ public class MunicipioServiceTests {
        
     }
     
-    @Test
+    @Test(expected = DataIntegrityViolationException.class)
     public void deleteEstadoByCodigoTest() {
         this.repository.deleteAll();
         
