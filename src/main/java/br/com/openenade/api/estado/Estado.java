@@ -17,7 +17,6 @@ public class Estado {
     private String siglaEstado;
     
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="sigla_id")
     private Regiao regiaoEstado;
 
     public Estado() {

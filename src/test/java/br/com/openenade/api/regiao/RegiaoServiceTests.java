@@ -79,7 +79,7 @@ public class RegiaoServiceTests {
         
         this.service.save(df);
         
-        this.service.deleteRegiaoBySigla(df.getSigla());
+        this.service.deleteRegiaoBySigla("DF");
         
         assertEquals(Optional.empty(), this.service.getBySigla(df.getSigla()));
     }
