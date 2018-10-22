@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import br.com.openenade.api.regiao.Regiao;
 
 @Entity
@@ -16,6 +17,7 @@ public class Estado {
     private String siglaEstado;
     
     @ManyToOne(cascade = CascadeType.ALL)
+    @NotNull(message = "'regiaoEstado' não pode ser nulo.")
     private Regiao regiaoEstado;
 
     public Estado() {
