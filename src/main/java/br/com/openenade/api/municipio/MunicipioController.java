@@ -49,7 +49,6 @@ public class MunicipioController {
         }else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        
     }
     
     @DeleteMapping(path = "/{codigo}")
