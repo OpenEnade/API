@@ -86,7 +86,7 @@ public class EstadoServiceTests {
         
         this.service.save(as);
         
-        this.service.deleteEstadoBySiglaEstado(as.getSiglaEstado());
+        this.service.deleteEstadoBySiglaEstado("AS");
         
         assertEquals(Optional.empty(), this.service.getBySiglaEstado(as.getSiglaEstado()));
     }

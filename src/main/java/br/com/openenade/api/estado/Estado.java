@@ -4,7 +4,6 @@ package br.com.openenade.api.estado;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 import br.com.openenade.api.regiao.Regiao;
@@ -17,7 +16,6 @@ public class Estado {
     private String siglaEstado;
     
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="sigla_id")
     private Regiao regiaoEstado;
 
     public Estado() {
