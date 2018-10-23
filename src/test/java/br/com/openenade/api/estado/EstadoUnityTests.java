@@ -17,40 +17,40 @@ import br.com.openenade.api.regiao.RegiaoService;
 public class EstadoUnityTests {
 
     @Autowired
-    private EstadoRepository repository;
+    private EstadoRepository estadoRepository;
     
     @Autowired
-    private RegiaoService rService;
+    private RegiaoService regiaoService;
 
     @Autowired
-    private EstadoService service;
+    private EstadoService estadoService;
 
     @Test
     public void addEstadoTest() {
 
-        this.repository.deleteAll();
+        this.estadoRepository.deleteAll();
 
         Regiao regiao = new Regiao("NE");
         
-        this.rService.save(regiao);
+        this.regiaoService.save(regiao);
         
         Estado estado = new Estado();
         
         estado.setRegiao(regiao);
         estado.setSigla("PB");
 
-        this.service.addEstado(estado);
-        assertEquals(estado, service.getEstado("PB"));
+        this.estadoService.addEstado(estado);
+        assertEquals(estado, estadoService.getEstado("PB"));
     }
 
 
     @Test
     public void addEstadosTests() {
 
-        this.repository.deleteAll();
+        this.estadoRepository.deleteAll();
         Regiao regiao = new Regiao("NE");
         
-        this.rService.save(regiao);
+        this.regiaoService.save(regiao);
         
         Estado estado1 = new Estado();
         Estado estado2 = new Estado();
@@ -67,34 +67,34 @@ public class EstadoUnityTests {
         list.add(estado1);
         list.add(estado2);
         
-        this.service.addEstado(estado1);
-        this.service.addEstado(estado2);
+        this.estadoService.addEstado(estado1);
+        this.estadoService.addEstado(estado2);
 
-        assertEquals(list, service.getAllEstados());
+        assertEquals(list, estadoService.getAllEstados());
 
     }
 
     @Test
     public void deleteEstadoTest() {
 
-        this.repository.deleteAll();
+        this.estadoRepository.deleteAll();
 
         Regiao regiao = new Regiao("NE");
         
-        this.rService.save(regiao);
+        this.regiaoService.save(regiao);
         
         Estado estado = new Estado();
         
         estado.setRegiao(regiao);
         estado.setSigla("PB");
 
-        this.service.addEstado(estado);
+        this.estadoService.addEstado(estado);
 
-        assertEquals(estado, service.getEstado("PB"));
+        assertEquals(estado, estadoService.getEstado("PB"));
 
-        this.service.deleteAno("PB");
+        this.estadoService.deleteAno("PB");
 
-        assertEquals(null, service.getEstado("PB"));
+        assertEquals(null, estadoService.getEstado("PB"));
 
     }
 

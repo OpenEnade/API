@@ -14,15 +14,22 @@ import br.com.openenade.api.modalidade.Modalidade;
 public class CursoServiceTests {
 
     @Autowired
-    private CursoService service;
+    private CursoService cursoService;
+    
+    @Autowired CursoRepository cursoRepository;
 
     @Test
     public void testSaveBasic() {
-        this.service.save(new Curso("CC", 13, 10, Modalidade.EDUCACAO_PRESENCIAL));
+        this.cursoRepository.deleteAll();
+
+        this.cursoService.save(new Curso("CC", 13, 10, Modalidade.EDUCACAO_PRESENCIAL));
     }
 
     @Test
     public void testGetAllBasic() {
+       
+        this.cursoRepository.deleteAll();
+        
         Curso a = new Curso("Ciência da Computação", 3, 2, Modalidade.EDUCACAO_PRESENCIAL);
         Curso b = new Curso("Engenharia Mecânica", 5, 1, Modalidade.EDUCACAO_PRESENCIAL);
         Curso c = new Curso("Engenharia Elétrica", 7, 3, Modalidade.EDUCACAO_PRESENCIAL);
@@ -30,12 +37,12 @@ public class CursoServiceTests {
 
         Curso e = new Curso("História", 13, 5, Modalidade.EDUCACAO_A_DISTANCIA);
 
-        this.service.save(a);
-        this.service.save(b);
-        this.service.save(c);
-        this.service.save(d);
+        this.cursoService.save(a);
+        this.cursoService.save(b);
+        this.cursoService.save(c);
+        this.cursoService.save(d);
 
-        List<Curso> cursos = this.service.getAll();
+        List<Curso> cursos = this.cursoService.getAll();
 
         assertEquals(4, cursos.size());
 
@@ -49,17 +56,27 @@ public class CursoServiceTests {
 
     @Test
     public void testGetByCodigo() {
-        Curso a = new Curso("Ciência da Computação", 3, 2, Modalidade.EDUCACAO_PRESENCIAL);
-        Curso b = new Curso("Engenharia Mecânica", 5, 1, Modalidade.EDUCACAO_PRESENCIAL);
-        Curso c = new Curso("Engenharia Elétrica", 7, 3, Modalidade.EDUCACAO_PRESENCIAL);
+        
+        this.cursoRepository.deleteAll();
+        
+        String[] cursos = {"Ciência da Computação", "Engenharia Mecânica", "Engenharia Elétrica"};
+        
+        Long[] codigos = {(long) 111,(long) 123,(long) 312};
+        
+        
+        Modalidade modalidade = Modalidade.EDUCACAO_PRESENCIAL;
+        
+        Curso a = new Curso(cursos[0], 3, codigos[0], modalidade);
+        Curso b = new Curso(cursos[1], 5, codigos[1], modalidade);
+        Curso c = new Curso(cursos[2], 7, codigos[2], modalidade);
 
-        this.service.save(a);
-        this.service.save(b);
-        this.service.save(c);
-
-        Curso aa = this.service.getByCodigo(2L).get();
-        Curso cc = this.service.getByCodigo(3L).get();
-        Curso bb = this.service.getByCodigo(1L).get();
+        this.cursoService.save(a);
+        this.cursoService.save(b);
+        this.cursoService.save(c);
+        
+        Curso aa = this.cursoService.getByCodigo(codigos[0], modalidade).get();
+        Curso bb = this.cursoService.getByCodigo(codigos[1], modalidade).get();
+        Curso cc = this.cursoService.getByCodigo(codigos[2], modalidade).get();
 
         assertEquals(a, aa);
         assertEquals(b, bb);
