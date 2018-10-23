@@ -1,10 +1,8 @@
 package br.com.openenade.api.regiao;
 
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
-
 
 @Entity
 public class Regiao {
@@ -14,13 +12,13 @@ public class Regiao {
     private String sigla;
 
     public Regiao() {
-        
+
     }
-    
+
     public Regiao(String sigla) {
         this.sigla = sigla;
     }
-    
+
     public String getSigla() {
         return sigla;
     }
@@ -58,7 +56,7 @@ public class Regiao {
     public String toString() {
         return "Regiao [sigla=" + sigla + "]";
     }
-    
-    
-    
+
+
+
 }
