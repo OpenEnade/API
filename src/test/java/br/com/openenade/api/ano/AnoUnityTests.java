@@ -3,6 +3,8 @@ package br.com.openenade.api.ano;
 import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,22 +13,26 @@ import org.springframework.test.context.junit4.SpringRunner;
 import br.com.openenade.api.ano.Ano;
 import br.com.openenade.api.ano.AnoRepository;
 import br.com.openenade.api.ano.AnoService;
+import br.com.openenade.api.exceptions.ResourceNotFound;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class AnoUnityTests {
 
     @Autowired
+    private AnoService service;
+    
+    @Autowired
     private AnoRepository repository;
 
-    @Autowired
-    private AnoService service;
+    @After
+    @Before
+    public void cleanRepository() {
+        this.repository.deleteAll();
+    }
 
     @Test
     public void addAnoTest() {
-
-        this.repository.deleteAll();
-
         Ano ano = new Ano();
 
         ano.setAno(2016);
@@ -38,9 +44,6 @@ public class AnoUnityTests {
 
     @Test
     public void addAnosTests() {
-
-        this.repository.deleteAll();
-
         Ano ano1 = new Ano();
         Ano ano2 = new Ano();
 
@@ -56,14 +59,10 @@ public class AnoUnityTests {
         this.service.addAno(ano2);
 
         assertEquals(list, service.getAllAnos());
-
     }
 
-    @Test
+    @Test(expected = ResourceNotFound.class)
     public void deleteAnoTest() {
-
-        this.repository.deleteAll();
-
         Ano ano1 = new Ano();
 
         ano1.setAno(2016);
@@ -74,8 +73,7 @@ public class AnoUnityTests {
 
         this.service.deleteAno(2016);
 
-        assertEquals(null, service.getAno(2016));
-
+        this.service.getAno(2016);
     }
 
 }
