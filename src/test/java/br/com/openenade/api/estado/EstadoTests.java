@@ -18,7 +18,7 @@ public class EstadoTests {
         Regiao regiao = new Regiao("OO");
         Estado estado = new Estado(null, regiao);
         
-        assertNull(estado.getSiglaEstado());
+        assertNull(estado.getSigla());
     }
 
     @Test
@@ -37,7 +37,7 @@ public class EstadoTests {
         assertEquals(pe.hashCode(), peRepetido.hashCode());
         assertEquals(pe, peRepetido);
         
-        ce.setSiglaEstado("PE");
+        ce.setSigla("PE");
         
         assertEquals(pe, ce);
         assertEquals(pe.hashCode(), ce.hashCode());
