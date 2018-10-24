@@ -1,7 +1,6 @@
 package br.com.openenade.api.regiao;
 
 import java.util.List;
-import java.util.Optional;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,46 +19,33 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin("*")
 @RequestMapping(path = RegiaoController.ENDPOINT)
 public class RegiaoController {
-    
+
     public static final String ENDPOINT = "regiao";
-    
+
     @Autowired
     private RegiaoService service;
-    
+
     @PostMapping
     public void postRegiao(@Valid @RequestBody Regiao regiao) {
         this.service.save(regiao);
     }
-    
+
     @GetMapping
     @ResponseBody
     public ResponseEntity<List<Regiao>> getAll() {
         return new ResponseEntity<>(this.service.getAll(), HttpStatus.OK);
     }
-    
+
     @ResponseBody
     @GetMapping(path = "/{sigla}")
-    public ResponseEntity<Regiao> getRegiaoBySigla(@PathVariable(name = "sigla") String sigla){
-        Optional<Regiao> optRegiao = this.service.getBySigla(sigla);
-        
-        if(optRegiao.isPresent()) {
-            return new ResponseEntity<>(optRegiao.get(), HttpStatus.OK);
-        }else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        
+    public ResponseEntity<Regiao> getRegiaoBySigla(@PathVariable(name = "sigla") String sigla) {
+        return new ResponseEntity<>(this.service.getBySigla(sigla), HttpStatus.OK);
     }
-    
+
     @DeleteMapping(path = "/{sigla}")
-    public ResponseEntity<Regiao> deleteRegiaoBySigla(@PathVariable(name = "sigla") String sigla){
-        try {
-            service.deleteRegiaoBySigla(sigla);
-            return new ResponseEntity<>(HttpStatus.OK);
-
-        } catch (Exception e) {
-
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<Regiao> deleteRegiaoBySigla(@PathVariable(name = "sigla") String sigla) {
+        this.service.deleteRegiaoBySigla(sigla);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
-    
+
 }

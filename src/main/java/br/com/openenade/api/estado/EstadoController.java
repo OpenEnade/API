@@ -1,7 +1,6 @@
 package br.com.openenade.api.estado;
 
 import java.util.List;
-import java.util.Optional;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,46 +21,31 @@ import org.springframework.web.bind.annotation.RestController;
 public class EstadoController {
 
     public static final String ENDPOINT = "/estado";
-    
+
     @Autowired
     private EstadoService service;
-    
+
     @PostMapping
-    public void postEstado(@Valid @RequestBody Estado estado) {
-        this.service.save(estado);
+    public Estado postEstado(@Valid @RequestBody Estado estado) {
+        return this.service.save(estado);
     }
-    
+
     @GetMapping
     @ResponseBody
     public ResponseEntity<List<Estado>> getAll() {
         return new ResponseEntity<>(this.service.getAll(), HttpStatus.OK);
     }
-    
+
     @ResponseBody
     @GetMapping(path = "/{siglaEstado}")
-    public ResponseEntity<Estado> getEstadoBySigla( 
-            @PathVariable(name = "siglaEstado") String siglaEstado){
-        
-        Optional<Estado> optEstado = this.service.getBySiglaEstado(siglaEstado);
-        
-        if(optEstado.isPresent()) {
-            return new ResponseEntity<>(optEstado.get(), HttpStatus.OK);
-        }else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        
+    public Estado getEstadoBySigla(@PathVariable(name = "siglaEstado") String siglaEstado) {
+        return this.service.getBySiglaEstado(siglaEstado);
     }
-    
+
     @DeleteMapping(path = "/{siglaEstado}")
     public ResponseEntity<Estado> deleteEstadoBySigla(
-            @PathVariable(name = "siglaEstado") String siglaEstado){
-        try {
-            service.deleteEstadoBySiglaEstado(siglaEstado);
-            return new ResponseEntity<>(HttpStatus.OK);
-
-        } catch (Exception e) {
-
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+            @PathVariable(name = "siglaEstado") String siglaEstado) {
+        this.service.deleteEstadoBySiglaEstado(siglaEstado);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

@@ -11,8 +11,8 @@ public class CursoService {
     @Autowired
     private CursoRepository repository;
 
-    public void save(Curso curso) {
-        this.repository.save(curso);
+    public Curso save(Curso curso) {
+        return this.repository.save(curso);
     }
 
     public List<Curso> getAll() {
