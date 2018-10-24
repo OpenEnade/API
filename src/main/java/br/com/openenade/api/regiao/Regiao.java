@@ -12,13 +12,13 @@ public class Regiao {
     private String sigla;
 
     public Regiao() {
-        
+
     }
-    
+
     public Regiao(String sigla) {
         this.sigla = sigla;
     }
-    
+
     public String getSigla() {
         return sigla;
     }
@@ -56,7 +56,7 @@ public class Regiao {
     public String toString() {
         return "Regiao [sigla=" + sigla + "]";
     }
-    
-    
-    
+
+
+
 }

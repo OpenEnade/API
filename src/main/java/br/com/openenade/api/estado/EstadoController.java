@@ -1,4 +1,4 @@
-package br.com.openenade.api.regiao;
+package br.com.openenade.api.estado;
 
 import java.util.List;
 import javax.validation.Valid;
@@ -17,35 +17,35 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping(path = RegiaoController.ENDPOINT)
-public class RegiaoController {
+@RequestMapping(path = EstadoController.ENDPOINT)
+public class EstadoController {
 
-    public static final String ENDPOINT = "regiao";
+    public static final String ENDPOINT = "/estado";
 
     @Autowired
-    private RegiaoService service;
+    private EstadoService service;
 
     @PostMapping
-    public void postRegiao(@Valid @RequestBody Regiao regiao) {
-        this.service.save(regiao);
+    public Estado postEstado(@Valid @RequestBody Estado estado) {
+        return this.service.save(estado);
     }
 
     @GetMapping
     @ResponseBody
-    public ResponseEntity<List<Regiao>> getAll() {
+    public ResponseEntity<List<Estado>> getAll() {
         return new ResponseEntity<>(this.service.getAll(), HttpStatus.OK);
     }
 
     @ResponseBody
-    @GetMapping(path = "/{sigla}")
-    public ResponseEntity<Regiao> getRegiaoBySigla(@PathVariable(name = "sigla") String sigla) {
-        return new ResponseEntity<>(this.service.getBySigla(sigla), HttpStatus.OK);
+    @GetMapping(path = "/{siglaEstado}")
+    public Estado getEstadoBySigla(@PathVariable(name = "siglaEstado") String siglaEstado) {
+        return this.service.getBySiglaEstado(siglaEstado);
     }
 
-    @DeleteMapping(path = "/{sigla}")
-    public ResponseEntity<Regiao> deleteRegiaoBySigla(@PathVariable(name = "sigla") String sigla) {
-        this.service.deleteRegiaoBySigla(sigla);
+    @DeleteMapping(path = "/{siglaEstado}")
+    public ResponseEntity<Estado> deleteEstadoBySigla(
+            @PathVariable(name = "siglaEstado") String siglaEstado) {
+        this.service.deleteEstadoBySiglaEstado(siglaEstado);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 }

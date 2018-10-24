@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AnoController {
 
     public static final String ENDPOINT = "/ano";
-    
+
     public static final String ANO_ID = "ano";
 
     @Autowired
@@ -29,46 +29,27 @@ public class AnoController {
 
     @GetMapping
     public Collection<Ano> getAnos() {
-
         return service.getAllAnos();
     }
 
     @GetMapping(path = "/{" + ANO_ID + "}")
     public Ano getAno(@PathVariable(name = ANO_ID) Integer ano) {
-
         return service.getAno(ano);
     }
 
     @PostMapping
-    public ResponseEntity<String> saveAno(@RequestBody Ano ano) {
-
-        try {
-            service.addAno(ano);
-            return AnoUtils.getResponseEntity(HttpStatus.OK, "OK");
-
-        } catch (Exception e) {
-
-            return AnoUtils.getResponseEntity(HttpStatus.BAD_REQUEST, e.getMessage());
-
-        }
+    public Ano saveAno(@RequestBody Ano ano) {
+        return this.service.addAno(ano);
     }
 
     @PutMapping
-    public ResponseEntity<String> updateAno(@RequestBody Ano ano) {
-
-        return this.saveAno(ano);
+    public Ano updateAno(@RequestBody Ano ano) {
+        return this.service.updateAno(ano);
     }
 
     @DeleteMapping(path = "/{" + ANO_ID + "}")
     public ResponseEntity<String> updateAno(@PathVariable(name = ANO_ID) Integer ano) {
-
-        try {
-            service.deleteAno(ano);
-            return AnoUtils.getResponseEntity(HttpStatus.OK, "OK");
-
-        } catch (Exception e) {
-
-            return AnoUtils.getResponseEntity(HttpStatus.BAD_REQUEST, e.getMessage());
-        }
+        this.service.deleteAno(ano);
+        return AnoUtils.getResponseEntity(HttpStatus.OK, "");
     }
 }
