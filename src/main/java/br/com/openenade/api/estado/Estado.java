@@ -1,6 +1,6 @@
 package br.com.openenade.api.estado;
 
-import javax.persistence.CascadeType;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;

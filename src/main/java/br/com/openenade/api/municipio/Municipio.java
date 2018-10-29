@@ -1,6 +1,5 @@
 package br.com.openenade.api.municipio;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -14,7 +13,7 @@ public class Municipio {
     @Id
     private Long codigo;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(optional = false)
     @NotNull(message = "'estado' não pode ser nulo.")
     private Estado estado;
 

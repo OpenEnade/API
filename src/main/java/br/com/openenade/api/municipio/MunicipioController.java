@@ -1,7 +1,6 @@
 package br.com.openenade.api.municipio;
 
 import java.util.List;
-import java.util.Optional;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,29 +38,17 @@ public class MunicipioController {
     
     @ResponseBody
     @GetMapping(path = "/{codigo}")
-    public ResponseEntity<Municipio> getMunicipioByCodigo
+    public Municipio getMunicipioByCodigo
                 (@PathVariable(name = "codigo") Long codigo){
         
-        Optional<Municipio> optMunicipio = this.service.getByCodigo(codigo);
-        
-        if(optMunicipio.isPresent()) {
-            return new ResponseEntity<>(optMunicipio.get(), HttpStatus.OK);
-        }else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return this.service.getMunicipioByCodigo(codigo);
     }
     
     @DeleteMapping(path = "/{codigo}")
     public ResponseEntity<Municipio> deleteMunicipio
                 (@PathVariable(name = "codigo") Long codigo){
         
-        try {
-            service.deleteMunicipioByCodigo(codigo);
-            return new ResponseEntity<>(HttpStatus.OK);
-
-        } catch (Exception e) {
-
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+        this.service.deleteMunicipioByCodigo(codigo);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

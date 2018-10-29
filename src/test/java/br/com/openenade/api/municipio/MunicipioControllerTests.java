@@ -2,6 +2,8 @@ package br.com.openenade.api.municipio;
 
 import static org.junit.Assert.assertEquals;
 import java.util.Optional;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import br.com.openenade.api.estado.Estado;
+import br.com.openenade.api.exceptions.ResourceNotFound;
 import br.com.openenade.api.regiao.Regiao;
 
 @RunWith(SpringRunner.class)
@@ -21,6 +24,17 @@ public class MunicipioControllerTests {
     
     @Autowired
     private MunicipioController controller;
+    
+    @Autowired
+    private MunicipioRepository repository;
+    
+    
+    @Before
+    @After
+    public void cleanUp() {
+        this.repository.deleteAll();
+    }
+    
     
     @Test
     public void controllerTest() {
@@ -35,15 +49,21 @@ public class MunicipioControllerTests {
     
     assertEquals(new ResponseEntity<>(this.service.getAll(), HttpStatus.OK), controller.getAll());
     
-    Optional<Municipio> optMunicipio = this.service.getByCodigo(municipio.getCodigo());
+    Optional<Municipio> optMunicipio = this.service.getOptionalByCodigo(municipio.getCodigo());
     
-    assertEquals(new ResponseEntity<>(optMunicipio.get(), HttpStatus.OK),
+    assertEquals(optMunicipio.get(),
             controller.getMunicipioByCodigo((long) 10));
     
     assertEquals(new ResponseEntity<>(HttpStatus.OK),
             controller.deleteMunicipio((long) 10));
     
-    assertEquals(new ResponseEntity<>(HttpStatus.NOT_FOUND),
-            controller.getMunicipioByCodigo((long) 10));
+    }
+    
+    @Test(expected = ResourceNotFound.class)
+    public void deleteTests() {
+        controller.getMunicipioByCodigo((long) 10);
     }
 }
+
+
+

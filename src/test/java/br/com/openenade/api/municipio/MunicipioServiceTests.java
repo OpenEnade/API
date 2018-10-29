@@ -4,22 +4,19 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import java.util.List;
-import java.util.Optional;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit4.SpringRunner;
 import br.com.openenade.api.estado.Estado;
+import br.com.openenade.api.exceptions.ResourceNotFound;
 import br.com.openenade.api.regiao.Regiao;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class MunicipioServiceTests {
 
-    @Autowired
-    private MunicipioRepository repository;
     
     @Autowired
     private MunicipioService service;
@@ -28,14 +25,14 @@ public class MunicipioServiceTests {
     Regiao df = new Regiao("DF");
     
     Estado as = new Estado("AS", df);
-    
+
     
     @Test
     public void saveTest() {
         Municipio municipio = new Municipio((long) 10, as, "belem");
         
         this.service.save(municipio);
-        Municipio aux = this.service.getByCodigo((long) 10).get();
+        Municipio aux = this.service.getMunicipioByCodigo((long) 10);
         assertEquals("belem", aux.getNome());
     }
     
@@ -70,7 +67,6 @@ public class MunicipioServiceTests {
     
     @Test
     public void getByCodigoTest() {
-        this.repository.deleteAll();
         
         Municipio municipio1 = new Municipio((long) 10, as, "belem");
         Municipio municipio2 = new Municipio((long) 11, as, "dopara");
@@ -79,16 +75,15 @@ public class MunicipioServiceTests {
         this.service.save(municipio2);
         
         
-        Municipio aux = this.service.getByCodigo((long) 10).get();
+        Municipio aux = this.service.getMunicipioByCodigo((long) 10);
         
         assertEquals(aux, municipio1);
         
        
     }
     
-    @Test(expected = DataIntegrityViolationException.class)
+    @Test (expected = ResourceNotFound.class)
     public void deleteEstadoByCodigoTest() {
-        this.repository.deleteAll();
         
         Municipio municipio1 = new Municipio((long) 10, as, "belem");
         
@@ -96,6 +91,9 @@ public class MunicipioServiceTests {
         
         this.service.deleteMunicipioByCodigo((long) 10);
         
-        assertEquals(Optional.empty(), this.service.getByCodigo((long) 10));
+        this.service.getMunicipioByCodigo((long) 10);
     }
+
 }
+
+
