@@ -31,20 +31,20 @@ public class MunicipioTests {
         Estado ce = new Estado("CE", regiaoPb);
         
         Municipio coxi = new Municipio((long) 10, pe, "Coxixola");
-        Municipio caba = new Municipio((long) 10, ce, "Cabaceiras");
+        Municipio caba = new Municipio((long) 9, ce, "Cabaceiras");
         Municipio souz = new Municipio((long) 10, ce, "Souza");
         Municipio souzRepetido = new Municipio((long) 10, ce, "Souza");
         
         assertNotEquals(coxi, null);
         assertNotEquals(coxi, caba);
+        assertNotEquals(coxi.hashCode(), souz.hashCode());
         
         assertEquals(souz.hashCode(), souzRepetido.hashCode());
         assertEquals(souz, souzRepetido);
         
         souz.setNome("Cabaceiras");
         
-        assertEquals(caba, souz);
-        assertEquals(caba.hashCode(), souz.hashCode());
+        assertEquals(coxi, souz);
         
        
     }
