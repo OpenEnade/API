@@ -79,16 +79,6 @@ public class Municipio {
                 return false;
         } else if (!codigo.equals(other.codigo))
             return false;
-        if (estado == null) {
-            if (other.estado != null)
-                return false;
-        } else if (!estado.equals(other.estado))
-            return false;
-        if (nome == null) {
-            if (other.nome != null)
-                return false;
-        } else if (!nome.equals(other.nome))
-            return false;
         return true;
     }
 
