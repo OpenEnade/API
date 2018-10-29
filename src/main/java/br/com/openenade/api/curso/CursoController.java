@@ -26,8 +26,8 @@ public class CursoController {
     private CursoService service;
 
     @PostMapping
-    public void postCurso(@Valid @RequestBody Curso newCurso) {
-        this.service.save(newCurso);
+    public Curso postCurso(@Valid @RequestBody Curso newCurso) {
+        return this.service.save(newCurso);
     }
 
     @GetMapping

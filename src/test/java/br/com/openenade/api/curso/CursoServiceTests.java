@@ -2,6 +2,8 @@ package br.com.openenade.api.curso;
 
 import static org.junit.Assert.*;
 import java.util.List;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,15 @@ public class CursoServiceTests {
 
     @Autowired
     private CursoService service;
+
+    @Autowired
+    private CursoRepository repository;
+
+    @After
+    @Before
+    public void cleanRepository() {
+        this.repository.deleteAll();
+    }
 
     @Test
     public void testSaveBasic() {
