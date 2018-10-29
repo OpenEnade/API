@@ -44,9 +44,9 @@ public class EstadoServiceTests {
 
     @Test
     public void getAllTest() {
+ 
         Regiao df = new Regiao("DF");
         Regiao sp = new Regiao("SP");
-
 
         Estado as = new Estado("AS", df);
         Estado es = new Estado("ES", sp);
@@ -67,6 +67,7 @@ public class EstadoServiceTests {
 
     @Test
     public void getBySiglaEstadoTest() {
+
         Regiao df = new Regiao("DF");
 
         Estado as = new Estado("AS", df);
@@ -82,6 +83,7 @@ public class EstadoServiceTests {
 
     @Test(expected = ResourceNotFound.class)
     public void deleteEstadoBySiglaTest() {
+
         Regiao df = new Regiao("DF");
 
         Estado as = new Estado("AS", df);

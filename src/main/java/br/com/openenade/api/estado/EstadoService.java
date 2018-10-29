@@ -35,6 +35,10 @@ public class EstadoService {
     public List<Estado> getAll() {
         return this.repository.findAll();
     }
+    
+    public Optional<Estado> getOptionalBySigla(String sigla) {
+        return this.repository.findById(sigla);
+    }
 
     public List<Estado> getEstadosByRegiao(Regiao regiao) {
         return this.repository.findEstadosByRegiaoSigla(regiao.getSigla());
