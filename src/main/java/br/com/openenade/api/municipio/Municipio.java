@@ -22,7 +22,7 @@ public class Municipio {
 
     public Municipio(Long codigo, Estado estado, String nome) {
         this.codigo = codigo;
-        this.estado =  estado;
+        this.estado = estado;
         this.nome = nome;
         
     }

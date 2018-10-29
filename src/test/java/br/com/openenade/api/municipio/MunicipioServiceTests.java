@@ -22,9 +22,9 @@ public class MunicipioServiceTests {
     private MunicipioService service;
     
     
-    Regiao df = new Regiao("DF");
+    private Regiao df = new Regiao("DF");
     
-    Estado as = new Estado("AS", df);
+    private Estado as = new Estado("AS", df);
 
     
     @Test
