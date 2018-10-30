@@ -106,10 +106,11 @@ public class Curso {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "Curso [codigoCurso=" + codigoCurso + ", nome=" + nome + ", codigoArea=" + codigoArea
-                + ", modalidade=" + modalidade + "]";
-    }
+	@Override
+	public String toString() {
+		return "Curso [codigoCurso=" + codigoCurso + ", modalidade=" + modalidade + "]";
+	}
+
+   
 
 }

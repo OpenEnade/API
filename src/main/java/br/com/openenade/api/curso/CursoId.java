@@ -5,7 +5,12 @@ import br.com.openenade.api.modalidade.Modalidade;
 
 public class CursoId implements Serializable {
 
-    private Long codigoCurso;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Long codigoCurso;
 
     private Modalidade modalidade;
 
