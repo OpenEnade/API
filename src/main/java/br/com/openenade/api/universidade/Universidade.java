@@ -109,7 +109,6 @@ public class Universidade {
         result = prime * result + ((categoriaAdmin == null) ? 0 : categoriaAdmin.hashCode());
         result = prime * result + ((codigoIES == null) ? 0 : codigoIES.hashCode());
         result = prime * result + ((curso == null) ? 0 : curso.hashCode());
-        result = prime * result + ((nome == null) ? 0 : nome.hashCode());
         return result;
     }
 
