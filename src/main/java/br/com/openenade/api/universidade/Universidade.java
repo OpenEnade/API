@@ -100,6 +100,7 @@ public class Universidade {
                 + ", categoriaAdmin=" + categoriaAdmin + ", curso=" + curso + "]";
     }
 
+    
     @Override
     public int hashCode() {
         final int prime = 31;
