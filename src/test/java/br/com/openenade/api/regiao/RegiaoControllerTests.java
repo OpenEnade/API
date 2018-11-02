@@ -2,8 +2,6 @@ package br.com.openenade.api.regiao;
 
 import static org.junit.Assert.assertEquals;
 import java.util.Optional;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.http.HttpStatus;
@@ -22,15 +20,7 @@ public class RegiaoControllerTests {
 
     @Autowired
     private RegiaoService service;
-
-    @Autowired
-    private RegiaoRepository repository;
-
-    @After
-    @Before
-    public void cleanRepository() {
-        this.repository.deleteAll();
-    }
+ 
 
     @Test(expected = ResourceNotFound.class)
     public void testController() {
