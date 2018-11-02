@@ -19,7 +19,7 @@ public class MunicipioService {
     @Autowired
     private EstadoService estadoService;
     
-    public void save(Municipio municipio) {
+    public Municipio save(Municipio municipio) {
         Optional<Estado> optEstado =
                 this.estadoService.getOptionalBySigla(municipio.getEstado().getSigla());
         Estado newEstado;
@@ -29,7 +29,7 @@ public class MunicipioService {
             newEstado = this.estadoService.save(municipio.getEstado());
         }
         municipio.setEstado(newEstado);
-        this.repository.save(municipio);
+        return this.repository.save(municipio);
     }
     
     public List<Municipio> getAll(){

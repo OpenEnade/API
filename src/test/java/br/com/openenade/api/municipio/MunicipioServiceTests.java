@@ -83,7 +83,7 @@ public class MunicipioServiceTests {
     }
     
     @Test (expected = ResourceNotFound.class)
-    public void deleteEstadoByCodigoTest() {
+    public void deleteMunicipioByCodigoTest() {
         
         Municipio municipio1 = new Municipio((long) 10, as, "belem");
         
