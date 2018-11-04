@@ -1,4 +1,4 @@
-package br.com.openenade.api.stubData;
+package br.com.openenade.api.stub_data;
 
 import br.com.openenade.api.estado.Estado;
 import br.com.openenade.api.estado.EstadoRepository;
