@@ -13,7 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import br.com.openenade.api.exceptions.ResourceNotFound;
 import br.com.openenade.api.regiao.Regiao;
-import br.com.openenade.api.regiao.RegiaoService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -23,14 +22,12 @@ public class EstadoServiceTests {
     private EstadoService service;
 
     @Autowired
-    private RegiaoService regiaoService;
+    private EstadoRepository repository;;
 
-    @After
     @Before
-    public void cleanRepository() {
-        for (Regiao regiao : this.regiaoService.getAll()) {
-            this.regiaoService.deleteRegiaoBySigla(regiao.getSigla());
-        }
+    @After
+    public void cleanUp() {
+        this.repository.deleteAll();
     }
 
     @Test
