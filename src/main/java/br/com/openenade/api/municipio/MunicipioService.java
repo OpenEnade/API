@@ -49,12 +49,16 @@ public class MunicipioService {
         }
     }
     
-    public List<Municipio> getByCodigo(Long codigo){
-        return this.repository.findMunicipioByCodigo(codigo);
+    public Municipio getByCodigo(Long codigo) {
+        return this.repository.findById(codigo).get();
     }
     
     public void deleteMunicipioByCodigo(Long codigo) {
         this.getMunicipioByCodigo(codigo);
         this.repository.deleteById(codigo);
+    }
+
+    public void deleteMunicipiosByEstadoSigla(String siglaEstado) {
+        this.repository.deleteMunicipiosByEstadoSigla(siglaEstado);
     }
 }
