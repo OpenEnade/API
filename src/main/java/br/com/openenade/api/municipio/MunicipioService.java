@@ -53,7 +53,9 @@ public class MunicipioService {
         }
     }
     
-    public Municipio getByCodigo(Long codigo){
+
+    public Municipio getByCodigo(Long codigo) {
+
         return this.repository.findById(codigo).get();
     }
     
@@ -65,6 +67,6 @@ public class MunicipioService {
 
     public void deleteMunicipiosByEstadoSigla(String siglaEstado) {
         this.repository.deleteMunicipiosByEstadoSigla(siglaEstado);
-        
+
     }
 }
