@@ -40,6 +40,7 @@ public class RegiaoService {
     }
 
     public void deleteRegiaoBySigla(String sigla) {
+        this.getBySigla(sigla);
         this.estadoService.deleteEstadosByRegiaoSigla(sigla);
         this.repository.deleteById(sigla);
 
