@@ -5,7 +5,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import br.com.openenade.api.estado.Estado;
 import br.com.openenade.api.estado.EstadoService;
 import br.com.openenade.api.exceptions.ResourceNotFound;
 
@@ -41,11 +40,7 @@ public class RegiaoService {
     }
 
     public void deleteRegiaoBySigla(String sigla) {
-        Regiao regiao = this.getBySigla(sigla);
-        List<Estado> estados = this.estadoService.getEstadosByRegiao(regiao);
-        for (Estado estado : estados) {
-            this.estadoService.deleteEstadoBySiglaEstado(estado.getSigla());
-        }
+        this.estadoService.deleteEstadosByRegiaoSigla(sigla);
         this.repository.deleteById(sigla);
 
     }

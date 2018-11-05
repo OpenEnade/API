@@ -50,12 +50,17 @@ public class UniversidadeService {
         }
     }
     
-    public List<Universidade> getByCodigoIES(Long codigoIES){
-        return this.repository.findUniversidadeByCodigoIES(codigoIES);
+    public Universidade getByCodigoIES(Long codigoIES){
+        return this.repository.findById(codigoIES).get();
     }
     
     public void deleteUniversidadeByCodigoIES(Long codigoIES) {
         this.getUniversidadeByCodigoIES(codigoIES);
         this.repository.deleteById(codigoIES);
+    }
+
+    public void deleteUniversidadesByMunicipioCodigo(Long codigo) {
+        this.repository.deleteUniversidadesByCampusCodigo(codigo);
+        
     }
 }

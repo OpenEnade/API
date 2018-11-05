@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import java.util.List;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,15 @@ public class MunicipioServiceTests {
     @Autowired
     private MunicipioService service;
     
+    @Autowired
+    private MunicipioRepository repository;
+    
+    @After
+    @Before
+    public void cleanRepository() {
+        this.repository.deleteAll();
+    }
+     
     
     private Regiao df = new Regiao("DF");
     
