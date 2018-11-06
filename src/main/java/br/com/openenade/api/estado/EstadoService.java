@@ -63,8 +63,4 @@ public class EstadoService {
         this.repository.deleteEstadosByRegiaoSigla(regiaoSigla);
     }
 
-    public void deleteEstadosByRegiaoSigla(String regiaoSigla) {
-        this.repository.deleteEstadosByRegiaoSigla(regiaoSigla);
-    }
-
 }
