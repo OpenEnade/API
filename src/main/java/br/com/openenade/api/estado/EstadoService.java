@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import br.com.openenade.api.exceptions.ResourceNotFound;
+import br.com.openenade.api.municipio.MunicipioService;
 import br.com.openenade.api.regiao.Regiao;
 import br.com.openenade.api.regiao.RegiaoService;
 
@@ -18,6 +19,9 @@ public class EstadoService {
 
     @Autowired
     private RegiaoService regiaoService;
+
+    @Autowired
+    private MunicipioService municipioService;
 
     public Estado save(Estado estado) {
         Optional<Regiao> optRegiao =
@@ -35,13 +39,9 @@ public class EstadoService {
     public List<Estado> getAll() {
         return this.repository.findAll();
     }
-    
+
     public Optional<Estado> getOptionalBySigla(String sigla) {
         return this.repository.findById(sigla);
-    }
-
-    public List<Estado> getEstadosByRegiao(Regiao regiao) {
-        return this.repository.findEstadosByRegiaoSigla(regiao.getSigla());
     }
 
     public Estado getBySiglaEstado(String siglaEstado) {
@@ -53,9 +53,16 @@ public class EstadoService {
         }
     }
 
-    public void deleteEstadoBySiglaEstado(String siglaEstado) {
+    public void deleteEstadoById(String siglaEstado) {
         this.getBySiglaEstado(siglaEstado);
+        this.municipioService.deleteMunicipiosByEstadoSigla(siglaEstado);
         this.repository.deleteById(siglaEstado);
+    }
+
+    public void deleteEstadosByRegiaoSigla(String regiaoSigla) {
+        for (Estado estado : this.repository.findEstadosByRegiaoSigla(regiaoSigla)) {
+            this.deleteEstadoById(estado.getSigla());
+        }
     }
 
 }

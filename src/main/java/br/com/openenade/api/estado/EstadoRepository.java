@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 public interface EstadoRepository extends JpaRepository<Estado, String> {
 
     public List<Estado> findEstadosByRegiaoSigla(String regiaoSigla);
+    
 }
