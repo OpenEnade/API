@@ -1,4 +1,4 @@
-package br.com.openenade.api.estado;
+package br.com.openenade.api.universidade;
 
 import java.util.List;
 import javax.validation.Valid;
@@ -17,35 +17,38 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping(path = EstadoController.ENDPOINT)
-public class EstadoController {
+@RequestMapping(path = UniversidadeController.ENDPOINT)
+public class UniversidadeController {
 
-    public static final String ENDPOINT = "/estado";
-
+    public static final String ENDPOINT = "universidade";
+    
     @Autowired
-    private EstadoService service;
-
+    private UniversidadeService service;
+    
     @PostMapping
-    public Estado postEstado(@Valid @RequestBody Estado estado) {
-        return this.service.save(estado);
+    public void postUniversidade(@Valid @RequestBody Universidade universidade) {
+        this.service.save(universidade);
     }
-
+    
     @GetMapping
     @ResponseBody
-    public ResponseEntity<List<Estado>> getAll() {
+    public ResponseEntity<List<Universidade>> getAll() {
         return new ResponseEntity<>(this.service.getAll(), HttpStatus.OK);
     }
-
+    
     @ResponseBody
-    @GetMapping(path = "/{siglaEstado}")
-    public Estado getEstadoBySigla(@PathVariable(name = "siglaEstado") String siglaEstado) {
-        return this.service.getBySiglaEstado(siglaEstado);
+    @GetMapping(path = "/{codigoIES}")
+    public Universidade getUniversidadeByCodigoIES
+                (@PathVariable(name = "codigoIES") Long codigoIES){
+        
+        return this.service.getUniversidadeByCodigoIES(codigoIES);
     }
-
-    @DeleteMapping(path = "/{siglaEstado}")
-    public ResponseEntity<Estado> deleteEstadoBySigla(
-            @PathVariable(name = "siglaEstado") String siglaEstado) {
-        this.service.deleteEstadoById(siglaEstado);
+    
+    @DeleteMapping(path = "/{codigoIES}")
+    public ResponseEntity<Universidade> deleteUniversidade
+                (@PathVariable(name = "codigoIES") Long codigoIES){
+        
+        this.service.deleteUniversidadeByCodigoIES(codigoIES);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

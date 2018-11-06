@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import br.com.openenade.api.modalidade.Modalidade;
+
 
 @RestController
 @CrossOrigin("*")
@@ -37,9 +39,10 @@ public class CursoController {
     }
 
     @ResponseBody
-    @GetMapping(path = "/{codigo}")
-    public ResponseEntity<Curso> getCursoByCodigo(@PathVariable(name = "codigo") Long codigo) {
-        Optional<Curso> optCurso = this.service.getByCodigo(codigo);
+    @GetMapping(path = "/{codigo}/{modalidade}")
+    public ResponseEntity<Curso> getCursoByCodigo(@PathVariable(name = "codigo") Long codigo,
+            @PathVariable(name = "modalidade") Modalidade modalidade) {
+        Optional<Curso> optCurso = this.service.getByCodigo(codigo, modalidade);
 
         if (optCurso.isPresent()) {
             return new ResponseEntity<>(optCurso.get(), HttpStatus.OK);
@@ -47,5 +50,7 @@ public class CursoController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+
 
 }

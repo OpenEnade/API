@@ -42,45 +42,30 @@ public class CursoTests {
         Curso cursoB = new Curso("Ciência da Computação", 5, 7, Modalidade.EDUCACAO_A_DISTANCIA);
 
         assertEquals(cursoA, cursoB);
-        assertEquals(cursoA.hashCode(), cursoB.hashCode());
 
         cursoA.setNome("CC");
-
         assertEquals(cursoA, cursoB);
-        assertEquals(cursoA.hashCode(), cursoB.hashCode());
-
+       
         cursoA.setCodigoArea(5L);
-
         assertEquals(cursoA, cursoB);
-        assertEquals(cursoA.hashCode(), cursoB.hashCode());
-
+        
         cursoA.setModalidade(Modalidade.EDUCACAO_PRESENCIAL);
-
-        assertEquals(cursoA, cursoB);
-        assertEquals(cursoA.hashCode(), cursoB.hashCode());
+        assertNotEquals(cursoA, cursoB);
 
         cursoA.setCodigoCurso(99L);
-
         assertNotEquals(cursoA, cursoB);
 
-        cursoA.setCodigoCurso(null);
-
-        assertNotEquals(cursoA, cursoB);
-        assertNotEquals(cursoA.hashCode(), cursoB.hashCode());
-
-        cursoB.setCodigoCurso(null);
+        cursoB.setModalidade(Modalidade.EDUCACAO_PRESENCIAL);
+        cursoB.setCodigoCurso(99L);
 
         assertEquals(cursoA, cursoB);
-        assertEquals(cursoA.hashCode(), cursoB.hashCode());
     }
 
     @Test
     public void testToString() {
         Curso curso = new Curso("Ciência da Computação", 5, 7, Modalidade.EDUCACAO_PRESENCIAL);
 
-        assertEquals(
-                "Curso [codigoCurso=7, nome=Ciência da Computação, codigoArea=5, modalidade=EDUCACAO_PRESENCIAL]",
-                curso.toString());
+        assertEquals("Curso [codigoCurso=7, nome=Ciência da Computação, codigoArea=5, modalidade=EDUCACAO_PRESENCIAL]", curso.toString());
     }
 
 }
