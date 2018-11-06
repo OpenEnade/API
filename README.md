@@ -12,5 +12,7 @@ Aplicação responsável por recuperar, inserir, atualizar e deletar dados do EN
 Esta API foi desenvolvida para dar suporte ao [OpenEnade-ClientApp](https://github.com/OpenEnade/OpenEnade-ClientApp) para que seja possível ranquear e comparar cursos de diferentes IES.
 
 ## Rodando o servidor
-1. `mvn -Dmaven.test.skip=true install` Obs: Isso irá ignorar os testes.
+1. `mvn -Dmaven.test.skip=true install
 2. `mvn exec:java`
+
+Pronto, agora basta acessar por exemplo: http://localhost:8080/api/regiao
