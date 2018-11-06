@@ -10,3 +10,7 @@
 Aplicação responsável por recuperar, inserir, atualizar e deletar dados do ENADE em uma instância de Banco de Dados.
 
 Esta API foi desenvolvida para dar suporte ao [OpenEnade-ClientApp](https://github.com/OpenEnade/OpenEnade-ClientApp) para que seja possível ranquear e comparar cursos de diferentes IES.
+
+## Rodando o servidor
+1. `mvn -Dmaven.test.skip=true install` Obs: Isso irá ignorar os testes.
+2. `mvn exec:java`
