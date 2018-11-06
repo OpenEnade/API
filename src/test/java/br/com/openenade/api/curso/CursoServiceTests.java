@@ -85,4 +85,20 @@ public class CursoServiceTests {
         assertEquals(c, cc);
     }
 
+    @Test
+    public void testCursoIdClass() {
+        
+            
+        String[] cursos = {"Ciência da Computação", "Engenharia Mecânica", "Engenharia Elétrica"};
+        
+        Long[] codigos = {(long) 111,(long) 123,(long) 312};
+        
+        Curso curso = new Curso(cursos[0], 3, codigos[0], Modalidade.EDUCACAO_A_DISTANCIA);
+        this.cursoRepository.save(curso);
+        
+        CursoId id = new CursoId(codigos[0], Modalidade.EDUCACAO_A_DISTANCIA);
+        
+        assertEquals(curso, this.cursoRepository.findById(id).get());
+
+    }
 }
