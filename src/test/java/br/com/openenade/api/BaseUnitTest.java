@@ -19,22 +19,22 @@ import br.com.openenade.api.universidade.UniversidadeService;
 public class BaseUnitTest {
 
     @Autowired
-    AnoService anoService;
+    private AnoService anoService;
 
     @Autowired
-    CursoService cursoService;
+    private CursoService cursoService;
 
     @Autowired
-    RegiaoService regiaoService;
+    private RegiaoService regiaoService;
 
     @Autowired
-    EstadoService estadoService;
+    private EstadoService estadoService;
 
     @Autowired
-    MunicipioService municipioService;
+    private MunicipioService municipioService;
 
     @Autowired
-    UniversidadeService universidadeService;
+    private UniversidadeService universidadeService;
 
     /**
      * Do not change the order of deletions, if you want to add any other service, please append the
