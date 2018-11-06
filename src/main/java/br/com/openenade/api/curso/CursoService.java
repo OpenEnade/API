@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import br.com.openenade.api.modalidade.Modalidade;
+
 
 @Service
 public class CursoService {
@@ -19,12 +21,15 @@ public class CursoService {
         return this.repository.findAll();
     }
 
-    public Optional<Curso> getByCodigo(Long codigo) {
-        return this.repository.findById(codigo);
+    public Optional<Curso> getByCodigo(Long codigo, Modalidade modalidade) {
+        CursoId cursoId = new CursoId(codigo, modalidade);
+        return this.repository.findById(cursoId);
+
     }
     
-    public void deleteCursoById(Long codigo) {
-        this.repository.deleteById(codigo);
+    // unutilized
+    public void deleteCursoById(CursoId id) {
+        this.repository.deleteById(id);
     }
 
 }
