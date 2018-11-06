@@ -15,52 +15,53 @@ public class UniversidadeService {
 
     @Autowired
     private UniversidadeRepository repository;
-    
+
     @Autowired
     private MunicipioService municipioService;
-    
+
     public Universidade save(Universidade universidade) {
-        Optional<Municipio> optMunicipio = this.municipioService.getOptionalByCodigo
-                (universidade.getCampus().getCodigo());
+        Optional<Municipio> optMunicipio =
+                this.municipioService.getOptionalByCodigo(universidade.getCampus().getCodigo());
         Municipio newCampus;
-        if(optMunicipio.isPresent()) {
+        if (optMunicipio.isPresent()) {
             newCampus = optMunicipio.get();
         } else {
             newCampus = this.municipioService.save(universidade.getCampus());
         }
         universidade.setCampus(newCampus);
         return this.repository.save(universidade);
-        
+
     }
-    
-    public List<Universidade> getAll(){
+
+    public List<Universidade> getAll() {
         return this.repository.findAll();
     }
-    
-    public Optional<Universidade> getOptionalUniversidadeByCodigoIES(Long codigoIES){
+
+    public Optional<Universidade> getOptionalUniversidadeByCodigoIES(Long codigoIES) {
         return this.repository.findById(codigoIES);
     }
-    
+
     public Universidade getUniversidadeByCodigoIES(Long codigoIES) {
         Optional<Universidade> optUnivesidade = this.repository.findById(codigoIES);
-        if(optUnivesidade.isPresent()) {
+        if (optUnivesidade.isPresent()) {
             return optUnivesidade.get();
         } else {
             throw new ResourceNotFound("" + codigoIES);
         }
     }
-    
-    public Universidade getByCodigoIES(Long codigoIES){
+
+    public Universidade getByCodigoIES(Long codigoIES) {
         return this.repository.findById(codigoIES).get();
     }
-    
+
     public void deleteUniversidadeByCodigoIES(Long codigoIES) {
         this.getUniversidadeByCodigoIES(codigoIES);
         this.repository.deleteById(codigoIES);
     }
 
     public void deleteUniversidadesByMunicipioCodigo(Long codigo) {
-        this.repository.deleteUniversidadesByCampusCodigo(codigo);
-        
+        for (Universidade universidade : this.repository.findUniversidadesByCampusCodigo(codigo)) {
+            this.deleteUniversidadeByCodigoIES(universidade.getCodigoIES());
+        }
     }
 }

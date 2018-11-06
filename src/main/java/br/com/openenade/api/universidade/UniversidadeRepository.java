@@ -1,10 +1,11 @@
 package br.com.openenade.api.universidade;
 
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UniversidadeRepository extends JpaRepository<Universidade, Long> {
 
-    public void deleteUniversidadesByCampusCodigo(Long codigo);
+    public List<Universidade> findUniversidadesByCampusCodigo(Long codigo);
 }

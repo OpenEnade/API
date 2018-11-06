@@ -19,7 +19,7 @@ public class EstadoService {
 
     @Autowired
     private RegiaoService regiaoService;
-    
+
     @Autowired
     private MunicipioService municipioService;
 
@@ -39,7 +39,7 @@ public class EstadoService {
     public List<Estado> getAll() {
         return this.repository.findAll();
     }
-    
+
     public Optional<Estado> getOptionalBySigla(String sigla) {
         return this.repository.findById(sigla);
     }
@@ -52,15 +52,17 @@ public class EstadoService {
             throw new ResourceNotFound("" + siglaEstado);
         }
     }
-    
+
     public void deleteEstadoById(String siglaEstado) {
         this.getBySiglaEstado(siglaEstado);
         this.municipioService.deleteMunicipiosByEstadoSigla(siglaEstado);
         this.repository.deleteById(siglaEstado);
     }
-    
+
     public void deleteEstadosByRegiaoSigla(String regiaoSigla) {
-        this.repository.deleteEstadosByRegiaoSigla(regiaoSigla);
+        for (Estado estado : this.repository.findEstadosByRegiaoSigla(regiaoSigla)) {
+            this.deleteEstadoById(estado.getSigla());
+        }
     }
 
 }

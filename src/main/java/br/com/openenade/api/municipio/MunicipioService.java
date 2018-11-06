@@ -60,7 +60,8 @@ public class MunicipioService {
     }
 
     public void deleteMunicipiosByEstadoSigla(String siglaEstado) {
-        this.repository.deleteMunicipiosByEstadoSigla(siglaEstado);
-
+        for (Municipio municipio : this.repository.findMunicipiosByEstadoSigla(siglaEstado)) {
+            this.deleteMunicipioByCodigo(municipio.getCodigo());
+        }
     }
 }

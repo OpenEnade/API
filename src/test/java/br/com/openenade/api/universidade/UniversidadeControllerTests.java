@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import br.com.openenade.api.categoriaadmin.CategoriaAdmin;
 import br.com.openenade.api.curso.Curso;
+import br.com.openenade.api.curso.CursoService;
 import br.com.openenade.api.estado.Estado;
 import br.com.openenade.api.exceptions.ResourceNotFound;
 import br.com.openenade.api.modalidade.Modalidade;
@@ -34,6 +35,9 @@ public class UniversidadeControllerTests {
     @Autowired
     private UniversidadeController controller;
     
+    @Autowired
+    private CursoService cursoService;
+    
     @Before
     @After
     public void cleanUp() {
@@ -49,9 +53,7 @@ public class UniversidadeControllerTests {
     Estado estado = new Estado("PK", regiao);
     Municipio campus = new Municipio((long) 10, estado, "zimbabue");
     
-    List<Curso> cursos = new ArrayList<Curso>();
-    cursos.add(new Curso("CC", 13, 10, Modalidade.EDUCACAO_PRESENCIAL));
-    cursos.add(new Curso("EE", 13, 11, Modalidade.EDUCACAO_PRESENCIAL));
+    List<Curso> cursos = createCursos();
     
     Universidade univ = new Universidade((long) 10, "UFCG" , campus, CategoriaAdmin.PUBLICO , cursos);
     
@@ -75,7 +77,16 @@ public class UniversidadeControllerTests {
     public void deleteTests() {
         controller.getUniversidadeByCodigoIES((long) 10);
     }
-
-
+    
+    private List<Curso> createCursos() {
+        List<Curso> cursos = new ArrayList<Curso>();
+        Curso cursoCC =
+                this.cursoService.save(new Curso("CC", 13, 10, Modalidade.EDUCACAO_PRESENCIAL));
+        Curso cursoEE =
+                this.cursoService.save(new Curso("EE", 13, 11, Modalidade.EDUCACAO_PRESENCIAL));
+        cursos.add(cursoCC);
+        cursos.add(cursoEE);
+        return cursos;
+    }
     
 }
