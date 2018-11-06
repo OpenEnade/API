@@ -2,8 +2,6 @@ package br.com.openenade.api.regiao;
 
 import static org.junit.Assert.assertEquals;
 import java.util.Optional;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.http.HttpStatus;
@@ -11,11 +9,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import br.com.openenade.api.BaseUnitTest;
 import br.com.openenade.api.exceptions.ResourceNotFound;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class RegiaoControllerTests {
+public class RegiaoControllerTests extends BaseUnitTest {
 
     @Autowired
     private RegiaoController controller;
@@ -23,17 +22,6 @@ public class RegiaoControllerTests {
     @Autowired
     private RegiaoService service;
     
-    @Autowired
-    private RegiaoRepository repository;
- 
-    @Before
-    @After
-    public void cleanUp() {
-        for (Regiao regiao : this.repository.findAll()) {
-            this.service.deleteRegiaoBySigla(regiao.getSigla());
-        }
-    }
-
     @Test(expected = ResourceNotFound.class)
     public void testController() {
         Regiao regiao = new Regiao("NE");

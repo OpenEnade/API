@@ -1,5 +1,6 @@
 package br.com.openenade.api.universidade;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -19,32 +20,28 @@ public class Universidade {
     @Id
     @NotNull(message = "'codigoCurso' não pode ser nulo.")
     private Long codigoIES;
-    
+
     @NotBlank(message = "'nome' não pode ser vazio.")
     private String nome;
-    
+
     @ManyToOne(optional = false)
     @NotNull(message = "'campus' não pode ser nulo.")
     private Municipio campus;
-    
+
     @Enumerated(EnumType.STRING)
     @NotNull(message = "Você precisa especificar uma 'categoriaAdmin'.")
     private CategoriaAdmin categoriaAdmin;
-    
+
     @ManyToMany
     @NotNull(message = "Você precisa especificar um 'curso'.")
     private List<Curso> curso;
-    
+
     public Universidade() {
-        
+        this.curso = new ArrayList<>();
     }
 
-    public Universidade(@NotNull(message = "'codigoCurso' não pode ser nulo.") Long codigoIES,
-            @NotBlank(message = "'nome' não pode ser vazio.") String nome,
-            @NotNull(message = "'campus' não pode ser nulo.") Municipio campus,
-            @NotNull(
-                    message = "Você precisa especificar uma 'categoriaAdmin'.") CategoriaAdmin categoriaAdmin,
-            @NotNull(message = "Você precisa especificar um 'curso'.") List<Curso> curso) {
+    public Universidade(Long codigoIES, String nome, Municipio campus,
+            CategoriaAdmin categoriaAdmin, List<Curso> curso) {
         super();
         this.codigoIES = codigoIES;
         this.nome = nome;
@@ -99,7 +96,7 @@ public class Universidade {
                 + ", categoriaAdmin=" + categoriaAdmin + ", curso=" + curso + "]";
     }
 
-    
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -129,6 +126,6 @@ public class Universidade {
             return false;
         return true;
     }
-    
-    
+
+
 }

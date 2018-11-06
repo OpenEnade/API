@@ -5,13 +5,12 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import br.com.openenade.api.BaseUnitTest;
 import br.com.openenade.api.categoriaadmin.CategoriaAdmin;
 import br.com.openenade.api.curso.Curso;
 import br.com.openenade.api.curso.CursoService;
@@ -23,13 +22,10 @@ import br.com.openenade.api.regiao.Regiao;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class UniversidadeServiceTests {
+public class UniversidadeServiceTests extends BaseUnitTest {
 
     @Autowired
     private UniversidadeService service;
-
-    @Autowired
-    private UniversidadeRepository repository;
 
     @Autowired
     private CursoService cursoService;
@@ -39,14 +35,6 @@ public class UniversidadeServiceTests {
     private Estado pb = new Estado("pb", nordeste);
 
     private Municipio campus = new Municipio((long) 10, pb, "cg");
-
-    @Before
-    @After
-    public void cleanUp() {
-        for (Universidade universidade : this.repository.findAll()) {
-            this.service.deleteUniversidadeByCodigoIES(universidade.getCodigoIES());
-        }
-    }
 
     @Test
     public void saveTest() {

@@ -2,8 +2,6 @@ package br.com.openenade.api.municipio;
 
 import static org.junit.Assert.assertEquals;
 import java.util.Optional;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,30 +9,20 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
+import br.com.openenade.api.BaseUnitTest;
 import br.com.openenade.api.estado.Estado;
 import br.com.openenade.api.exceptions.ResourceNotFound;
 import br.com.openenade.api.regiao.Regiao;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class MunicipioControllerTests {
+public class MunicipioControllerTests extends BaseUnitTest {
 
     @Autowired
     private MunicipioService service;
     
     @Autowired
     private MunicipioController controller;
-    
-    @Autowired
-    private MunicipioRepository repository;
-    
-    @Before
-    @After
-    public void cleanUp() {
-        for (Municipio municipio : this.repository.findAll()) {
-            this.service.deleteMunicipioByCodigo(municipio.getCodigo());
-        }
-    }
     
     @Test
     public void controllerTest() {

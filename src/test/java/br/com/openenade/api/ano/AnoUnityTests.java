@@ -3,36 +3,23 @@ package br.com.openenade.api.ano;
 import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import br.com.openenade.api.BaseUnitTest;
 import br.com.openenade.api.ano.Ano;
-import br.com.openenade.api.ano.AnoRepository;
 import br.com.openenade.api.ano.AnoService;
 import br.com.openenade.api.exceptions.ResourceNotFound;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class AnoUnityTests {
+public class AnoUnityTests extends BaseUnitTest {
 
     @Autowired
     private AnoService service;
     
-    @Autowired
-    private AnoRepository repository;
-
-    @After
-    @Before
-    public void cleanRepository() {
-        for (Ano ano : this.repository.findAll()) {
-            this.service.deleteAno(ano.getAno());
-        }
-    }
-
     @Test
     public void addAnoTest() {
         Ano ano = new Ano();

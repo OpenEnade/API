@@ -4,8 +4,6 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
+import br.com.openenade.api.BaseUnitTest;
 import br.com.openenade.api.categoriaadmin.CategoriaAdmin;
 import br.com.openenade.api.curso.Curso;
 import br.com.openenade.api.curso.CursoService;
@@ -24,27 +23,16 @@ import br.com.openenade.api.regiao.Regiao;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class UniversidadeControllerTests {
+public class UniversidadeControllerTests extends BaseUnitTest {
 
     @Autowired
     private UniversidadeService service;
-    
-    @Autowired
-    private UniversidadeRepository repository;
     
     @Autowired
     private UniversidadeController controller;
     
     @Autowired
     private CursoService cursoService;
-    
-    @Before
-    @After
-    public void cleanUp() {
-        for (Universidade universidade : this.repository.findAll()) {
-            this.service.deleteUniversidadeByCodigoIES(universidade.getCodigoIES());
-        }
-    }
     
     @Test
     public void controllerTest() {

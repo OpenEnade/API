@@ -4,33 +4,21 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import java.util.List;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import br.com.openenade.api.BaseUnitTest;
 import br.com.openenade.api.exceptions.ResourceNotFound;
 import br.com.openenade.api.regiao.Regiao;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class EstadoServiceTests {
+public class EstadoServiceTests extends BaseUnitTest {
 
     @Autowired
     private EstadoService service;
-
-    @Autowired
-    private EstadoRepository repository;;
-
-    @Before
-    @After
-    public void cleanUp() {
-        for (Estado estado : this.repository.findAll()) {
-            this.service.deleteEstadoById(estado.getSigla());
-        }
-    }
 
     @Test
     public void saveTest() {
