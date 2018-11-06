@@ -65,7 +65,7 @@ public class CursoTests {
     public void testToString() {
         Curso curso = new Curso("Ciência da Computação", 5, 7, Modalidade.EDUCACAO_PRESENCIAL);
 
-        assertEquals("Curso [codigoCurso=7, modalidade=EDUCACAO_PRESENCIAL]", curso.toString());
+        assertEquals("Curso [codigoCurso=7, nome=Ciência da Computação, codigoArea=5, modalidade=EDUCACAO_PRESENCIAL]", curso.toString());
     }
 
 }

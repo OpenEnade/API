@@ -27,8 +27,9 @@ public class CursoService {
 
     }
     
-    public void deleteCursoById(Long codigo) {
-        this.repository.deleteById(codigo);
+    // unutilized
+    public void deleteCursoById(CursoId id) {
+        this.repository.deleteById(id);
     }
 
 }

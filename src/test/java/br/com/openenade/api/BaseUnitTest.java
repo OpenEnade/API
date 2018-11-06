@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import br.com.openenade.api.ano.Ano;
 import br.com.openenade.api.ano.AnoService;
 import br.com.openenade.api.curso.Curso;
+import br.com.openenade.api.curso.CursoId;
 import br.com.openenade.api.curso.CursoService;
 import br.com.openenade.api.estado.Estado;
 import br.com.openenade.api.estado.EstadoService;
@@ -47,7 +48,9 @@ public class BaseUnitTest {
             this.universidadeService.deleteUniversidadeByCodigoIES(universidade.getCodigoIES());
         }
         for (Curso curso : this.cursoService.getAll()) {
-            this.cursoService.deleteCursoById(curso.getCodigoCurso());
+        	
+        	CursoId id = new CursoId(curso.getCodigoCurso(), curso.getModalidade());
+            this.cursoService.deleteCursoById(id);
         }
         for (Ano ano : this.anoService.getAllAnos()) {
             this.anoService.deleteAno(ano.getAno());
