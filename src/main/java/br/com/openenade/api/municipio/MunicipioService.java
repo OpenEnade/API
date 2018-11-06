@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.openenade.api.estado.Estado;
 import br.com.openenade.api.estado.EstadoService;
 import br.com.openenade.api.exceptions.ResourceNotFound;
+import br.com.openenade.api.universidade.UniversidadeService;
 
 @Service
 @Transactional
@@ -15,11 +16,14 @@ public class MunicipioService {
 
     @Autowired
     private MunicipioRepository repository;
-    
+
     @Autowired
     private EstadoService estadoService;
-    
-    public void save(Municipio municipio) {
+
+    @Autowired
+    private UniversidadeService universidadeService;
+
+    public Municipio save(Municipio municipio) {
         Optional<Estado> optEstado =
                 this.estadoService.getOptionalBySigla(municipio.getEstado().getSigla());
         Estado newEstado;
@@ -29,32 +33,35 @@ public class MunicipioService {
             newEstado = this.estadoService.save(municipio.getEstado());
         }
         municipio.setEstado(newEstado);
-        this.repository.save(municipio);
+        return this.repository.save(municipio);
     }
-    
-    public List<Municipio> getAll(){
+
+    public List<Municipio> getAll() {
         return this.repository.findAll();
     }
-    
+
     public Optional<Municipio> getOptionalByCodigo(Long codigo) {
         return this.repository.findById(codigo);
     }
-    
+
     public Municipio getMunicipioByCodigo(Long codigo) {
         Optional<Municipio> optMunicipio = this.repository.findById(codigo);
         if (optMunicipio.isPresent()) {
             return optMunicipio.get();
-        }else {
+        } else {
             throw new ResourceNotFound("" + codigo);
         }
     }
-    
-    public List<Municipio> getByCodigo(Long codigo){
-        return this.repository.findMunicipioByCodigo(codigo);
-    }
-    
+
     public void deleteMunicipioByCodigo(Long codigo) {
         this.getMunicipioByCodigo(codigo);
+        this.universidadeService.deleteUniversidadesByMunicipioCodigo(codigo);
         this.repository.deleteById(codigo);
+    }
+
+    public void deleteMunicipiosByEstadoSigla(String siglaEstado) {
+        for (Municipio municipio : this.repository.findMunicipiosByEstadoSigla(siglaEstado)) {
+            this.deleteMunicipioByCodigo(municipio.getCodigo());
+        }
     }
 }

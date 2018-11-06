@@ -45,7 +45,7 @@ public class EstadoController {
     @DeleteMapping(path = "/{siglaEstado}")
     public ResponseEntity<Estado> deleteEstadoBySigla(
             @PathVariable(name = "siglaEstado") String siglaEstado) {
-        this.service.deleteEstadoBySiglaEstado(siglaEstado);
+        this.service.deleteEstadoById(siglaEstado);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

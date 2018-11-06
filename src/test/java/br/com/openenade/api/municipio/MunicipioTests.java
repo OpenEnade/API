@@ -15,7 +15,7 @@ import br.com.openenade.api.regiao.Regiao;
 public class MunicipioTests {
     
     @Test
-    public void testEstado() {
+    public void testMunicipio() {
         Regiao regiao = new Regiao("OO");
         Estado estado = new Estado("EE", regiao);
         Municipio municipio = new Municipio((long) 10, estado, null);
@@ -24,7 +24,7 @@ public class MunicipioTests {
     }
 
     @Test
-    public void testEqualsEstado() {
+    public void testEqualsMunicipio() {
         Regiao regiaoPb = new Regiao("ND");
         
         Estado pe = new Estado("PE", regiaoPb);
@@ -50,7 +50,7 @@ public class MunicipioTests {
     }
     
     @Test
-    public void testToStringEstado() {
+    public void testToStringMunicipio() {
         Regiao regiao = new Regiao("EUA");
         Estado estado = new Estado("CA", regiao);
         Municipio coxi = new Municipio((long) 10, estado, "Coxixola");
