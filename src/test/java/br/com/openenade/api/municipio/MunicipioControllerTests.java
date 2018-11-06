@@ -28,13 +28,13 @@ public class MunicipioControllerTests {
     @Autowired
     private MunicipioRepository repository;
     
-    
     @Before
     @After
     public void cleanUp() {
-        this.repository.deleteAll();
+        for (Municipio municipio : this.repository.findAll()) {
+            this.service.deleteMunicipioByCodigo(municipio.getCodigo());
+        }
     }
-    
     
     @Test
     public void controllerTest() {

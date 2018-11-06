@@ -28,7 +28,9 @@ public class AnoUnityTests {
     @After
     @Before
     public void cleanRepository() {
-        this.repository.deleteAll();
+        for (Ano ano : this.repository.findAll()) {
+            this.service.deleteAno(ano.getAno());
+        }
     }
 
     @Test

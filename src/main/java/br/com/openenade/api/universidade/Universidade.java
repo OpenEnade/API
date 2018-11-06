@@ -1,7 +1,6 @@
 package br.com.openenade.api.universidade;
 
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -32,7 +31,7 @@ public class Universidade {
     @NotNull(message = "Você precisa especificar uma 'categoriaAdmin'.")
     private CategoriaAdmin categoriaAdmin;
     
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @NotNull(message = "Você precisa especificar um 'curso'.")
     private List<Curso> curso;
     

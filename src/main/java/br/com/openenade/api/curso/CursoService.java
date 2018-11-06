@@ -22,5 +22,9 @@ public class CursoService {
     public Optional<Curso> getByCodigo(Long codigo) {
         return this.repository.findById(codigo);
     }
+    
+    public void deleteCursoById(Long codigo) {
+        this.repository.deleteById(codigo);
+    }
 
 }

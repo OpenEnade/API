@@ -27,7 +27,9 @@ public class EstadoServiceTests {
     @Before
     @After
     public void cleanUp() {
-        this.repository.deleteAll();
+        for (Estado estado : this.repository.findAll()) {
+            this.service.deleteEstadoById(estado.getSigla());
+        }
     }
 
     @Test
@@ -87,7 +89,7 @@ public class EstadoServiceTests {
 
         this.service.save(as);
 
-        this.service.deleteEstadoBySiglaEstado("AS");
+        this.service.deleteEstadoById("AS");
 
         this.service.getBySiglaEstado(as.getSigla());
     }

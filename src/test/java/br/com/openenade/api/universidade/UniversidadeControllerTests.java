@@ -37,7 +37,9 @@ public class UniversidadeControllerTests {
     @Before
     @After
     public void cleanUp() {
-        this.repository.deleteAll();
+        for (Universidade universidade : this.repository.findAll()) {
+            this.service.deleteUniversidadeByCodigoIES(universidade.getCodigoIES());
+        }
     }
     
     @Test

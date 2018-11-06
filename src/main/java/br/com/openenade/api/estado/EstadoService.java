@@ -52,8 +52,8 @@ public class EstadoService {
             throw new ResourceNotFound("" + siglaEstado);
         }
     }
-
-    public void deleteEstadoBySiglaEstado(String siglaEstado) {
+    
+    public void deleteEstadoById(String siglaEstado) {
         this.getBySiglaEstado(siglaEstado);
         this.municipioService.deleteMunicipiosByEstadoSigla(siglaEstado);
         this.repository.deleteById(siglaEstado);

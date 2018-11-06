@@ -24,7 +24,9 @@ public class CursoServiceTests {
     @After
     @Before
     public void cleanRepository() {
-        this.repository.deleteAll();
+        for (Curso curso : this.repository.findAll()) {
+            this.service.deleteCursoById(curso.getCodigoCurso());
+        }
     }
 
     @Test

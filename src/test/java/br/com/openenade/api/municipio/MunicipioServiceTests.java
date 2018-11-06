@@ -25,10 +25,12 @@ public class MunicipioServiceTests {
     @Autowired
     private MunicipioRepository repository;
 
-    @After
     @Before
-    public void cleanRepository() {
-        this.repository.deleteAll();
+    @After
+    public void cleanUp() {
+        for (Municipio municipio : this.repository.findAll()) {
+            this.service.deleteMunicipioByCodigo(municipio.getCodigo());
+        }
     }
 
     private Regiao df = new Regiao("DF");
@@ -90,9 +92,9 @@ public class MunicipioServiceTests {
 
     }
 
-    @Test (expected = ResourceNotFound.class)
+    @Test(expected = ResourceNotFound.class)
     public void deleteMunicipioByCodigoTest() {
-  
+
         Municipio municipio1 = new Municipio((long) 10, as, "belem");
 
         this.service.save(municipio1);

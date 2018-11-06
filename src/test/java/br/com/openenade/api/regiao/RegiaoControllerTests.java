@@ -29,7 +29,9 @@ public class RegiaoControllerTests {
     @Before
     @After
     public void cleanUp() {
-        this.repository.deleteAll();
+        for (Regiao regiao : this.repository.findAll()) {
+            this.service.deleteRegiaoBySigla(regiao.getSigla());
+        }
     }
 
     @Test(expected = ResourceNotFound.class)

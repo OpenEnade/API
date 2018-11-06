@@ -16,13 +16,13 @@ public class MunicipioService {
 
     @Autowired
     private MunicipioRepository repository;
-    
+
     @Autowired
     private EstadoService estadoService;
-    
+
     @Autowired
     private UniversidadeService universidadeService;
-    
+
     public Municipio save(Municipio municipio) {
         Optional<Estado> optEstado =
                 this.estadoService.getOptionalBySigla(municipio.getEstado().getSigla());
@@ -35,30 +35,24 @@ public class MunicipioService {
         municipio.setEstado(newEstado);
         return this.repository.save(municipio);
     }
-    
-    public List<Municipio> getAll(){
+
+    public List<Municipio> getAll() {
         return this.repository.findAll();
     }
-    
+
     public Optional<Municipio> getOptionalByCodigo(Long codigo) {
         return this.repository.findById(codigo);
     }
-    
+
     public Municipio getMunicipioByCodigo(Long codigo) {
         Optional<Municipio> optMunicipio = this.repository.findById(codigo);
         if (optMunicipio.isPresent()) {
             return optMunicipio.get();
-        }else {
+        } else {
             throw new ResourceNotFound("" + codigo);
         }
     }
-    
 
-    public Municipio getByCodigo(Long codigo) {
-
-        return this.repository.findById(codigo).get();
-    }
-    
     public void deleteMunicipioByCodigo(Long codigo) {
         this.getMunicipioByCodigo(codigo);
         this.universidadeService.deleteUniversidadesByMunicipioCodigo(codigo);
