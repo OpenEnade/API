@@ -2,10 +2,10 @@ package br.com.openenade.api.universidade;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -33,12 +33,12 @@ public class Universidade {
     @NotNull(message = "Você precisa especificar uma 'categoriaAdmin'.")
     private CategoriaAdmin categoriaAdmin;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @NotNull(message = "Você precisa especificar um 'curso'.")
-    private List<Curso> curso;
+    private List<Curso> cursos;
 
     public Universidade() {
-        this.curso = new ArrayList<>();
+        this.cursos = new ArrayList<>();
     }
 
     public Universidade(Long codigoIES, String nome, Municipio campus,
@@ -48,7 +48,7 @@ public class Universidade {
         this.nome = nome;
         this.campus = campus;
         this.categoriaAdmin = categoriaAdmin;
-        this.curso = curso;
+        this.cursos = curso;
     }
 
     public Long getCodigoIES() {
@@ -84,28 +84,25 @@ public class Universidade {
     }
 
     public List<Curso> getCurso() {
-        return curso;
+        return cursos;
     }
 
     public void setCurso(List<Curso> curso) {
-        this.curso = curso;
+        this.cursos = curso;
     }
 
     @Override
     public String toString() {
         return "Universidade [codigoIES=" + codigoIES + ", nome=" + nome + ", campus=" + campus
-                + ", categoriaAdmin=" + categoriaAdmin + ", curso=" + curso + "]";
+                + ", categoriaAdmin=" + categoriaAdmin + ", curso=" + cursos + "]";
     }
-
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((campus == null) ? 0 : campus.hashCode());
-        result = prime * result + ((categoriaAdmin == null) ? 0 : categoriaAdmin.hashCode());
         result = prime * result + ((codigoIES == null) ? 0 : codigoIES.hashCode());
-        result = prime * result + ((curso == null) ? 0 : curso.hashCode());
         return result;
     }
 
@@ -118,7 +115,10 @@ public class Universidade {
         if (getClass() != obj.getClass())
             return false;
         Universidade other = (Universidade) obj;
-        if (categoriaAdmin != other.categoriaAdmin)
+        if (campus == null) {
+            if (other.campus != null)
+                return false;
+        } else if (!campus.equals(other.campus))
             return false;
         if (codigoIES == null) {
             if (other.codigoIES != null)
@@ -127,6 +127,5 @@ public class Universidade {
             return false;
         return true;
     }
-
-
+    
 }
