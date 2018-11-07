@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = RegiaoController.ENDPOINT)
 public class RegiaoController {
 
-    public static final String ENDPOINT = "regiao";
+    public static final String ENDPOINT = "regioes";
 
     @Autowired
     private RegiaoService service;

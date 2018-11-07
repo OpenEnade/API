@@ -22,7 +22,7 @@ import br.com.openenade.api.modalidade.Modalidade;
 @RequestMapping(path = CursoController.ENDPOINT)
 public class CursoController {
 
-    public static final String ENDPOINT = "curso";
+    public static final String ENDPOINT = "cursos";
 
     @Autowired
     private CursoService service;

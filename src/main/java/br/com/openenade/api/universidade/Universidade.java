@@ -7,8 +7,8 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import br.com.openenade.api.categoriaadmin.CategoriaAdmin;
@@ -33,7 +33,7 @@ public class Universidade {
     @NotNull(message = "Você precisa especificar uma 'categoriaAdmin'.")
     private CategoriaAdmin categoriaAdmin;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @NotNull(message = "Você precisa especificar um 'curso'.")
     private List<Curso> cursos;
 
@@ -94,7 +94,7 @@ public class Universidade {
     @Override
     public String toString() {
         return "Universidade [codigoIES=" + codigoIES + ", nome=" + nome + ", campus=" + campus
-                + ", categoriaAdmin=" + categoriaAdmin + ", curso=" + cursos + "]";
+                + ", categoriaAdmin=" + categoriaAdmin + ", cursos=" + cursos + "]";
     }
 
     @Override
@@ -127,5 +127,5 @@ public class Universidade {
             return false;
         return true;
     }
-    
+
 }

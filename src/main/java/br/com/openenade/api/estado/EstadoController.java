@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = EstadoController.ENDPOINT)
 public class EstadoController {
 
-    public static final String ENDPOINT = "/estado";
+    public static final String ENDPOINT = "/estados";
 
     @Autowired
     private EstadoService service;

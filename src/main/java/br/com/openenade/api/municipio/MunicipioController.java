@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = MunicipioController.ENDPOINT)
 public class MunicipioController {
 
-    public static final String ENDPOINT = "municipio";
+    public static final String ENDPOINT = "municipios";
     
     @Autowired
     private MunicipioService service;
