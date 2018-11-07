@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = ModalidadeController.ENDPOINT)
 public class ModalidadeController {
 
-    public static final String ENDPOINT = "/modalidade";
+    public static final String ENDPOINT = "/modalidades";
 
     @RequestMapping(method = RequestMethod.GET)
     public @ResponseBody ResponseEntity<Modalidade[]> index() {

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = AnoController.ENDPOINT)
 public class AnoController {
 
-    public static final String ENDPOINT = "/ano";
+    public static final String ENDPOINT = "/anos";
 
     public static final String ANO_ID = "ano";
 
