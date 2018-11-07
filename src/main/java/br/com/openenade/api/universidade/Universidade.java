@@ -83,11 +83,11 @@ public class Universidade {
         this.categoriaAdmin = categoriaAdmin;
     }
 
-    public List<Curso> getCurso() {
+    public List<Curso> getCursos() {
         return cursos;
     }
 
-    public void setCurso(List<Curso> curso) {
+    public void setCursos(List<Curso> curso) {
         this.cursos = curso;
     }
 
