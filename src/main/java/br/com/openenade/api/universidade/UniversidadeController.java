@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = UniversidadeController.ENDPOINT)
 public class UniversidadeController {
 
-    public static final String ENDPOINT = "universidade";
+    public static final String ENDPOINT = "universidades";
     
     @Autowired
     private UniversidadeService service;

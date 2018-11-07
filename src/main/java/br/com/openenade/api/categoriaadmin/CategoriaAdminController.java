@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = CategoriaAdminController.ENDPOINT)
 public class CategoriaAdminController {
     
-    public static final String ENDPOINT = "/categoria-admin";
+    public static final String ENDPOINT = "/categorias-admin";
     
     @RequestMapping(method = RequestMethod.GET)
     public @ResponseBody ResponseEntity<CategoriaAdmin[]> index() {
