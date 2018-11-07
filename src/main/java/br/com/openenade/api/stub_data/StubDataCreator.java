@@ -143,7 +143,7 @@ public class StubDataCreator implements ApplicationRunner {
                 universidade = new Universidade(codesIES[i], namesIES[i], municipio,
                         categoriasAdm[i], new ArrayList<>());
             }
-            universidade.getCurso().add(curso);
+            universidade.getCursos().add(curso);
             this.universidadeRepository.save(universidade);
         }
         
