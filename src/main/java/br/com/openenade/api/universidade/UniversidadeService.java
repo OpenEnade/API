@@ -1,6 +1,6 @@
 package br.com.openenade.api.universidade;
 
-import java.util.List;
+import java.util.Collection;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,7 +33,7 @@ public class UniversidadeService {
 
     }
 
-    public List<Universidade> getAll() {
+    public Collection<Universidade> getAll() {
         return this.repository.findAll();
     }
 

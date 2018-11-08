@@ -1,7 +1,7 @@
 package br.com.openenade.api.universidade;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -35,14 +35,14 @@ public class Universidade {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @NotNull(message = "Você precisa especificar um 'curso'.")
-    private List<Curso> cursos;
+    private Set<Curso> cursos;
 
     public Universidade() {
-        this.cursos = new ArrayList<>();
+        this.cursos = new HashSet<>();
     }
 
     public Universidade(Long codigoIES, String nome, Municipio campus,
-            CategoriaAdmin categoriaAdmin, List<Curso> curso) {
+            CategoriaAdmin categoriaAdmin, Set<Curso> curso) {
         super();
         this.codigoIES = codigoIES;
         this.nome = nome;
@@ -83,11 +83,11 @@ public class Universidade {
         this.categoriaAdmin = categoriaAdmin;
     }
 
-    public List<Curso> getCursos() {
+    public Set<Curso> getCursos() {
         return cursos;
     }
 
-    public void setCursos(List<Curso> curso) {
+    public void setCursos(Set<Curso> curso) {
         this.cursos = curso;
     }
 

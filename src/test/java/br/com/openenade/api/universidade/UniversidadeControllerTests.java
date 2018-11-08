@@ -1,9 +1,9 @@
 package br.com.openenade.api.universidade;
 
 import static org.junit.Assert.assertEquals;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +41,7 @@ public class UniversidadeControllerTests extends BaseUnitTest {
     Estado estado = new Estado("PK", regiao);
     Municipio campus = new Municipio((long) 10, estado, "zimbabue");
     
-    List<Curso> cursos = createCursos();
+    Set<Curso> cursos = createCursos();
     
     Universidade univ = new Universidade((long) 10, "UFCG" , campus, CategoriaAdmin.PUBLICO , cursos);
     
@@ -66,8 +66,8 @@ public class UniversidadeControllerTests extends BaseUnitTest {
         controller.getUniversidadeByCodigoIES((long) 10);
     }
     
-    private List<Curso> createCursos() {
-        List<Curso> cursos = new ArrayList<Curso>();
+    private Set<Curso> createCursos() {
+        Set<Curso> cursos = new HashSet<Curso>();
         Curso cursoCC =
                 this.cursoService.save(new Curso("CC", 13, 10, Modalidade.EDUCACAO_PRESENCIAL));
         Curso cursoEE =

@@ -1,6 +1,6 @@
 package br.com.openenade.api.universidade;
 
-import java.util.List;
+import java.util.Collection;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,7 +32,7 @@ public class UniversidadeController {
     
     @GetMapping
     @ResponseBody
-    public ResponseEntity<List<Universidade>> getAll() {
+    public ResponseEntity<Collection<Universidade>> getAll() {
         return new ResponseEntity<>(this.service.getAll(), HttpStatus.OK);
     }
     
