@@ -48,34 +48,17 @@ public class StubDataCreator implements ApplicationRunner {
 
     public void addLines() {
 
-        String[] regioesStr = new String[] {"CO", "CO", "SE", "SE", "S", "S", "SE", "S", "CO", "CO",
-                "CO", "CO", "CO", "CO", "S", "S", "S", "S"};
+        String[] regioesStr = getRegioesStr();
 
-        String[] estadosStr = new String[] {"MT", "GO", "SP", "SP", "RS", "SC", "SP", "RS", "GO",
-                "GO", "GO", "GO", "GO", "GO", "PR", "PR", "RS", "RS"};
+        String[] estadosStr = getEstadosStr();
 
-        String[] municipiosNamesStr = new String[] {"Cuiabá", "Anápolis", "Taquaritinga", "Bauru",
-                "Lajeado", "Florianópolis", "Campinas", "Novo Hamburgo", "Formosa", "Jussara",
-                "Posse", "Santa Helena de Goiás", "Porangatu", "Iporá", "Cornélio Procópio",
-                "Curitiba", "Bento Gonçalves", "São Leopoldo"};
+        String[] municipiosNamesStr = getMunicipiosStr();
 
-        Long[] municipiosCodes = new Long[] {5103403L, 5201108L, 3553708L, 3506003L, 4311403L,
-                4205407L, 3509502L, 4313409L, 5208004L, 5212204L, 5218300L, 5219308L, 5218003L,
-                5210208L, 4106407L, 4106902L, 4302105L, 4318705L};
+        Long[] municipiosCodes = getMunicipiosCodes();
 
-        Long[] codesIES = new Long[] {1L, 11544L, 967L, 997L, 1041L, 3295L, 3456L, 3543L, 3613L,
-                47L, 47L, 47L, 47L, 47L, 588L, 588L, 13L, 14L};
+        Long[] codesIES = getCodesIES();
 
-        String[] namesIES = new String[] {"UNIVERSIDADE FEDERAL DE MATO GROSSO",
-                "FACULDADE METROPOLITANA DE ANÁPOLIS", "FACULDADE DE TECNOLOGIA DE TAQUARITINGA",
-                "Centro Universitário de Bauru", "UNIVERSIDADE DO VALE DO TAQUARI",
-                "FACULDADE SENAC FLORIANÓPOLIS", "FACULDADE POLITÉCNICA DE CAMPINAS",
-                "FACULDADE NOVO HAMBURGO", "FACULDADES INTEGRADAS IESGO",
-                "UNIVERSIDADE ESTADUAL DE GOIÁS", "UNIVERSIDADE ESTADUAL DE GOIÁS",
-                "UNIVERSIDADE ESTADUAL DE GOIÁS", "UNIVERSIDADE ESTADUAL DE GOIÁS",
-                "UNIVERSIDADE ESTADUAL DE GOIÁS", "UNIVERSIDADE TECNOLÓGICA FEDERAL DO PARANÁ",
-                "UNIVERSIDADE TECNOLÓGICA FEDERAL DO PARANÁ", "UNIVERSIDADE DE CAXIAS DO SUL",
-                "UNIVERSIDADE DO VALE DO RIO DOS SINOS"};
+        String[] namesIES = getNamesIES();
 
         CategoriaAdmin[] categoriasAdm = new CategoriaAdmin[] {CategoriaAdmin.PUBLICO,
                 CategoriaAdmin.PRIVADO, CategoriaAdmin.PUBLICO, CategoriaAdmin.PRIVADO,
@@ -146,8 +129,47 @@ public class StubDataCreator implements ApplicationRunner {
             universidade.getCursos().add(curso);
             this.universidadeRepository.save(universidade);
         }
-        
-        System.out.println("Holy!\n");
+    }
+
+    private String[] getNamesIES() {
+        return new String[] {"UNIVERSIDADE FEDERAL DE MATO GROSSO",
+                "FACULDADE METROPOLITANA DE ANÁPOLIS", "FACULDADE DE TECNOLOGIA DE TAQUARITINGA",
+                "Centro Universitário de Bauru", "UNIVERSIDADE DO VALE DO TAQUARI",
+                "FACULDADE SENAC FLORIANÓPOLIS", "FACULDADE POLITÉCNICA DE CAMPINAS",
+                "FACULDADE NOVO HAMBURGO", "FACULDADES INTEGRADAS IESGO",
+                "UNIVERSIDADE ESTADUAL DE GOIÁS", "UNIVERSIDADE ESTADUAL DE GOIÁS",
+                "UNIVERSIDADE ESTADUAL DE GOIÁS", "UNIVERSIDADE ESTADUAL DE GOIÁS",
+                "UNIVERSIDADE ESTADUAL DE GOIÁS", "UNIVERSIDADE TECNOLÓGICA FEDERAL DO PARANÁ",
+                "UNIVERSIDADE TECNOLÓGICA FEDERAL DO PARANÁ", "UNIVERSIDADE DE CAXIAS DO SUL",
+                "UNIVERSIDADE DO VALE DO RIO DOS SINOS"};
+    }
+
+    private Long[] getCodesIES() {
+        return new Long[] {1L, 11544L, 967L, 997L, 1041L, 3295L, 3456L, 3543L, 3613L,
+                47L, 47L, 47L, 47L, 47L, 588L, 588L, 13L, 14L};
+    }
+
+    private Long[] getMunicipiosCodes() {
+        return new Long[] {5103403L, 5201108L, 3553708L, 3506003L, 4311403L,
+                4205407L, 3509502L, 4313409L, 5208004L, 5212204L, 5218300L, 5219308L, 5218003L,
+                5210208L, 4106407L, 4106902L, 4302105L, 4318705L};
+    }
+
+    private String[] getMunicipiosStr() {
+        return new String[] {"Cuiabá", "Anápolis", "Taquaritinga", "Bauru",
+                "Lajeado", "Florianópolis", "Campinas", "Novo Hamburgo", "Formosa", "Jussara",
+                "Posse", "Santa Helena de Goiás", "Porangatu", "Iporá", "Cornélio Procópio",
+                "Curitiba", "Bento Gonçalves", "São Leopoldo"};
+    }
+
+    private String[] getEstadosStr() {
+        return new String[] {"MT", "GO", "SP", "SP", "RS", "SC", "SP", "RS", "GO",
+                "GO", "GO", "GO", "GO", "GO", "PR", "PR", "RS", "RS"};
+    }
+
+    private String[] getRegioesStr() {
+        return new String[] {"CO", "CO", "SE", "SE", "S", "S", "SE", "S", "CO", "CO",
+                "CO", "CO", "CO", "CO", "S", "S", "S", "S"};
     }
 
 }
