@@ -48,34 +48,123 @@ public class StubDataCreator implements ApplicationRunner {
 
     public void addLines() {
 
+        Regiao[] regioes = addRegioes();
+
+        Estado[] estados = addEstados(regioes);
+
+        Municipio[] municipios = addMunicipios(estados);
+
+        Curso[] cursos = addCursos();
+
+        addAnos();
+
+        addUniversidades(municipios, cursos);
+    }
+
+    private Regiao[] addRegioes() {
         String[] regioesStr = getRegioesStr();
 
+        Regiao[] regioes = new Regiao[regioesStr.length];
+        for (int i = 0; i < regioes.length; i++) {
+            regioes[i] = new Regiao(regioesStr[i]);
+            this.regiaoRepository.save(regioes[i]);
+        }
+
+        return regioes;
+    }
+
+    private Estado[] addEstados(Regiao[] regioes) {
         String[] estadosStr = getEstadosStr();
 
+        Estado[] estados = new Estado[estadosStr.length];
+        for (int i = 0; i < estados.length; i++) {
+            estados[i] = new Estado(estadosStr[i], regioes[i]);
+            this.estadoRepository.save(estados[i]);
+        }
+
+        return estados;
+    }
+
+    private Municipio[] addMunicipios(Estado[] estados) {
+        Long[] municipiosCodes = getMunicipiosCodes();
         String[] municipiosNamesStr = getMunicipiosStr();
 
-        Long[] municipiosCodes = getMunicipiosCodes();
+        Municipio[] municipios = new Municipio[municipiosCodes.length];
+        for (int i = 0; i < municipios.length; i++) {
+            municipios[i] = new Municipio(municipiosCodes[i], estados[i], municipiosNamesStr[i]);
+            this.municipioRepository.save(municipios[i]);
+        }
 
+        return municipios;
+    }
+
+    private Curso[] addCursos() {
+        Long[] cursoCodes = getCursoCodes();
+        Long[] cursoAreaCodes = getCursoAreaCodes();
+        String[] cursoNames = getCursoNames();
+        Modalidade[] modalidades = getModalidades();
+
+        Curso[] cursos = new Curso[cursoCodes.length];
+        for (int i = 0; i < cursos.length; i++) {
+            cursos[i] = new Curso(cursoNames[i], cursoAreaCodes[i], cursoCodes[i], modalidades[i]);
+            this.cursoRepository.save(cursos[i]);
+        }
+
+        return cursos;
+    }
+
+    private Ano[] addAnos() {
+        Integer[] anosInt = getAnos();
+
+        Ano[] anos = new Ano[anosInt.length];
+        for (int i = 0; i < anos.length; i++) {
+            anos[i] = new Ano();
+            anos[i].setAno(anosInt[i]);
+            this.anoRepository.save(anos[i]);
+        }
+
+        return anos;
+    }
+
+    private Universidade[] addUniversidades(Municipio[] municipios, Curso[] cursos) {
         Long[] codesIES = getCodesIES();
-
         String[] namesIES = getNamesIES();
+        CategoriaAdmin[] categoriasAdm = getCategoriasAdmin();
 
-        CategoriaAdmin[] categoriasAdm = new CategoriaAdmin[] {CategoriaAdmin.PUBLICO,
-                CategoriaAdmin.PRIVADO, CategoriaAdmin.PUBLICO, CategoriaAdmin.PRIVADO,
-                CategoriaAdmin.PRIVADO, CategoriaAdmin.PRIVADO, CategoriaAdmin.PRIVADO,
-                CategoriaAdmin.PRIVADO, CategoriaAdmin.PRIVADO, CategoriaAdmin.PUBLICO,
-                CategoriaAdmin.PUBLICO, CategoriaAdmin.PUBLICO, CategoriaAdmin.PUBLICO,
-                CategoriaAdmin.PUBLICO, CategoriaAdmin.PUBLICO, CategoriaAdmin.PUBLICO,
-                CategoriaAdmin.PRIVADO, CategoriaAdmin.PRIVADO};
-        
-        Long[] cursoCodes = new Long[] {44L, 1059394L, 18277L, 1186931L, 1153739L, 5001211L, 79804L,
-                119946L, 101378L, 21884L, 21892L, 21897L, 45102L, 47333L, 1127676L, 1128169L,
-                106759L, 40720L};
+        Universidade[] universidades = new Universidade[codesIES.length];
+        for (int i = 0; i < universidades.length; i++) {
+            if (this.universidadeRepository.existsById(codesIES[i])) {
+                universidades[i] = this.universidadeRepository.findById(codesIES[i]).get();
+            } else {
+                universidades[i] = new Universidade(codesIES[i], namesIES[i], municipios[i],
+                        categoriasAdm[i], new ArrayList<>());
+            }
+            universidades[i].getCursos().add(cursos[i]);
+            this.universidadeRepository.save(universidades[i]);
+        }
 
-        Long[] cursoAreaCodes = new Long[] {21L, 21L, 72L, 72L, 72L, 72L, 79L, 79L, 79L, 702L, 702L,
-                702L, 702L, 702L, 702L, 702L, 904L, 904L};
+        return universidades;
+    }
 
-        String[] cursoNames = new String[] {"ARQUITETURA E URBANISMO", "ARQUITETURA E URBANISMO",
+    private Integer[] getAnos() {
+        return new Integer[] {2017, 2017, 2017, 2017, 2017, 2017, 2017, 2017, 2017, 2017, 2017,
+                2017, 2017, 2017, 2017, 2017, 2017, 2017};
+    }
+
+    private Modalidade[] getModalidades() {
+        return new Modalidade[] {Modalidade.EDUCACAO_PRESENCIAL, Modalidade.EDUCACAO_PRESENCIAL,
+                Modalidade.EDUCACAO_PRESENCIAL, Modalidade.EDUCACAO_PRESENCIAL,
+                Modalidade.EDUCACAO_A_DISTANCIA, Modalidade.EDUCACAO_PRESENCIAL,
+                Modalidade.EDUCACAO_PRESENCIAL, Modalidade.EDUCACAO_PRESENCIAL,
+                Modalidade.EDUCACAO_PRESENCIAL, Modalidade.EDUCACAO_PRESENCIAL,
+                Modalidade.EDUCACAO_PRESENCIAL, Modalidade.EDUCACAO_PRESENCIAL,
+                Modalidade.EDUCACAO_PRESENCIAL, Modalidade.EDUCACAO_PRESENCIAL,
+                Modalidade.EDUCACAO_PRESENCIAL, Modalidade.EDUCACAO_PRESENCIAL,
+                Modalidade.EDUCACAO_PRESENCIAL, Modalidade.EDUCACAO_PRESENCIAL};
+    }
+
+    private String[] getCursoNames() {
+        return new String[] {"ARQUITETURA E URBANISMO", "ARQUITETURA E URBANISMO",
                 "TECNOLOGIA EM ANÁLISE E DESENVOLVIMENTO DE SISTEMAS",
                 "TECNOLOGIA EM ANÁLISE E DESENVOLVIMENTO DE SISTEMAS",
                 "TECNOLOGIA EM ANÁLISE E DESENVOLVIMENTO DE SISTEMAS",
@@ -86,49 +175,27 @@ public class StubDataCreator implements ApplicationRunner {
                 "MATEMÁTICA (LICENCIATURA)", "MATEMÁTICA (LICENCIATURA)",
                 "MATEMÁTICA (LICENCIATURA)", "MATEMÁTICA (LICENCIATURA)",
                 "LETRAS-PORTUGUÊS (LICENCIATURA)", "LETRAS-PORTUGUÊS (LICENCIATURA)"};
+    }
 
-        Modalidade[] modalidades =
-                new Modalidade[] {Modalidade.EDUCACAO_PRESENCIAL, Modalidade.EDUCACAO_PRESENCIAL,
-                        Modalidade.EDUCACAO_PRESENCIAL, Modalidade.EDUCACAO_PRESENCIAL,
-                        Modalidade.EDUCACAO_A_DISTANCIA, Modalidade.EDUCACAO_PRESENCIAL,
-                        Modalidade.EDUCACAO_PRESENCIAL, Modalidade.EDUCACAO_PRESENCIAL,
-                        Modalidade.EDUCACAO_PRESENCIAL, Modalidade.EDUCACAO_PRESENCIAL,
-                        Modalidade.EDUCACAO_PRESENCIAL, Modalidade.EDUCACAO_PRESENCIAL,
-                        Modalidade.EDUCACAO_PRESENCIAL, Modalidade.EDUCACAO_PRESENCIAL,
-                        Modalidade.EDUCACAO_PRESENCIAL, Modalidade.EDUCACAO_PRESENCIAL,
-                        Modalidade.EDUCACAO_PRESENCIAL, Modalidade.EDUCACAO_PRESENCIAL};
+    private Long[] getCursoAreaCodes() {
+        return new Long[] {21L, 21L, 72L, 72L, 72L, 72L, 79L, 79L, 79L, 702L, 702L, 702L, 702L,
+                702L, 702L, 702L, 904L, 904L};
+    }
 
-        Integer[] anos = new Integer[] {2017, 2017, 2017, 2017, 2017, 2017, 2017, 2017, 2017, 2017,
-                2017, 2017, 2017, 2017, 2017, 2017, 2017, 2017};
+    private Long[] getCursoCodes() {
+        return new Long[] {44L, 1059394L, 18277L, 1186931L, 1153739L, 5001211L, 79804L, 119946L,
+                101378L, 21884L, 21892L, 21897L, 45102L, 47333L, 1127676L, 1128169L, 106759L,
+                40720L};
+    }
 
-        for (int i = 0; i < regioesStr.length; i++) {
-            Regiao regiao = new Regiao(regioesStr[i]);
-            this.regiaoRepository.save(regiao);
-
-            Estado estado = new Estado(estadosStr[i], regiao);
-            this.estadoRepository.save(estado);
-
-            Municipio municipio = new Municipio(municipiosCodes[i], estado, municipiosNamesStr[i]);
-            this.municipioRepository.save(municipio);
-
-            Curso curso =
-                    new Curso(cursoNames[i], cursoAreaCodes[i], cursoCodes[i], modalidades[i]);
-            this.cursoRepository.save(curso);
-
-            Ano ano = new Ano();
-            ano.setAno(anos[i]);
-            this.anoRepository.save(ano);
-
-            Universidade universidade = null;
-            if (this.universidadeRepository.existsById(codesIES[i])) {
-                universidade = this.universidadeRepository.findById(codesIES[i]).get();
-            } else {
-                universidade = new Universidade(codesIES[i], namesIES[i], municipio,
-                        categoriasAdm[i], new ArrayList<>());
-            }
-            universidade.getCursos().add(curso);
-            this.universidadeRepository.save(universidade);
-        }
+    private CategoriaAdmin[] getCategoriasAdmin() {
+        return new CategoriaAdmin[] {CategoriaAdmin.PUBLICO, CategoriaAdmin.PRIVADO,
+                CategoriaAdmin.PUBLICO, CategoriaAdmin.PRIVADO, CategoriaAdmin.PRIVADO,
+                CategoriaAdmin.PRIVADO, CategoriaAdmin.PRIVADO, CategoriaAdmin.PRIVADO,
+                CategoriaAdmin.PRIVADO, CategoriaAdmin.PUBLICO, CategoriaAdmin.PUBLICO,
+                CategoriaAdmin.PUBLICO, CategoriaAdmin.PUBLICO, CategoriaAdmin.PUBLICO,
+                CategoriaAdmin.PUBLICO, CategoriaAdmin.PUBLICO, CategoriaAdmin.PRIVADO,
+                CategoriaAdmin.PRIVADO};
     }
 
     private String[] getNamesIES() {
@@ -145,31 +212,31 @@ public class StubDataCreator implements ApplicationRunner {
     }
 
     private Long[] getCodesIES() {
-        return new Long[] {1L, 11544L, 967L, 997L, 1041L, 3295L, 3456L, 3543L, 3613L,
-                47L, 47L, 47L, 47L, 47L, 588L, 588L, 13L, 14L};
+        return new Long[] {1L, 11544L, 967L, 997L, 1041L, 3295L, 3456L, 3543L, 3613L, 47L, 47L, 47L,
+                47L, 47L, 588L, 588L, 13L, 14L};
     }
 
     private Long[] getMunicipiosCodes() {
-        return new Long[] {5103403L, 5201108L, 3553708L, 3506003L, 4311403L,
-                4205407L, 3509502L, 4313409L, 5208004L, 5212204L, 5218300L, 5219308L, 5218003L,
-                5210208L, 4106407L, 4106902L, 4302105L, 4318705L};
+        return new Long[] {5103403L, 5201108L, 3553708L, 3506003L, 4311403L, 4205407L, 3509502L,
+                4313409L, 5208004L, 5212204L, 5218300L, 5219308L, 5218003L, 5210208L, 4106407L,
+                4106902L, 4302105L, 4318705L};
     }
 
     private String[] getMunicipiosStr() {
-        return new String[] {"Cuiabá", "Anápolis", "Taquaritinga", "Bauru",
-                "Lajeado", "Florianópolis", "Campinas", "Novo Hamburgo", "Formosa", "Jussara",
-                "Posse", "Santa Helena de Goiás", "Porangatu", "Iporá", "Cornélio Procópio",
-                "Curitiba", "Bento Gonçalves", "São Leopoldo"};
+        return new String[] {"Cuiabá", "Anápolis", "Taquaritinga", "Bauru", "Lajeado",
+                "Florianópolis", "Campinas", "Novo Hamburgo", "Formosa", "Jussara", "Posse",
+                "Santa Helena de Goiás", "Porangatu", "Iporá", "Cornélio Procópio", "Curitiba",
+                "Bento Gonçalves", "São Leopoldo"};
     }
 
     private String[] getEstadosStr() {
-        return new String[] {"MT", "GO", "SP", "SP", "RS", "SC", "SP", "RS", "GO",
-                "GO", "GO", "GO", "GO", "GO", "PR", "PR", "RS", "RS"};
+        return new String[] {"MT", "GO", "SP", "SP", "RS", "SC", "SP", "RS", "GO", "GO", "GO", "GO",
+                "GO", "GO", "PR", "PR", "RS", "RS"};
     }
 
     private String[] getRegioesStr() {
-        return new String[] {"CO", "CO", "SE", "SE", "S", "S", "SE", "S", "CO", "CO",
-                "CO", "CO", "CO", "CO", "S", "S", "S", "S"};
+        return new String[] {"CO", "CO", "SE", "SE", "S", "S", "SE", "S", "CO", "CO", "CO", "CO",
+                "CO", "CO", "S", "S", "S", "S"};
     }
 
 }
