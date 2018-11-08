@@ -3,8 +3,9 @@ package br.com.openenade.api.universidade;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ public class UniversidadeServiceTests extends BaseUnitTest {
 
     @Test
     public void saveTest() {
-        List<Curso> cursos = createCursos();
+        Set<Curso> cursos = createCursos();
 
         Universidade ufcg =
                 new Universidade((long) 10, "UFCG", campus, CategoriaAdmin.PUBLICO, cursos);
@@ -50,7 +51,7 @@ public class UniversidadeServiceTests extends BaseUnitTest {
 
     @Test
     public void getAllTest() {
-        List<Curso> cursos = createCursos();
+        Set<Curso> cursos = createCursos();
 
         Municipio campusJP = new Municipio((long) 10, pb, "jp");
 
@@ -65,7 +66,7 @@ public class UniversidadeServiceTests extends BaseUnitTest {
         this.service.save(UFCG);
         this.service.save(UFPB);
 
-        List<Universidade> universidades = this.service.getAll();
+        Collection<Universidade> universidades = this.service.getAll();
 
         assertEquals(2, universidades.size());
 
@@ -78,7 +79,7 @@ public class UniversidadeServiceTests extends BaseUnitTest {
 
     @Test
     public void getByCodigoIESTest() {
-        List<Curso> cursos = createCursos();
+        Set<Curso> cursos = createCursos();
 
         Universidade UFPB =
                 new Universidade((long) 10, "UFPB", campus, CategoriaAdmin.PUBLICO, cursos);
@@ -96,7 +97,7 @@ public class UniversidadeServiceTests extends BaseUnitTest {
 
     @Test(expected = ResourceNotFound.class)
     public void deleteUniversidadeByCodigoIESTest() {
-        List<Curso> cursos = createCursos();
+        Set<Curso> cursos = createCursos();
 
         Universidade UFCG =
                 new Universidade((long) 10, "UFCG", campus, CategoriaAdmin.PUBLICO, cursos);
@@ -108,8 +109,8 @@ public class UniversidadeServiceTests extends BaseUnitTest {
         this.service.getUniversidadeByCodigoIES((long) 10);
     }
 
-    private List<Curso> createCursos() {
-        List<Curso> cursos = new ArrayList<Curso>();
+    private Set<Curso> createCursos() {
+        Set<Curso> cursos = new HashSet<Curso>();
         Curso cursoCC =
                 this.cursoService.save(new Curso("CC", 13, 10, Modalidade.EDUCACAO_PRESENCIAL));
         Curso cursoEE =

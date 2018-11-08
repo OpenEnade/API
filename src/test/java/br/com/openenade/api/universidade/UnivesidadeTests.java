@@ -2,8 +2,8 @@ package br.com.openenade.api.universidade;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,7 +25,7 @@ public class UnivesidadeTests {
         Estado estado = new Estado("EE", regiao);
         Municipio campus = new Municipio((long) 10, estado, null);
         
-        List<Curso> cursos = new ArrayList<Curso>();
+        Set<Curso> cursos = new HashSet<Curso>();
         cursos.add(new Curso("CC", 13, 10, Modalidade.EDUCACAO_PRESENCIAL));
         cursos.add(new Curso("EE", 13, 11, Modalidade.EDUCACAO_PRESENCIAL));
         
