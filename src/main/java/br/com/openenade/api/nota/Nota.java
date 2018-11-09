@@ -2,6 +2,7 @@ package br.com.openenade.api.nota;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import br.com.openenade.api.ano.Ano;
 import br.com.openenade.api.curso.Curso;
 import br.com.openenade.api.universidade.Universidade;
@@ -12,10 +13,13 @@ public class Nota {
     @Id
     private Integer index;
 
+    @ManyToOne
     private Ano ano;
 
+    @ManyToOne
     private Curso curso;
 
+    @ManyToOne
     private Universidade universidade;
 
     private Integer concluintesInscritos;
