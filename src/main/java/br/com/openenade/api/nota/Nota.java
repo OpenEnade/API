@@ -36,7 +36,7 @@ public class Nota {
 
     private Double enadeContinuo;
 
-    private Short enadeFaixa;
+    private Integer enadeFaixa;
 
     public Nota() {
 
@@ -45,7 +45,7 @@ public class Nota {
     public Nota(Integer index, Ano ano, Curso curso, Universidade universidade,
             Integer concluintesInscritos, Integer concluintesParticipantes, Double notaBrutaFG,
             Double notaPadronizadaFG, Double notaBrutaCE, Double notaPadronizadaCE,
-            Double enadeContinuo, Short enadeFaixa) {
+            Double enadeContinuo, Integer enadeFaixa) {
         super();
         this.index = index;
         this.ano = ano;
@@ -149,11 +149,11 @@ public class Nota {
         this.enadeContinuo = enadeContinuo;
     }
 
-    public Short getEnadeFaixa() {
+    public Integer getEnadeFaixa() {
         return enadeFaixa;
     }
 
-    public void setEnadeFaixa(Short enadeFaixa) {
+    public void setEnadeFaixa(Integer enadeFaixa) {
         this.enadeFaixa = enadeFaixa;
     }
 
