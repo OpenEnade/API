@@ -57,4 +57,100 @@ public class Nota {
         this.enadeFaixa = enadeFaixa;
     }
 
+    public Integer getIndex() {
+        return index;
+    }
+
+    public void setIndex(Integer index) {
+        this.index = index;
+    }
+
+    public Ano getAno() {
+        return ano;
+    }
+
+    public void setAno(Ano ano) {
+        this.ano = ano;
+    }
+
+    public Curso getCurso() {
+        return curso;
+    }
+
+    public void setCurso(Curso curso) {
+        this.curso = curso;
+    }
+
+    public Universidade getUniversidade() {
+        return universidade;
+    }
+
+    public void setUniversidade(Universidade universidade) {
+        this.universidade = universidade;
+    }
+
+    public Integer getConcluintesInscritos() {
+        return concluintesInscritos;
+    }
+
+    public void setConcluintesInscritos(Integer concluintesInscritos) {
+        this.concluintesInscritos = concluintesInscritos;
+    }
+
+    public Integer getConcluintesParticipantes() {
+        return concluintesParticipantes;
+    }
+
+    public void setConcluintesParticipantes(Integer concluintesParticipantes) {
+        this.concluintesParticipantes = concluintesParticipantes;
+    }
+
+    public Double getNotaBrutaFG() {
+        return notaBrutaFG;
+    }
+
+    public void setNotaBrutaFG(Double notaBrutaFG) {
+        this.notaBrutaFG = notaBrutaFG;
+    }
+
+    public Double getNotaPadronizadaFG() {
+        return notaPadronizadaFG;
+    }
+
+    public void setNotaPadronizadaFG(Double notaPadronizadaFG) {
+        this.notaPadronizadaFG = notaPadronizadaFG;
+    }
+
+    public Double getNotaBrutaCE() {
+        return notaBrutaCE;
+    }
+
+    public void setNotaBrutaCE(Double notaBrutaCE) {
+        this.notaBrutaCE = notaBrutaCE;
+    }
+
+    public Double getNotaPadronizadaCE() {
+        return notaPadronizadaCE;
+    }
+
+    public void setNotaPadronizadaCE(Double notaPadronizadaCE) {
+        this.notaPadronizadaCE = notaPadronizadaCE;
+    }
+
+    public Double getEnadeContinuo() {
+        return enadeContinuo;
+    }
+
+    public void setEnadeContinuo(Double enadeContinuo) {
+        this.enadeContinuo = enadeContinuo;
+    }
+
+    public Short getEnadeFaixa() {
+        return enadeFaixa;
+    }
+
+    public void setEnadeFaixa(Short enadeFaixa) {
+        this.enadeFaixa = enadeFaixa;
+    }
+
 }
