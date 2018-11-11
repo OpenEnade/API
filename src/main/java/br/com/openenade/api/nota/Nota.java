@@ -1,6 +1,8 @@
 package br.com.openenade.api.nota;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import br.com.openenade.api.ano.Ano;
@@ -11,6 +13,7 @@ import br.com.openenade.api.universidade.Universidade;
 public class Nota {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer index;
 
     @ManyToOne
@@ -54,7 +57,6 @@ public class Nota {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((ano == null) ? 0 : ano.hashCode());
         result = prime * result + ((index == null) ? 0 : index.hashCode());
         return result;
     }
@@ -68,11 +70,6 @@ public class Nota {
         if (getClass() != obj.getClass())
             return false;
         Nota other = (Nota) obj;
-        if (ano == null) {
-            if (other.ano != null)
-                return false;
-        } else if (!ano.equals(other.ano))
-            return false;
         if (index == null) {
             if (other.index != null)
                 return false;

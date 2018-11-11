@@ -71,7 +71,7 @@ public class NotaServiceTests {
 
         Nota nota3 = new Nota(3, ano, curso, universidade);
 
-        this.notaService.save(nota3);
+        nota3 = this.notaService.save(nota3);
 
         ano = new Ano();
         ano.setAno(2017);
@@ -86,8 +86,7 @@ public class NotaServiceTests {
 
         Nota nota4 = new Nota(4, ano, curso, universidade);
 
-        this.notaService.save(nota4);
-
+        nota4 = this.notaService.save(nota4);
 
         List<Nota> notas = this.notaService.getAll();
         assertTrue(notas.contains(nota3));
