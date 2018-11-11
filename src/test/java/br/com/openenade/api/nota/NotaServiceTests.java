@@ -99,15 +99,15 @@ public class NotaServiceTests {
     @Test
     public void getByIndex() {
         Ano ano = new Ano();
-        ano.setAno(2017);
-        Regiao regiao = new Regiao("NE");
-        Estado estado = new Estado("PB", regiao);
-        Municipio municipio = new Municipio(123L, estado, "Campina Grande");
+        ano.setAno(2049);
+        Regiao regiao = new Regiao("C");
+        Estado estado = new Estado("Ancapistão", regiao);
+        Municipio municipio = new Municipio(123L, estado, "Paulo Kogos");
         this.municipioService.save(municipio);
         Curso curso =
-                new Curso("Ciência da Computação", 41L, 2234234L, Modalidade.EDUCACAO_PRESENCIAL);
-        Universidade universidade = new Universidade(123123L, "UFCG", municipio,
-                CategoriaAdmin.PUBLICO, new HashSet<>());
+                new Curso("Ciência da Computação", 41L, 2234234L, Modalidade.EDUCACAO_A_DISTANCIA);
+        Universidade universidade = new Universidade(123123L, "UCIP", municipio,
+                CategoriaAdmin.PRIVADO, new HashSet<>());
         universidade.getCursos().add(curso);
 
         Nota nota3 = new Nota(ano, curso, universidade);
@@ -123,7 +123,7 @@ public class NotaServiceTests {
 
         assertEquals(nota3.hashCode(), nota.hashCode());
 
-        assertEquals((Integer) 2017, nota.getAno().getAno());
+        assertEquals((Integer) 2049, nota.getAno().getAno());
         assertEquals(curso, nota.getCurso());
         assertEquals(municipio, nota.getUniversidade().getCampus());
     }
@@ -131,9 +131,9 @@ public class NotaServiceTests {
     @Test
     public void deleteByIndex() {
         Ano ano = new Ano();
-        ano.setAno(2017);
+        ano.setAno(2019);
         Regiao regiao = new Regiao("NE");
-        Estado estado = new Estado("PB", regiao);
+        Estado estado = new Estado("PE", regiao);
         Municipio municipio = new Municipio(123L, estado, "Campina Grande");
         this.municipioService.save(municipio);
         Curso curso =
