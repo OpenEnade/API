@@ -51,6 +51,10 @@ public class NotaService {
 
         return this.notaRepository.save(nota);
     }
+    
+    public Optional<Nota> getNotaByIndex(Integer index) {
+        return this.notaRepository.findById(index);
+    }
 
     public List<Nota> getAll() {
         return this.notaRepository.findAll();
