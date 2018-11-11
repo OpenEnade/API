@@ -3,6 +3,7 @@ package br.com.openenade.api.nota;
 import static org.junit.Assert.*;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,6 +92,38 @@ public class NotaServiceTests {
         List<Nota> notas = this.notaService.getAll();
         assertTrue(notas.contains(nota3));
         assertTrue(notas.contains(nota4));
+    }
+
+    @Test
+    public void getByIndex() {
+        Ano ano = new Ano();
+        ano.setAno(2017);
+        Regiao regiao = new Regiao("NE");
+        Estado estado = new Estado("PB", regiao);
+        Municipio municipio = new Municipio(123L, estado, "Campina Grande");
+        this.municipioService.save(municipio);
+        Curso curso =
+                new Curso("Ciência da Computação", 41L, 2234234L, Modalidade.EDUCACAO_PRESENCIAL);
+        Universidade universidade = new Universidade(123123L, "UFCG", municipio,
+                CategoriaAdmin.PUBLICO, new HashSet<>());
+        universidade.getCursos().add(curso);
+
+        Nota nota3 = new Nota(3, ano, curso, universidade);
+
+        nota3 = this.notaService.save(nota3);
+
+        Optional<Nota> optNota = this.notaService.getNotaByIndex(nota3.getIndex());
+
+        assertTrue(optNota.isPresent());
+
+        Nota nota = optNota.get();
+        assertEquals(nota3, nota);
+
+        assertEquals(nota3.hashCode(), nota.hashCode());
+
+        assertEquals((Integer) 2017, nota.getAno().getAno());
+        assertEquals(curso, nota.getCurso());
+        assertEquals(municipio, nota.getUniversidade().getCampus());
     }
 
 }
