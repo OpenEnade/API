@@ -33,8 +33,6 @@ public class NotaService {
         Optional<Ano> optAno = this.anoRepository.findById(nota.getAno().getAno());
 
         Curso curso = nota.getCurso();
-        curso.setNome(null);
-        curso.setModalidade(null);
         Optional<Curso> optCurso = this.cursoRepository.findOne(Example.of(curso));
         Optional<Universidade> optUniversidade =
                 this.universidadeRepository.findById(nota.getUniversidade().getCodigoIES());
