@@ -42,7 +42,13 @@ public class NotaServiceTests {
                 CategoriaAdmin.PUBLICO, new HashSet<>());
         universidade.getCursos().add(curso);
 
-        Nota nota = new Nota(3, ano, curso, universidade, 60, 44, 0.5, 0.5, 0.5, 0.5, 0.5, 1);
+        Nota nota = new Nota(3, ano, curso, universidade);
+        nota.setConcluintesInscritos(33);
+        nota.setConcluintesParticipantes(20);
+        nota.setNotaBrutaCE(2.2);
+        nota.setNotaBrutaFG(1.1);
+        nota.setEnadeContinuo(3.333);
+        nota.setEnadeFaixa(3);
 
         this.notaService.save(nota);
 
@@ -63,7 +69,7 @@ public class NotaServiceTests {
                 CategoriaAdmin.PUBLICO, new HashSet<>());
         universidade.getCursos().add(curso);
 
-        Nota nota3 = new Nota(3, ano, curso, universidade, 60, 44, 0.5, 0.5, 0.5, 0.5, 0.5, 1);
+        Nota nota3 = new Nota(3, ano, curso, universidade);
 
         this.notaService.save(nota3);
 
@@ -78,11 +84,11 @@ public class NotaServiceTests {
                 new HashSet<>());
         universidade.getCursos().add(curso);
 
-        Nota nota4 = new Nota(4, ano, curso, universidade, 30, 33, 0.3, 0.9, 0.9, 0.7, 0.8, 2);
-        
+        Nota nota4 = new Nota(4, ano, curso, universidade);
+
         this.notaService.save(nota4);
-        
-        
+
+
         List<Nota> notas = this.notaService.getAll();
         assertTrue(notas.contains(nota3));
         assertTrue(notas.contains(nota4));

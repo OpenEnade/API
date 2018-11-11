@@ -42,23 +42,12 @@ public class Nota {
 
     }
 
-    public Nota(Integer index, Ano ano, Curso curso, Universidade universidade,
-            Integer concluintesInscritos, Integer concluintesParticipantes, Double notaBrutaFG,
-            Double notaPadronizadaFG, Double notaBrutaCE, Double notaPadronizadaCE,
-            Double enadeContinuo, Integer enadeFaixa) {
+    public Nota(Integer index, Ano ano, Curso curso, Universidade universidade) {
         super();
         this.index = index;
         this.ano = ano;
         this.curso = curso;
         this.universidade = universidade;
-        this.concluintesInscritos = concluintesInscritos;
-        this.concluintesParticipantes = concluintesParticipantes;
-        this.notaBrutaFG = notaBrutaFG;
-        this.notaPadronizadaFG = notaPadronizadaFG;
-        this.notaBrutaCE = notaBrutaCE;
-        this.notaPadronizadaCE = notaPadronizadaCE;
-        this.enadeContinuo = enadeContinuo;
-        this.enadeFaixa = enadeFaixa;
     }
 
     @Override
