@@ -43,7 +43,7 @@ public class NotaServiceTests {
                 CategoriaAdmin.PUBLICO, new HashSet<>());
         universidade.getCursos().add(curso);
 
-        Nota nota = new Nota(3, ano, curso, universidade);
+        Nota nota = new Nota(ano, curso, universidade);
         nota.setConcluintesInscritos(33);
         nota.setConcluintesParticipantes(20);
         nota.setNotaBrutaCE(2.2);
@@ -70,7 +70,7 @@ public class NotaServiceTests {
                 CategoriaAdmin.PUBLICO, new HashSet<>());
         universidade.getCursos().add(curso);
 
-        Nota nota3 = new Nota(3, ano, curso, universidade);
+        Nota nota3 = new Nota(ano, curso, universidade);
 
         nota3 = this.notaService.save(nota3);
 
@@ -85,7 +85,7 @@ public class NotaServiceTests {
                 new HashSet<>());
         universidade.getCursos().add(curso);
 
-        Nota nota4 = new Nota(4, ano, curso, universidade);
+        Nota nota4 = new Nota(ano, curso, universidade);
 
         nota4 = this.notaService.save(nota4);
 
@@ -108,7 +108,7 @@ public class NotaServiceTests {
                 CategoriaAdmin.PUBLICO, new HashSet<>());
         universidade.getCursos().add(curso);
 
-        Nota nota3 = new Nota(3, ano, curso, universidade);
+        Nota nota3 = new Nota(ano, curso, universidade);
 
         nota3 = this.notaService.save(nota3);
 
@@ -124,6 +124,34 @@ public class NotaServiceTests {
         assertEquals((Integer) 2017, nota.getAno().getAno());
         assertEquals(curso, nota.getCurso());
         assertEquals(municipio, nota.getUniversidade().getCampus());
+    }
+
+    @Test
+    public void deleteByIndex() {
+        Ano ano = new Ano();
+        ano.setAno(2017);
+        Regiao regiao = new Regiao("NE");
+        Estado estado = new Estado("PB", regiao);
+        Municipio municipio = new Municipio(123L, estado, "Campina Grande");
+        this.municipioService.save(municipio);
+        Curso curso =
+                new Curso("Ciência da Computação", 41L, 2234234L, Modalidade.EDUCACAO_PRESENCIAL);
+        Universidade universidade = new Universidade(123123L, "UFCG", municipio,
+                CategoriaAdmin.PUBLICO, new HashSet<>());
+        universidade.getCursos().add(curso);
+
+        Nota nota3 = new Nota(ano, curso, universidade);
+
+        nota3 = this.notaService.save(nota3);
+
+        int index = nota3.getIndex();
+        while (this.notaService.getNotaByIndex(index).isPresent()) {
+            index++;
+        }
+
+        assertFalse(this.notaService.deleteNotaByIndex(index));
+
+        assertTrue(this.notaService.deleteNotaByIndex(nota3.getIndex()));
     }
 
 }

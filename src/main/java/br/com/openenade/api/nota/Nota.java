@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import org.hibernate.annotations.Cascade;
 import br.com.openenade.api.ano.Ano;
 import br.com.openenade.api.curso.Curso;
 import br.com.openenade.api.universidade.Universidade;
@@ -17,6 +18,7 @@ public class Nota {
     private Integer index;
 
     @ManyToOne
+    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
     private Ano ano;
 
     @ManyToOne
@@ -45,9 +47,8 @@ public class Nota {
 
     }
 
-    public Nota(Integer index, Ano ano, Curso curso, Universidade universidade) {
+    public Nota(Ano ano, Curso curso, Universidade universidade) {
         super();
-        this.index = index;
         this.ano = ano;
         this.curso = curso;
         this.universidade = universidade;

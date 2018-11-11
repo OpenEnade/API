@@ -38,26 +38,36 @@ public class NotaService {
                 this.universidadeRepository.findById(nota.getUniversidade().getCodigoIES());
 
         if (!optAno.isPresent()) {
-            this.anoRepository.save(nota.getAno());
+            nota.setAno(this.anoRepository.save(nota.getAno()));
         }
 
         if (!optCurso.isPresent()) {
-            this.cursoRepository.save(nota.getCurso());
+            nota.setCurso(this.cursoRepository.save(nota.getCurso()));
         }
 
         if (!optUniversidade.isPresent()) {
-            this.universidadeRepository.save(nota.getUniversidade());
+            nota.setUniversidade(this.universidadeRepository.save(nota.getUniversidade()));
         }
 
         return this.notaRepository.save(nota);
     }
-    
+
     public Optional<Nota> getNotaByIndex(Integer index) {
         return this.notaRepository.findById(index);
     }
 
     public List<Nota> getAll() {
         return this.notaRepository.findAll();
+    }
+
+    public boolean deleteNotaByIndex(Integer index) {
+        if (this.notaRepository.existsById(index)) {
+            this.notaRepository.deleteById(index);
+        } else {
+            return false;
+        }
+
+        return true;
     }
 
 }
