@@ -32,10 +32,10 @@ public class NotaServiceTests {
     @Test
     public void save() {
         Ano ano = new Ano();
-        ano.setAno(2017);
-        Regiao regiao = new Regiao("NE");
-        Estado estado = new Estado("PB", regiao);
-        Municipio municipio = new Municipio(123L, estado, "Campina Grande");
+        ano.setAno(2018);
+        Regiao regiao = new Regiao("NO");
+        Estado estado = new Estado("XD", regiao);
+        Municipio municipio = new Municipio(123L, estado, "Capoeira Grande");
         this.municipioService.save(municipio);
         Curso curso =
                 new Curso("Ciência da Computação", 41L, 2234234L, Modalidade.EDUCACAO_PRESENCIAL);
@@ -54,6 +54,8 @@ public class NotaServiceTests {
         this.notaService.save(nota);
 
         this.notaService.save(nota);
+
+        assertTrue(this.notaService.getNotaByIndex(nota.getIndex()).isPresent());
     }
 
     @Test
