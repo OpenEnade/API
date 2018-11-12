@@ -146,7 +146,7 @@ public class UniversidadeServiceTests extends BaseUnitTest {
 
         this.service.deleteUniversidadeById(ufcg.getCodigoIES(), ufcg.getCampus());
         
-        assertTrue(!this.service.getUniversidadeById(ufcg.getCodigoIES(), ufcg.getCampus()).isPresent());
+        assertFalse(this.service.getUniversidadeById(ufcg.getCodigoIES(), ufcg.getCampus()).isPresent());
         
     }
     
