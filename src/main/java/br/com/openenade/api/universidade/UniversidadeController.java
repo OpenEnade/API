@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.openenade.api.municipio.Municipio;
-
 @RestController
 @CrossOrigin("*")
 @RequestMapping(path = UniversidadeController.ENDPOINT)
