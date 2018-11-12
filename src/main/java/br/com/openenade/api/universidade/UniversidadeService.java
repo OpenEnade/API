@@ -37,12 +37,16 @@ public class UniversidadeService {
         return this.repository.findAll();
     }
 
-    public Optional<Universidade> getOptionalUniversidadeByCodigoIES(Long codigoIES) {
-        return this.repository.findById(codigoIES);
+    
+    //Issue #38
+    public Collection<Universidade> getAllByCodigoIES(Long codigoIES) {
+    	
+    	return this.repository.findAllByCodigoIES(codigoIES);
+  
     }
-
+    
     public Universidade getUniversidadeByCodigoIES(Long codigoIES) {
-        Optional<Universidade> optUnivesidade = this.repository.findById(codigoIES);
+        Optional<Universidade> optUnivesidade = this.repository.findByCodigoIES(codigoIES);
         if (optUnivesidade.isPresent()) {
             return optUnivesidade.get();
         } else {
@@ -50,18 +54,28 @@ public class UniversidadeService {
         }
     }
 
-    public Universidade getByCodigoIES(Long codigoIES) {
-        return this.repository.findById(codigoIES).get();
-    }
-
+  
     public void deleteUniversidadeByCodigoIES(Long codigoIES) {
-        this.getUniversidadeByCodigoIES(codigoIES);
-        this.repository.deleteById(codigoIES);
+        this.repository.deleteByCodigoIES(codigoIES);
     }
 
-    public void deleteUniversidadesByMunicipioCodigo(Long codigo) {
-        for (Universidade universidade : this.repository.findUniversidadesByCampusCodigo(codigo)) {
-            this.deleteUniversidadeByCodigoIES(universidade.getCodigoIES());
-        }
+    public void deleteUniversidadesByMunicipioCodigo(Municipio campus) {
+        
+        this.repository.deleteAllByCampus(campus);
     }
+    
+    public Optional<Universidade> getUniversidadeById(Long codigoIES, Municipio campus) {
+    	
+    	UniversidadeId id = new UniversidadeId(codigoIES, campus.getCodigo());
+    	return this.repository.findById(id);
+    	
+    }
+    
+    
+    public void deleteUniversidadeById(Long codigoIES, Municipio campus) {
+
+    	UniversidadeId id = new UniversidadeId(codigoIES, campus.getCodigo());
+    	this.repository.deleteById(id);
+    }
+    
 }

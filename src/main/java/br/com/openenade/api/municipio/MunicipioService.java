@@ -54,8 +54,8 @@ public class MunicipioService {
     }
 
     public void deleteMunicipioByCodigo(Long codigo) {
-        this.getMunicipioByCodigo(codigo);
-        this.universidadeService.deleteUniversidadesByMunicipioCodigo(codigo);
+        
+        this.universidadeService.deleteUniversidadesByMunicipioCodigo(this.getMunicipioByCodigo(codigo));
         this.repository.deleteById(codigo);
     }
 

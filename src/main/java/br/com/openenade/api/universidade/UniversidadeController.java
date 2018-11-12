@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.openenade.api.municipio.Municipio;
+
 @RestController
 @CrossOrigin("*")
 @RequestMapping(path = UniversidadeController.ENDPOINT)
@@ -43,6 +45,15 @@ public class UniversidadeController {
         
         return this.service.getUniversidadeByCodigoIES(codigoIES);
     }
+    
+    @ResponseBody
+    @GetMapping(path = "/{codigoIES}/{campus}")
+    public Universidade getUniversidadeById(@PathVariable(name = "codigoIES") Long codigoIES,
+    		@PathVariable(name = "campus") Municipio campus){
+
+    	return this.service.getUniversidadeById(codigoIES, campus).get();
+    }
+    
     
     @DeleteMapping(path = "/{codigoIES}")
     public ResponseEntity<Universidade> deleteUniversidade
