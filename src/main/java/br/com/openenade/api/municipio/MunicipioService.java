@@ -14,54 +14,53 @@ import br.com.openenade.api.universidade.UniversidadeService;
 @Transactional
 public class MunicipioService {
 
-    @Autowired
-    private MunicipioRepository repository;
+	@Autowired
+	private MunicipioRepository repository;
 
-    @Autowired
-    private EstadoService estadoService;
+	@Autowired
+	private EstadoService estadoService;
 
-    @Autowired
-    private UniversidadeService universidadeService;
+	@Autowired
+	private UniversidadeService universidadeService;
 
-    public Municipio save(Municipio municipio) {
-        Optional<Estado> optEstado =
-                this.estadoService.getOptionalBySigla(municipio.getEstado().getSigla());
-        Estado newEstado;
-        if (optEstado.isPresent()) {
-            newEstado = optEstado.get();
-        } else {
-            newEstado = this.estadoService.save(municipio.getEstado());
-        }
-        municipio.setEstado(newEstado);
-        return this.repository.save(municipio);
-    }
+	public Municipio save(Municipio municipio) {
+		Optional<Estado> optEstado = this.estadoService.getOptionalBySigla(municipio.getEstado().getSigla());
+		Estado newEstado;
+		if (optEstado.isPresent()) {
+			newEstado = optEstado.get();
+		} else {
+			newEstado = this.estadoService.save(municipio.getEstado());
+		}
+		municipio.setEstado(newEstado);
+		return this.repository.save(municipio);
+	}
 
-    public List<Municipio> getAll() {
-        return this.repository.findAll();
-    }
+	public List<Municipio> getAll() {
+		return this.repository.findAll();
+	}
 
-    public Optional<Municipio> getOptionalByCodigo(Long codigo) {
-        return this.repository.findById(codigo);
-    }
+	public Optional<Municipio> getOptionalByCodigo(Long codigo) {
+		return this.repository.findById(codigo);
+	}
 
-    public Municipio getMunicipioByCodigo(Long codigo) {
-        Optional<Municipio> optMunicipio = this.repository.findById(codigo);
-        if (optMunicipio.isPresent()) {
-            return optMunicipio.get();
-        } else {
-            throw new ResourceNotFound("" + codigo);
-        }
-    }
+	public Municipio getMunicipioByCodigo(Long codigo) {
+		Optional<Municipio> optMunicipio = this.repository.findById(codigo);
+		if (optMunicipio.isPresent()) {
+			return optMunicipio.get();
+		} else {
+			throw new ResourceNotFound("" + codigo);
+		}
+	}
 
-    public void deleteMunicipioByCodigo(Long codigo) {
-        
-        this.universidadeService.deleteUniversidadesByMunicipioCodigo(this.getMunicipioByCodigo(codigo));
-        this.repository.deleteById(codigo);
-    }
+	public void deleteMunicipioByCodigo(Long codigo) {
 
-    public void deleteMunicipiosByEstadoSigla(String siglaEstado) {
-        for (Municipio municipio : this.repository.findMunicipiosByEstadoSigla(siglaEstado)) {
-            this.deleteMunicipioByCodigo(municipio.getCodigo());
-        }
-    }
+		this.universidadeService.deleteUniversidadesByMunicipioCodigo(this.getMunicipioByCodigo(codigo));
+		this.repository.deleteById(codigo);
+	}
+
+	public void deleteMunicipiosByEstadoSigla(String siglaEstado) {
+		for (Municipio municipio : this.repository.findMunicipiosByEstadoSigla(siglaEstado)) {
+			this.deleteMunicipioByCodigo(municipio.getCodigo());
+		}
+	}
 }
