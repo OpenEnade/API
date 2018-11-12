@@ -12,9 +12,25 @@ public class UniversidadeId implements Serializable{
 
 
 	private Long codigoIES;
-    private Long campus;
+	private Long campus;
 
     public UniversidadeId() {};
+
+	public Long getCodigoIES() {
+		return codigoIES;
+	}
+
+	public void setCodigoIES(Long codigoIES) {
+		this.codigoIES = codigoIES;
+	}
+
+	public Long getCampus() {
+		return campus;
+	}
+
+	public void setCampus(Long campus) {
+		this.campus = campus;
+	}
 
 	public UniversidadeId(Long codigoIES, Long campus) {
 		super();
