@@ -43,7 +43,8 @@ public class NotaServiceTests {
                 CategoriaAdmin.PUBLICO, new HashSet<>());
         universidade.getCursos().add(curso);
 
-        Nota nota = new Nota(ano, curso, universidade);
+        Nota nota = new Nota(ano.getAno(), curso.getCodigoCurso(), curso.getModalidade(),
+                universidade.getCodigoIES(), municipio.getCodigo());
         nota.setConcluintesInscritos(33);
         nota.setConcluintesParticipantes(20);
         nota.setNotaBrutaCE(2.2);
@@ -52,6 +53,8 @@ public class NotaServiceTests {
         nota.setEnadeFaixa(3);
 
         this.notaService.save(nota);
+
+        assertTrue(this.notaService.getNotaById(nota.getId()).isPresent());
 
         this.notaService.save(nota);
 
@@ -72,7 +75,8 @@ public class NotaServiceTests {
                 CategoriaAdmin.PUBLICO, new HashSet<>());
         universidade.getCursos().add(curso);
 
-        Nota nota3 = new Nota(ano, curso, universidade);
+        Nota nota3 = new Nota(ano.getAno(), curso.getCodigoCurso(), curso.getModalidade(),
+                universidade.getCodigoIES(), municipio.getCodigo());
 
         nota3 = this.notaService.save(nota3);
 
@@ -87,7 +91,8 @@ public class NotaServiceTests {
                 new HashSet<>());
         universidade.getCursos().add(curso);
 
-        Nota nota4 = new Nota(ano, curso, universidade);
+        Nota nota4 = new Nota(ano.getAno(), curso.getCodigoCurso(), curso.getModalidade(),
+                universidade.getCodigoIES(), municipio.getCodigo());
 
         nota4 = this.notaService.save(nota4);
 
@@ -110,7 +115,8 @@ public class NotaServiceTests {
                 CategoriaAdmin.PRIVADO, new HashSet<>());
         universidade.getCursos().add(curso);
 
-        Nota nota3 = new Nota(ano, curso, universidade);
+        Nota nota3 = new Nota(ano.getAno(), curso.getCodigoCurso(), curso.getModalidade(),
+                universidade.getCodigoIES(), municipio.getCodigo());
 
         nota3 = this.notaService.save(nota3);
 
@@ -123,9 +129,11 @@ public class NotaServiceTests {
 
         assertEquals(nota3.hashCode(), nota.hashCode());
 
-        assertEquals((Integer) 2049, nota.getAno().getAno());
-        assertEquals(curso, nota.getCurso());
-        assertEquals(municipio, nota.getUniversidade().getCampus());
+        assertEquals((Integer) 2049, nota.getId().getAno());
+        assertEquals(curso.getCodigoCurso(), nota.getId().getCodigoCurso());
+        assertEquals(curso.getModalidade(), nota.getId().getModalidade());
+        assertEquals(universidade.getCodigoIES(), nota.getId().getCodigoIES());
+        assertEquals(municipio.getCodigo(), nota.getId().getCodigoMunicipio());
     }
 
     @Test
@@ -142,7 +150,8 @@ public class NotaServiceTests {
                 CategoriaAdmin.PUBLICO, new HashSet<>());
         universidade.getCursos().add(curso);
 
-        Nota nota3 = new Nota(ano, curso, universidade);
+        Nota nota3 = new Nota(ano.getAno(), curso.getCodigoCurso(), curso.getModalidade(),
+                universidade.getCodigoIES(), municipio.getCodigo());
 
         nota3 = this.notaService.save(nota3);
 
