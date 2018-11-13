@@ -7,6 +7,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
@@ -15,6 +16,7 @@ import br.com.openenade.api.categoriaadmin.CategoriaAdmin;
 import br.com.openenade.api.curso.Curso;
 import br.com.openenade.api.municipio.Municipio;
 
+@IdClass(UniversidadeId.class)
 @Entity
 public class Universidade {
 
@@ -25,6 +27,7 @@ public class Universidade {
     @NotBlank(message = "'nome' não pode ser vazio.")
     private String nome;
 
+    @Id
     @ManyToOne(optional = false)
     @NotNull(message = "'campus' não pode ser nulo.")
     private Municipio campus;

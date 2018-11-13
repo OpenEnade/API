@@ -51,9 +51,9 @@ public class UniversidadeControllerTests extends BaseUnitTest {
     
     assertEquals(new ResponseEntity<>(this.service.getAll(), HttpStatus.OK), controller.getAll());
     
-    Optional<Universidade> optUniversidade = this.service.getOptionalUniversidadeByCodigoIES(univ.getCodigoIES());
+    Universidade optUniversidade = this.service.getUniversidadeByCodigoIES(univ.getCodigoIES());
     
-    assertEquals(optUniversidade.get(),
+    assertEquals(optUniversidade,
             controller.getUniversidadeByCodigoIES((long) 10));
     
     assertEquals(new ResponseEntity<>(HttpStatus.OK),
