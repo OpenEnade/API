@@ -5,6 +5,7 @@ import javax.persistence.Embeddable;
 import javax.persistence.OneToOne;
 import br.com.openenade.api.ano.Ano;
 import br.com.openenade.api.curso.Curso;
+import br.com.openenade.api.modalidade.Modalidade;
 import br.com.openenade.api.universidade.Universidade;
 
 @Embeddable
@@ -18,6 +19,12 @@ public class NotaId implements Serializable {
 
     @OneToOne
     private Universidade universidade;
+    
+    private Integer anoo;
+    private Long codigoCurso;
+    private Modalidade modalidade;
+    private Long codigoIES;
+    private Long codigoMunicipio;
 
     /**
      * 
@@ -26,6 +33,10 @@ public class NotaId implements Serializable {
 
     public NotaId() {
 
+    }
+    
+    public NotaId(Integer ano, Long codigoCurso, Modalidade modalidade, Long codigoIES, Long codigoMunicipio) {
+        
     }
 
     public NotaId(Ano ano, Curso curso, Universidade universidade) {
