@@ -2,9 +2,7 @@ package br.com.openenade.api.nota;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import br.com.openenade.api.ano.Ano;
-import br.com.openenade.api.curso.Curso;
-import br.com.openenade.api.universidade.Universidade;
+import br.com.openenade.api.modalidade.Modalidade;
 
 @Entity
 public class Nota {
@@ -33,9 +31,10 @@ public class Nota {
 
     }
 
-    public Nota(Ano ano, Curso curso, Universidade universidade) {
+    public Nota(Integer ano, Long codigoCurso, Modalidade modalidade, Long codigoIES,
+            Long codigoMunicipio) {
         super();
-        this.id = new NotaId(ano, curso, universidade);
+        this.id = new NotaId(ano, codigoCurso, modalidade, codigoIES, codigoMunicipio);
     }
 
     @Override
@@ -69,30 +68,6 @@ public class Nota {
 
     public void setId(NotaId id) {
         this.id = id;
-    }
-
-    public Ano getAno() {
-        return this.id.getAno();
-    }
-
-    public void setAno(Ano ano) {
-        this.id.setAno(ano);
-    }
-
-    public Curso getCurso() {
-        return this.id.getCurso();
-    }
-
-    public void setCurso(Curso curso) {
-        this.id.setCurso(curso);
-    }
-
-    public Universidade getUniversidade() {
-        return this.id.getUniversidade();
-    }
-
-    public void setUniversidade(Universidade universidade) {
-        this.id.setUniversidade(universidade);
     }
 
     public Integer getConcluintesInscritos() {
