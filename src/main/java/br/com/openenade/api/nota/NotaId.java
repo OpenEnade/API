@@ -2,25 +2,12 @@ package br.com.openenade.api.nota;
 
 import java.io.Serializable;
 import javax.persistence.Embeddable;
-import javax.persistence.OneToOne;
-import br.com.openenade.api.ano.Ano;
-import br.com.openenade.api.curso.Curso;
 import br.com.openenade.api.modalidade.Modalidade;
-import br.com.openenade.api.universidade.Universidade;
 
 @Embeddable
 public class NotaId implements Serializable {
 
-    @OneToOne
-    private Ano ano;
-
-    @OneToOne
-    private Curso curso;
-
-    @OneToOne
-    private Universidade universidade;
-    
-    private Integer anoo;
+    private Integer ano;
     private Long codigoCurso;
     private Modalidade modalidade;
     private Long codigoIES;
@@ -34,16 +21,15 @@ public class NotaId implements Serializable {
     public NotaId() {
 
     }
-    
-    public NotaId(Integer ano, Long codigoCurso, Modalidade modalidade, Long codigoIES, Long codigoMunicipio) {
-        
-    }
 
-    public NotaId(Ano ano, Curso curso, Universidade universidade) {
-        super();
+    public NotaId(Integer ano, Long codigoCurso, Modalidade modalidade, Long codigoIES,
+            Long codigoMunicipio) {
+
         this.ano = ano;
-        this.curso = curso;
-        this.universidade = universidade;
+        this.codigoCurso = codigoCurso;
+        this.modalidade = modalidade;
+        this.codigoIES = codigoIES;
+        this.codigoMunicipio = codigoMunicipio;
     }
 
     @Override
@@ -51,8 +37,10 @@ public class NotaId implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((ano == null) ? 0 : ano.hashCode());
-        result = prime * result + ((curso == null) ? 0 : curso.hashCode());
-        result = prime * result + ((universidade == null) ? 0 : universidade.hashCode());
+        result = prime * result + ((codigoCurso == null) ? 0 : codigoCurso.hashCode());
+        result = prime * result + ((codigoIES == null) ? 0 : codigoIES.hashCode());
+        result = prime * result + ((codigoMunicipio == null) ? 0 : codigoMunicipio.hashCode());
+        result = prime * result + ((modalidade == null) ? 0 : modalidade.hashCode());
         return result;
     }
 
@@ -70,47 +58,71 @@ public class NotaId implements Serializable {
                 return false;
         } else if (!ano.equals(other.ano))
             return false;
-        if (curso == null) {
-            if (other.curso != null)
+        if (codigoCurso == null) {
+            if (other.codigoCurso != null)
                 return false;
-        } else if (!curso.equals(other.curso))
+        } else if (!codigoCurso.equals(other.codigoCurso))
             return false;
-        if (universidade == null) {
-            if (other.universidade != null)
+        if (codigoIES == null) {
+            if (other.codigoIES != null)
                 return false;
-        } else if (!universidade.equals(other.universidade))
+        } else if (!codigoIES.equals(other.codigoIES))
+            return false;
+        if (codigoMunicipio == null) {
+            if (other.codigoMunicipio != null)
+                return false;
+        } else if (!codigoMunicipio.equals(other.codigoMunicipio))
+            return false;
+        if (modalidade != other.modalidade)
             return false;
         return true;
     }
 
-    public Ano getAno() {
+    public Integer getAno() {
         return ano;
     }
 
-    public void setAno(Ano ano) {
+    public void setAno(Integer ano) {
         this.ano = ano;
     }
 
-    public Curso getCurso() {
-        return curso;
+    public Long getCodigoCurso() {
+        return codigoCurso;
     }
 
-    public void setCurso(Curso curso) {
-        this.curso = curso;
+    public void setCodigoCurso(Long codigoCurso) {
+        this.codigoCurso = codigoCurso;
     }
 
-    public Universidade getUniversidade() {
-        return universidade;
+    public Modalidade getModalidade() {
+        return modalidade;
     }
 
-    public void setUniversidade(Universidade universidade) {
-        this.universidade = universidade;
+    public void setModalidade(Modalidade modalidade) {
+        this.modalidade = modalidade;
+    }
+
+    public Long getCodigoIES() {
+        return codigoIES;
+    }
+
+    public void setCodigoIES(Long codigoIES) {
+        this.codigoIES = codigoIES;
+    }
+
+    public Long getCodigoMunicipio() {
+        return codigoMunicipio;
+    }
+
+    public void setCodigoMunicipio(Long codigoMunicipio) {
+        this.codigoMunicipio = codigoMunicipio;
     }
 
     @Override
     public String toString() {
-        return "NotaId [ano=" + this.ano + ", curso=" + this.curso + ", universidade="
-                + this.universidade + "]";
+        return "NotaId [ano=" + this.ano + ", codigoCurso=" + this.codigoCurso + ", modalidade="
+                + this.modalidade + ", codigoIES=" + this.codigoIES + ", codigoMunicipio="
+                + this.codigoMunicipio + "]";
     }
 
 }
