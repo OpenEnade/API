@@ -11,6 +11,7 @@ import br.com.openenade.api.ano.AnoRepository;
 import br.com.openenade.api.curso.Curso;
 import br.com.openenade.api.curso.CursoRepository;
 import br.com.openenade.api.universidade.Universidade;
+import br.com.openenade.api.universidade.UniversidadeId;
 import br.com.openenade.api.universidade.UniversidadeRepository;
 
 @Service
@@ -34,8 +35,9 @@ public class NotaService {
 
         Curso curso = nota.getCurso();
         Optional<Curso> optCurso = this.cursoRepository.findOne(Example.of(curso));
-        Optional<Universidade> optUniversidade =
-                this.universidadeRepository.findById(nota.getUniversidade().getCodigoIES());
+        Optional<Universidade> optUniversidade = this.universidadeRepository
+                .findById(new UniversidadeId(nota.getUniversidade().getCodigoIES(),
+                        nota.getUniversidade().getCampus().getCodigo()));
 
         if (!optAno.isPresent()) {
             nota.setAno(this.anoRepository.save(nota.getAno()));
