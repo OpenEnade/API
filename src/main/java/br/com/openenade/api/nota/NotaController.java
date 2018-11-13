@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import br.com.openenade.api.ano.Ano;
-import br.com.openenade.api.curso.Curso;
-import br.com.openenade.api.universidade.Universidade;
+import br.com.openenade.api.modalidade.Modalidade;
 
 @RestController
 @CrossOrigin("*")
@@ -41,21 +39,15 @@ public class NotaController {
     }
 
     @ResponseBody
-    @GetMapping(path = "/{ano}/{codigoCurso}/{codigoIES}")
+    @GetMapping(path = "/{ano}-{codigoCurso}-{modalidade}-{codigoIES}-{codigoMunicipio}")
     public ResponseEntity<Nota> getNotaByIndex(@PathVariable(name = "ano") Integer ano,
             @PathVariable(name = "codigoCurso") Long codigoCurso,
-            @PathVariable(name = "codigoIES") Long codigoIES) {
+            @PathVariable(name = "modalidade") Modalidade modalidade,
+            @PathVariable(name = "codigoIES") Long codigoIES,
+            @PathVariable(name = "codigoMunicipio") Long codigoMunicipio) {
 
-        Ano anoObj = new Ano();
-        anoObj.setAno(ano);
-
-        Curso curso = new Curso();
-        curso.setCodigoCurso(codigoCurso);
-
-        Universidade universidade = new Universidade();
-        universidade.setCodigoIES(codigoIES);
-
-        Optional<Nota> optNota = this.service.getNotaById(new NotaId(anoObj, curso, universidade));
+        Optional<Nota> optNota = this.service
+                .getNotaById(new NotaId(ano, codigoCurso, modalidade, codigoIES, codigoMunicipio));
 
         if (optNota.isPresent()) {
             return new ResponseEntity<>(optNota.get(), HttpStatus.OK);
@@ -65,21 +57,15 @@ public class NotaController {
     }
 
 
-    @DeleteMapping(path = "/{ano}/{codigoCurso}/{codigoIES}")
+    @DeleteMapping(path = "/{ano}-{codigoCurso}-{modalidade}-{codigoIES}-{codigoMunicipio}")
     public ResponseEntity<String> deleteNotaByIndex(@PathVariable(name = "ano") Integer ano,
             @PathVariable(name = "codigoCurso") Long codigoCurso,
-            @PathVariable(name = "codigoIES") Long codigoIES) {
+            @PathVariable(name = "modalidade") Modalidade modalidade,
+            @PathVariable(name = "codigoIES") Long codigoIES,
+            @PathVariable(name = "codigoMunicipio") Long codigoMunicipio) {
 
-        Ano anoObj = new Ano();
-        anoObj.setAno(ano);
-
-        Curso curso = new Curso();
-        curso.setCodigoCurso(codigoCurso);
-
-        Universidade universidade = new Universidade();
-        universidade.setCodigoIES(codigoIES);
-
-        boolean deleted = this.service.deleteNotaById(new NotaId(anoObj, curso, universidade));
+        boolean deleted = this.service.deleteNotaById(
+                new NotaId(ano, codigoCurso, modalidade, codigoIES, codigoMunicipio));
 
         if (deleted) {
             return new ResponseEntity<>("Deletado.", HttpStatus.OK);
