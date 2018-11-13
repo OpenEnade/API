@@ -159,4 +159,9 @@ public class Nota {
         this.enadeFaixa = enadeFaixa;
     }
 
+    @Override
+    public String toString() {
+        return "Nota [id=" + this.id + "]";
+    }
+
 }

@@ -2,6 +2,7 @@ package br.com.openenade.api.nota;
 
 import static org.junit.Assert.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -57,7 +58,7 @@ public class NotaServiceTests {
         assertTrue(this.notaService.getNotaById(nota.getId()).isPresent());
     }
 
-    /*@Test
+    @Test
     public void getAll() {
         Ano ano = new Ano();
         ano.setAno(2017);
@@ -82,7 +83,7 @@ public class NotaServiceTests {
         municipio = new Municipio(333L, estado, "Leruado");
         this.municipioService.save(municipio);
         curso = new Curso("Engenharia dos Danones", 42L, 2334234L, Modalidade.EDUCACAO_PRESENCIAL);
-        universidade = new Universidade(123123L, "UFAM", municipio, CategoriaAdmin.PUBLICO,
+        universidade = new Universidade(123122L, "UFAM", municipio, CategoriaAdmin.PUBLICO,
                 new HashSet<>());
         universidade.getCursos().add(curso);
 
@@ -93,7 +94,7 @@ public class NotaServiceTests {
         List<Nota> notas = this.notaService.getAll();
         assertTrue(notas.contains(nota3));
         assertTrue(notas.contains(nota4));
-    }*/
+    }
 
     @Test
     public void getById() {

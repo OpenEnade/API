@@ -96,4 +96,10 @@ public class NotaId implements Serializable {
         this.universidade = universidade;
     }
 
+    @Override
+    public String toString() {
+        return "NotaId [ano=" + this.ano + ", curso=" + this.curso + ", universidade="
+                + this.universidade + "]";
+    }
+
 }
