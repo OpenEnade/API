@@ -1,11 +1,7 @@
 package br.com.openenade.api.nota;
 
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import org.hibernate.annotations.Cascade;
 import br.com.openenade.api.ano.Ano;
 import br.com.openenade.api.curso.Curso;
 import br.com.openenade.api.universidade.Universidade;
@@ -13,19 +9,9 @@ import br.com.openenade.api.universidade.Universidade;
 @Entity
 public class Nota {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Integer index;
 
-    @ManyToOne
-    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-    private Ano ano;
-
-    @ManyToOne
-    private Curso curso;
-
-    @ManyToOne
-    private Universidade universidade;
+    @EmbeddedId
+    private NotaId id;
 
     private Integer concluintesInscritos;
 
@@ -49,16 +35,14 @@ public class Nota {
 
     public Nota(Ano ano, Curso curso, Universidade universidade) {
         super();
-        this.ano = ano;
-        this.curso = curso;
-        this.universidade = universidade;
+        this.id = new NotaId(ano, curso, universidade);
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((index == null) ? 0 : index.hashCode());
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
         return result;
     }
 
@@ -71,44 +55,44 @@ public class Nota {
         if (getClass() != obj.getClass())
             return false;
         Nota other = (Nota) obj;
-        if (index == null) {
-            if (other.index != null)
+        if (id == null) {
+            if (other.id != null)
                 return false;
-        } else if (!index.equals(other.index))
+        } else if (!id.equals(other.id))
             return false;
         return true;
     }
 
-    public Integer getIndex() {
-        return index;
+    public NotaId getId() {
+        return id;
     }
 
-    public void setIndex(Integer index) {
-        this.index = index;
+    public void setId(NotaId id) {
+        this.id = id;
     }
 
     public Ano getAno() {
-        return ano;
+        return this.id.getAno();
     }
 
     public void setAno(Ano ano) {
-        this.ano = ano;
+        this.id.setAno(ano);
     }
 
     public Curso getCurso() {
-        return curso;
+        return this.id.getCurso();
     }
 
     public void setCurso(Curso curso) {
-        this.curso = curso;
+        this.id.setCurso(curso);
     }
 
     public Universidade getUniversidade() {
-        return universidade;
+        return this.id.getUniversidade();
     }
 
     public void setUniversidade(Universidade universidade) {
-        this.universidade = universidade;
+        this.id.setUniversidade(universidade);
     }
 
     public Integer getConcluintesInscritos() {

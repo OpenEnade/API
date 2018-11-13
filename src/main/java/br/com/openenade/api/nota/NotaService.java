@@ -52,17 +52,17 @@ public class NotaService {
         return this.notaRepository.save(nota);
     }
 
-    public Optional<Nota> getNotaByIndex(Integer index) {
-        return this.notaRepository.findById(index);
+    public Optional<Nota> getNotaById(NotaId id) {
+        return this.notaRepository.findById(id);
     }
 
     public List<Nota> getAll() {
         return this.notaRepository.findAll();
     }
 
-    public boolean deleteNotaByIndex(Integer index) {
-        if (this.notaRepository.existsById(index)) {
-            this.notaRepository.deleteById(index);
+    public boolean deleteNotaByIndex(NotaId id) {
+        if (this.notaRepository.existsById(id)) {
+            this.notaRepository.deleteById(id);
         } else {
             return false;
         }

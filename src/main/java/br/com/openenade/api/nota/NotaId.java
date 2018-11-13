@@ -2,6 +2,7 @@ package br.com.openenade.api.nota;
 
 import java.io.Serializable;
 import javax.persistence.Embeddable;
+import javax.persistence.OneToOne;
 import br.com.openenade.api.ano.Ano;
 import br.com.openenade.api.curso.Curso;
 import br.com.openenade.api.universidade.Universidade;
@@ -9,8 +10,13 @@ import br.com.openenade.api.universidade.Universidade;
 @Embeddable
 public class NotaId implements Serializable {
 
+    @OneToOne
     private Ano ano;
+
+    @OneToOne
     private Curso curso;
+
+    @OneToOne
     private Universidade universidade;
 
     /**
