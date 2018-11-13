@@ -60,7 +60,7 @@ public class NotaService {
         return this.notaRepository.findAll();
     }
 
-    public boolean deleteNotaByIndex(NotaId id) {
+    public boolean deleteNotaById(NotaId id) {
         if (this.notaRepository.existsById(id)) {
             this.notaRepository.deleteById(id);
         } else {

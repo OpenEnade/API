@@ -127,8 +127,8 @@ public class NotaServiceTests {
         assertEquals(municipio, nota.getUniversidade().getCampus());
     }
 
-    /*@Test
-    public void deleteByIndex() {
+    @Test
+    public void deleteById() {
         Ano ano = new Ano();
         ano.setAno(2019);
         Regiao regiao = new Regiao("NE");
@@ -145,14 +145,7 @@ public class NotaServiceTests {
 
         nota3 = this.notaService.save(nota3);
 
-        int index = nota3.getIndex();
-        while (this.notaService.getNotaByIndex(index).isPresent()) {
-            index++;
-        }
-
-        assertFalse(this.notaService.deleteNotaByIndex(index));
-
-        assertTrue(this.notaService.deleteNotaByIndex(nota3.getIndex()));
-    }*/
+        assertTrue(this.notaService.deleteNotaById(nota3.getId()));
+    }
 
 }
