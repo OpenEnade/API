@@ -21,56 +21,56 @@ import br.com.openenade.api.universidade.UniversidadeService;
 
 public class BaseUnitTest {
 
-    @Autowired
-    private AnoService anoService;
+	@Autowired
+	private AnoService anoService;
 
-    @Autowired
-    private CursoService cursoService;
+	@Autowired
+	private CursoService cursoService;
 
-    @Autowired
-    private RegiaoService regiaoService;
+	@Autowired
+	private RegiaoService regiaoService;
 
-    @Autowired
-    private EstadoService estadoService;
+	@Autowired
+	private EstadoService estadoService;
 
-    @Autowired
-    private MunicipioService municipioService;
+	@Autowired
+	private MunicipioService municipioService;
 
-    @Autowired
-    private UniversidadeService universidadeService;
-    
-    @Autowired
-    private NotaService notaService;
+	@Autowired
+	private UniversidadeService universidadeService;
 
-    /**
-     * Do not change the order of deletions, if you want to add any other service, please append the
-     * operation.
-     */
-    @Before
-    @After
-    public void clean() {
-        for (Universidade universidade : this.universidadeService.getAll()) {
-            this.universidadeService.deleteUniversidadeByCodigoIES(universidade.getCodigoIES());
-        }
-        for (Curso curso : this.cursoService.getAll()) {
-        	
-        	CursoId id = new CursoId(curso.getCodigoCurso(), curso.getModalidade());
-            this.cursoService.deleteCursoById(id);
-        }
-        for (Ano ano : this.anoService.getAllAnos()) {
-            this.anoService.deleteAno(ano.getAno());
-        }
-        for (Regiao regiao : this.regiaoService.getAll()) {
-            this.regiaoService.deleteRegiaoBySigla(regiao.getSigla());
-        }
-        for (Estado estado : this.estadoService.getAll()) {
-            this.estadoService.deleteEstadoById(estado.getSigla());
-        }
-        for (Municipio municipio : this.municipioService.getAll()) {
-            this.municipioService.deleteMunicipioByCodigo(municipio.getCodigo());
-        }
-        for (Nota nota : this.notaService.getAll()) {
-            this.notaService.deleteNotaById(nota.getId());
-        }
-    }
+	@Autowired
+	private NotaService notaService;
+
+	/**
+	 * Do not change the order of deletions, if you want to add any other service,
+	 * please append the operation.
+	 */
+	@Before
+	@After
+	public void clean() {
+		for (Nota nota : this.notaService.getAll()) {
+			this.notaService.deleteNotaById(nota.getId());
+		}
+		for (Universidade universidade : this.universidadeService.getAll()) {
+			this.universidadeService.deleteUniversidadeById(universidade.getCodigoIES(), universidade.getCampus());
+		}
+		for (Curso curso : this.cursoService.getAll()) {
+
+			CursoId id = new CursoId(curso.getCodigoCurso(), curso.getModalidade());
+			this.cursoService.deleteCursoById(id);
+		}
+		for (Ano ano : this.anoService.getAllAnos()) {
+			this.anoService.deleteAno(ano.getAno());
+		}
+		for (Regiao regiao : this.regiaoService.getAll()) {
+			this.regiaoService.deleteRegiaoBySigla(regiao.getSigla());
+		}
+		for (Estado estado : this.estadoService.getAll()) {
+			this.estadoService.deleteEstadoById(estado.getSigla());
+		}
+		for (Municipio municipio : this.municipioService.getAll()) {
+			this.municipioService.deleteMunicipioByCodigo(municipio.getCodigo());
+		}
+	}
 }
