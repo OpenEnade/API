@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import br.com.openenade.api.BaseUnitTest;
 import br.com.openenade.api.ano.Ano;
 import br.com.openenade.api.categoriaadmin.CategoriaAdmin;
@@ -33,7 +33,7 @@ public class NotaControllerTests extends BaseUnitTest {
     private MockMvc mvc;
 
     @Autowired
-    ObjectMapper objectMapper;
+    private ObjectMapper objectMapper;
 
     @Autowired
     private NotaService notaService;
