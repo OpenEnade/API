@@ -22,14 +22,13 @@ public class NotaId implements Serializable {
 
     }
 
-    public NotaId(int ano, long codigoCurso, Modalidade modalidade, long codigoIES,
-            long codigoMunicipio) {
+    public NotaId(int ano, long codCurso, Modalidade modalidade, long codIES, long codMunicipio) {
 
         this.ano = ano;
-        this.codigoCurso = codigoCurso;
+        this.codigoCurso = codCurso;
         this.modalidade = modalidade;
-        this.codigoIES = codigoIES;
-        this.codigoMunicipio = codigoMunicipio;
+        this.codigoIES = codIES;
+        this.codigoMunicipio = codMunicipio;
     }
 
     @Override

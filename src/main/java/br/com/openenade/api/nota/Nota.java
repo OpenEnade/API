@@ -31,10 +31,9 @@ public class Nota {
 
     }
 
-    public Nota(Integer ano, Long codigoCurso, Modalidade modalidade, Long codigoIES,
-            Long codigoMunicipio) {
+    public Nota(Integer ano, Long codCurso, Modalidade modalidade, Long codIES, Long codMunicipio) {
         super();
-        this.id = new NotaId(ano, codigoCurso, modalidade, codigoIES, codigoMunicipio);
+        this.id = new NotaId(ano, codCurso, modalidade, codIES, codMunicipio);
     }
 
     @Override
