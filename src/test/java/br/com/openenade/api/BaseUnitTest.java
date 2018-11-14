@@ -12,6 +12,8 @@ import br.com.openenade.api.estado.Estado;
 import br.com.openenade.api.estado.EstadoService;
 import br.com.openenade.api.municipio.Municipio;
 import br.com.openenade.api.municipio.MunicipioService;
+import br.com.openenade.api.nota.Nota;
+import br.com.openenade.api.nota.NotaService;
 import br.com.openenade.api.regiao.Regiao;
 import br.com.openenade.api.regiao.RegiaoService;
 import br.com.openenade.api.universidade.Universidade;
@@ -36,6 +38,9 @@ public class BaseUnitTest {
 
     @Autowired
     private UniversidadeService universidadeService;
+    
+    @Autowired
+    private NotaService notaService;
 
     /**
      * Do not change the order of deletions, if you want to add any other service, please append the
@@ -63,6 +68,9 @@ public class BaseUnitTest {
         }
         for (Municipio municipio : this.municipioService.getAll()) {
             this.municipioService.deleteMunicipioByCodigo(municipio.getCodigo());
+        }
+        for (Nota nota : this.notaService.getAll()) {
+            this.notaService.deleteNotaById(nota.getId());
         }
     }
 }

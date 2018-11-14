@@ -7,11 +7,11 @@ import br.com.openenade.api.modalidade.Modalidade;
 @Embeddable
 public class NotaId implements Serializable {
 
-    private Integer ano;
-    private Long codigoCurso;
+    private int ano;
+    private long codigoCurso;
     private Modalidade modalidade;
-    private Long codigoIES;
-    private Long codigoMunicipio;
+    private long codigoIES;
+    private long codigoMunicipio;
 
     /**
      * 
@@ -22,8 +22,8 @@ public class NotaId implements Serializable {
 
     }
 
-    public NotaId(Integer ano, Long codigoCurso, Modalidade modalidade, Long codigoIES,
-            Long codigoMunicipio) {
+    public NotaId(int ano, long codigoCurso, Modalidade modalidade, long codigoIES,
+            long codigoMunicipio) {
 
         this.ano = ano;
         this.codigoCurso = codigoCurso;
@@ -36,10 +36,10 @@ public class NotaId implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((ano == null) ? 0 : ano.hashCode());
-        result = prime * result + ((codigoCurso == null) ? 0 : codigoCurso.hashCode());
-        result = prime * result + ((codigoIES == null) ? 0 : codigoIES.hashCode());
-        result = prime * result + ((codigoMunicipio == null) ? 0 : codigoMunicipio.hashCode());
+        result = prime * result + ano;
+        result = prime * result + (int) (codigoCurso ^ (codigoCurso >>> 32));
+        result = prime * result + (int) (codigoIES ^ (codigoIES >>> 32));
+        result = prime * result + (int) (codigoMunicipio ^ (codigoMunicipio >>> 32));
         result = prime * result + ((modalidade == null) ? 0 : modalidade.hashCode());
         return result;
     }
@@ -53,25 +53,13 @@ public class NotaId implements Serializable {
         if (getClass() != obj.getClass())
             return false;
         NotaId other = (NotaId) obj;
-        if (ano == null) {
-            if (other.ano != null)
-                return false;
-        } else if (!ano.equals(other.ano))
+        if (ano != other.ano)
             return false;
-        if (codigoCurso == null) {
-            if (other.codigoCurso != null)
-                return false;
-        } else if (!codigoCurso.equals(other.codigoCurso))
+        if (codigoCurso != other.codigoCurso)
             return false;
-        if (codigoIES == null) {
-            if (other.codigoIES != null)
-                return false;
-        } else if (!codigoIES.equals(other.codigoIES))
+        if (codigoIES != other.codigoIES)
             return false;
-        if (codigoMunicipio == null) {
-            if (other.codigoMunicipio != null)
-                return false;
-        } else if (!codigoMunicipio.equals(other.codigoMunicipio))
+        if (codigoMunicipio != other.codigoMunicipio)
             return false;
         if (modalidade != other.modalidade)
             return false;

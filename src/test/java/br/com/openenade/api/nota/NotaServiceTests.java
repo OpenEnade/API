@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import br.com.openenade.api.BaseUnitTest;
 import br.com.openenade.api.ano.Ano;
 import br.com.openenade.api.categoriaadmin.CategoriaAdmin;
 import br.com.openenade.api.curso.Curso;
@@ -21,7 +22,7 @@ import br.com.openenade.api.universidade.Universidade;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class NotaServiceTests {
+public class NotaServiceTests extends BaseUnitTest {
 
     @Autowired
     private NotaService notaService;
