@@ -54,11 +54,8 @@ public class NotaId implements Serializable {
             return false;
         NotaId other = (NotaId) obj;
 
-        if (ano == other.ano && codigoCurso == other.codigoCurso && codigoIES == other.codigoIES
-                && codigoMunicipio == other.codigoMunicipio && modalidade == other.modalidade)
-            return true;
-        else
-            return false;
+        return ano == other.ano && codigoCurso == other.codigoCurso && codigoIES == other.codigoIES
+                && codigoMunicipio == other.codigoMunicipio && modalidade == other.modalidade;
     }
 
     public Integer getAno() {
