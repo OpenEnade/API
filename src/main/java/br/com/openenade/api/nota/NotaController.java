@@ -42,14 +42,11 @@ public class NotaController {
 
 	@ResponseBody
 	@GetMapping(path = "/{ano}-{codigoCurso}-{modalidade}-{codigoIES}-{codigoMunicipio}")
-	public ResponseEntity<Nota> getNotaByIndex(@PathVariable(name = "ano") Integer ano,
-			@PathVariable(name = "codigoCurso") Long codigoCurso,
-			@PathVariable(name = "modalidade") Modalidade modalidade, @PathVariable(name = "codigoIES") Long codigoIES,
-			@PathVariable(name = "codigoMunicipio") Long codigoMunicipio) {
+	public ResponseEntity<Nota> getNotaByIndex(NotaIdInterface notaIdInterface) {
 
 		Optional<Nota> optNota = null;
 		try {
-			optNota = this.service.getNota(ano, codigoCurso, modalidade, codigoIES, codigoMunicipio);
+			optNota = this.service.getNota(notaIdInterface);
 		} catch (NoSuchElementException ex) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
