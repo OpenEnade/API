@@ -3,16 +3,13 @@ package br.com.openenade.api.nota;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import br.com.openenade.api.ano.Ano;
 import br.com.openenade.api.ano.AnoRepository;
 import br.com.openenade.api.curso.Curso;
 import br.com.openenade.api.curso.CursoId;
 import br.com.openenade.api.curso.CursoRepository;
-import br.com.openenade.api.modalidade.Modalidade;
 import br.com.openenade.api.universidade.Universidade;
 import br.com.openenade.api.universidade.UniversidadeId;
 import br.com.openenade.api.universidade.UniversidadeRepository;
@@ -21,77 +18,79 @@ import br.com.openenade.api.universidade.UniversidadeRepository;
 @Transactional
 public class NotaService {
 
-	@Autowired
-	private NotaRepository notaRepository;
+    @Autowired
+    private NotaRepository notaRepository;
 
-	@Autowired
-	private AnoRepository anoRepository;
+    @Autowired
+    private AnoRepository anoRepository;
 
-	@Autowired
-	private CursoRepository cursoRepository;
+    @Autowired
+    private CursoRepository cursoRepository;
 
-	@Autowired
-	private UniversidadeRepository universidadeRepository;
+    @Autowired
+    private UniversidadeRepository universidadeRepository;
 
-	public Nota save(Nota nota) {
+    public Nota save(Nota nota) {
 
-		this.anoRepository.save(nota.getInfo().getAno());
+        this.anoRepository.save(nota.getInfo().getAno());
 
-		this.cursoRepository.save(nota.getInfo().getCurso());
+        this.cursoRepository.save(nota.getInfo().getCurso());
 
-		this.universidadeRepository.save(nota.getInfo().getUniversidade());
+        this.universidadeRepository.save(nota.getInfo().getUniversidade());
 
-		return this.notaRepository.save(nota);
-	}
+        return this.notaRepository.save(nota);
+    }
 
-	public Optional<Nota> getNotaById(NotaId id) {
-		return this.notaRepository.findById(id);
-	}
+    public Optional<Nota> getNotaById(NotaId id) {
+        return this.notaRepository.findById(id);
+    }
 
-	public List<Nota> getAll() {
-		return this.notaRepository.findAll();
-	}
-	
+    public List<Nota> getAll() {
+        return this.notaRepository.findAll();
+    }
+
     public Optional<Nota> getNota(NotaIdInterface id) {
         Optional<Ano> optAno = this.anoRepository.findById(id.getAno());
 
         CursoId cursoId = new CursoId(id.getCodigoCurso(), id.getModalidade());
         Optional<Curso> optCurso = this.cursoRepository.findById(cursoId);
 
-        UniversidadeId universidadeId = new UniversidadeId(id.getCodigoIES(), id.getCodigoMunicipio());
-        Optional<Universidade> optUniversidade = this.universidadeRepository.findById(universidadeId);
+        UniversidadeId universidadeId =
+                new UniversidadeId(id.getCodigoIES(), id.getCodigoMunicipio());
+        Optional<Universidade> optUniversidade =
+                this.universidadeRepository.findById(universidadeId);
 
         NotaId notaId = new NotaId(optAno.get(), optCurso.get(), optUniversidade.get());
 
         return this.notaRepository.findById(notaId);
     }
 
-	public boolean deleteNotaById(NotaId id) {
-		if (this.notaRepository.existsById(id)) {
-			this.notaRepository.deleteById(id);
-		} else {
-			return false;
-		}
+    public boolean deleteNotaById(NotaId id) {
+        if (this.notaRepository.existsById(id)) {
+            this.notaRepository.deleteById(id);
+        } else {
+            return false;
+        }
 
-		return true;
-	}
+        return true;
+    }
 
-	public boolean deleteNota(Integer ano, Long codigoCurso, Modalidade modalidade, Long codigoIES,
-			Long codigoMunicipio) {
+    public boolean deleteNota(NotaIdInterface id) {
+        Optional<Ano> optAno = this.anoRepository.findById(id.getAno());
 
-		Optional<Ano> optAno = this.anoRepository.findById(ano);
+        CursoId cursoId = new CursoId(id.getCodigoCurso(), id.getModalidade());
+        Optional<Curso> optCurso = this.cursoRepository.findById(cursoId);
 
-		CursoId cursoId = new CursoId(codigoCurso, modalidade);
-		Optional<Curso> optCurso = this.cursoRepository.findById(cursoId);
+        UniversidadeId universidadeId =
+                new UniversidadeId(id.getCodigoIES(), id.getCodigoMunicipio());
+        Optional<Universidade> optUniversidade =
+                this.universidadeRepository.findById(universidadeId);
 
-		UniversidadeId universidadeId = new UniversidadeId(codigoIES, codigoMunicipio);
-		Optional<Universidade> optUniversidade = this.universidadeRepository.findById(universidadeId);
+        NotaId notaId = new NotaId(optAno.get(), optCurso.get(), optUniversidade.get());
 
-		NotaId notaId = new NotaId(optAno.get(), optCurso.get(), optUniversidade.get());
+        this.notaRepository.deleteById(notaId);
 
-		this.notaRepository.deleteById(notaId);
-
-		return !this.notaRepository.findById(notaId).isPresent();
-	}
+        return !this.notaRepository.findById(notaId).isPresent();
+    }
 
 }

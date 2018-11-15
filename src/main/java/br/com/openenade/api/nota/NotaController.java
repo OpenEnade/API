@@ -11,13 +11,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import br.com.openenade.api.modalidade.Modalidade;
 
 @RestController
 @CrossOrigin("*")
@@ -59,14 +57,11 @@ public class NotaController {
 	}
 
 	@DeleteMapping(path = "/{ano}-{codigoCurso}-{modalidade}-{codigoIES}-{codigoMunicipio}")
-	public ResponseEntity<String> deleteNotaByIndex(@PathVariable(name = "ano") Integer ano,
-			@PathVariable(name = "codigoCurso") Long codigoCurso,
-			@PathVariable(name = "modalidade") Modalidade modalidade, @PathVariable(name = "codigoIES") Long codigoIES,
-			@PathVariable(name = "codigoMunicipio") Long codigoMunicipio) {
+	public ResponseEntity<String> deleteNotaByIndex(NotaIdInterface notaIdInterface) {
 
 		boolean deleted = false;
 		try {
-			deleted = this.service.deleteNota(ano, codigoCurso, modalidade, codigoIES, codigoMunicipio);
+			deleted = this.service.deleteNota(notaIdInterface);
 		} catch (NoSuchElementException ex) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
