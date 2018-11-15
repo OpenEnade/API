@@ -35,11 +35,11 @@ public class NotaService {
 
 	public Nota save(Nota nota) {
 
-		this.anoRepository.save(nota.getId().getAno());
+		this.anoRepository.save(nota.getInfo().getAno());
 
-		this.cursoRepository.save(nota.getId().getCurso());
+		this.cursoRepository.save(nota.getInfo().getCurso());
 
-		this.universidadeRepository.save(nota.getId().getUniversidade());
+		this.universidadeRepository.save(nota.getInfo().getUniversidade());
 
 		return this.notaRepository.save(nota);
 	}
