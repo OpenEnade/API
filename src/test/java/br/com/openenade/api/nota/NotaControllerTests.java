@@ -59,18 +59,16 @@ public class NotaControllerTests extends BaseUnitTest {
         universidade.getCursos().add(curso);
 
         Nota nota = new Nota(ano, curso, universidade);
-        nota.setConcluintesInscritos(33);
-        nota.setConcluintesParticipantes(20);
-        nota.setNotaBrutaCE(2.2);
-        nota.setNotaBrutaFG(1.1);
-        nota.setEnadeContinuo(3.333);
-        nota.setEnadeFaixa(3);
+        nota.getAvaliacao().setConcluintesInscritos(33);
+        nota.getAvaliacao().setConcluintesParticipantes(20);
+        nota.getAvaliacao().setNotaBrutaCE(2.2);
+        nota.getAvaliacao().setNotaBrutaFG(1.1);
+        nota.getAvaliacao().setEnadeContinuo(3.333);
+        nota.getAvaliacao().setEnadeFaixa(3);
 
         String url = "/" + NotaController.ENDPOINT;
 
         assertFalse(notaService.getAll().contains(nota));
-
-        System.err.println(this.objectMapper.writeValueAsString(nota));
 
         mvc.perform(post(url).contentType(MediaType.APPLICATION_JSON)
                 .content(this.objectMapper.writeValueAsString(nota))).andExpect(status().isOk());
@@ -93,12 +91,12 @@ public class NotaControllerTests extends BaseUnitTest {
         universidade.getCursos().add(curso);
 
         Nota nota = new Nota(ano, curso, universidade);
-        nota.setConcluintesInscritos(3);
-        nota.setConcluintesParticipantes(2);
-        nota.setNotaBrutaCE(2.1);
-        nota.setNotaBrutaFG(0.5);
-        nota.setEnadeContinuo(3.666);
-        nota.setEnadeFaixa(1);
+        nota.getAvaliacao().setConcluintesInscritos(3);
+        nota.getAvaliacao().setConcluintesParticipantes(2);
+        nota.getAvaliacao().setNotaBrutaCE(2.1);
+        nota.getAvaliacao().setNotaBrutaFG(0.5);
+        nota.getAvaliacao().setEnadeContinuo(3.666);
+        nota.getAvaliacao().setEnadeFaixa(1);
 
         this.notaService.save(nota);
 
@@ -111,7 +109,20 @@ public class NotaControllerTests extends BaseUnitTest {
 
         MvcResult result =
                 mvc.perform(get(url)).andDo(print()).andExpect(status().isOk()).andReturn();
-        System.err.println(result.getResponse().getContentAsString());
+
+        assertEquals(result.getResponse().getContentAsString(),
+                "{\"info\":{\"ano\":{\"ano\":2018},\"curso\":{\"codigoCurso\":"
+                        + "9999,\"nome\":\"Ciência da Computação\",\"codigoArea\":33,\""
+                        + "modalidade\":\"Educação Presencial\"},\"universidade\":{\"c"
+                        + "odigoIES\":3213321,\"nome\":\"UFREI\",\"campus\":{\"codigo"
+                        + "\":123,\"estado\":{\"sigla\":\"GO\",\"regiao\":{\"sigla\":"
+                        + "\"NE\"}},\"nome\":\"Poeira Grande\"},\"categoriaAdmin\":\"P"
+                        + "ublico\",\"cursos\":[{\"codigoCurso\":9999,\"nome\":\"Ciênc"
+                        + "ia da Computação\",\"codigoArea\":33,\"modalidade\":\"Educa"
+                        + "ção Presencial\"}]}},\"avaliacao\":{\"concluintesInscritos"
+                        + "\":3,\"concluintesParticipantes\":2,\"notaBrutaFG\":0.5,\""
+                        + "notaPadronizadaFG\":0.0,\"notaBrutaCE\":2.1,\"notaPadroniz"
+                        + "adaCE\":0.0,\"enadeContinuo\":3.666,\"enadeFaixa\":1}}");
     }
 
 }

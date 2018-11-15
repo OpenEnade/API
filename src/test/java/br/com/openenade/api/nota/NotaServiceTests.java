@@ -45,12 +45,12 @@ public class NotaServiceTests extends BaseUnitTest {
         universidade.getCursos().add(curso);
 
         Nota nota = new Nota(ano, curso, universidade);
-        nota.setConcluintesInscritos(33);
-        nota.setConcluintesParticipantes(20);
-        nota.setNotaBrutaCE(2.2);
-        nota.setNotaBrutaFG(1.1);
-        nota.setEnadeContinuo(3.333);
-        nota.setEnadeFaixa(3);
+        nota.getAvaliacao().setConcluintesInscritos(33);
+        nota.getAvaliacao().setConcluintesParticipantes(20);
+        nota.getAvaliacao().setNotaBrutaCE(2.2);
+        nota.getAvaliacao().setNotaBrutaFG(1.1);
+        nota.getAvaliacao().setEnadeContinuo(3.333);
+        nota.getAvaliacao().setEnadeFaixa(3);
 
         this.notaService.save(nota);
 

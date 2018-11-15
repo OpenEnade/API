@@ -12,28 +12,15 @@ public class Nota {
     @EmbeddedId
     private NotaId info;
 
-    private Integer concluintesInscritos;
-
-    private Integer concluintesParticipantes;
-
-    private Double notaBrutaFG;
-
-    private Double notaPadronizadaFG;
-
-    private Double notaBrutaCE;
-
-    private Double notaPadronizadaCE;
-
-    private Double enadeContinuo;
-
-    private Integer enadeFaixa;
+    private Avaliacao avaliacao;
 
     public Nota() {
-
+        this.setAvaliacao(new Avaliacao());
     }
 
     public Nota(Ano ano, Curso curso, Universidade universidade) {
         super();
+        this.setAvaliacao(new Avaliacao());
         this.info = new NotaId(ano, curso, universidade);
     }
 
@@ -70,73 +57,12 @@ public class Nota {
         this.info = info;
     }
 
-    public Integer getConcluintesInscritos() {
-        return concluintesInscritos;
+    public Avaliacao getAvaliacao() {
+        return avaliacao;
     }
 
-    public void setConcluintesInscritos(Integer concluintesInscritos) {
-        this.concluintesInscritos = concluintesInscritos;
-    }
-
-    public Integer getConcluintesParticipantes() {
-        return concluintesParticipantes;
-    }
-
-    public void setConcluintesParticipantes(Integer concluintesParticipantes) {
-        this.concluintesParticipantes = concluintesParticipantes;
-    }
-
-    public Double getNotaBrutaFG() {
-        return notaBrutaFG;
-    }
-
-    public void setNotaBrutaFG(Double notaBrutaFG) {
-        this.notaBrutaFG = notaBrutaFG;
-    }
-
-    public Double getNotaPadronizadaFG() {
-        return notaPadronizadaFG;
-    }
-
-    public void setNotaPadronizadaFG(Double notaPadronizadaFG) {
-        this.notaPadronizadaFG = notaPadronizadaFG;
-    }
-
-    public Double getNotaBrutaCE() {
-        return notaBrutaCE;
-    }
-
-    public void setNotaBrutaCE(Double notaBrutaCE) {
-        this.notaBrutaCE = notaBrutaCE;
-    }
-
-    public Double getNotaPadronizadaCE() {
-        return notaPadronizadaCE;
-    }
-
-    public void setNotaPadronizadaCE(Double notaPadronizadaCE) {
-        this.notaPadronizadaCE = notaPadronizadaCE;
-    }
-
-    public Double getEnadeContinuo() {
-        return enadeContinuo;
-    }
-
-    public void setEnadeContinuo(Double enadeContinuo) {
-        this.enadeContinuo = enadeContinuo;
-    }
-
-    public Integer getEnadeFaixa() {
-        return enadeFaixa;
-    }
-
-    public void setEnadeFaixa(Integer enadeFaixa) {
-        this.enadeFaixa = enadeFaixa;
-    }
-
-    @Override
-    public String toString() {
-        return "Nota [id=" + this.info + "]";
+    public void setAvaliacao(Avaliacao avaliacao) {
+        this.avaliacao = avaliacao;
     }
 
 }
