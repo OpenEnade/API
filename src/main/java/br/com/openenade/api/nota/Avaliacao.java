@@ -8,7 +8,7 @@ public class Avaliacao implements Serializable {
      * 
      */
     private static final long serialVersionUID = 1L;
-    
+
     private int concluintesInscritos;
     private int concluintesParticipantes;
     private double notaBrutaFG;
@@ -17,8 +17,6 @@ public class Avaliacao implements Serializable {
     private double notaPadronizadaCE;
     private double enadeContinuo;
     private int enadeFaixa;
-
-    public Avaliacao() {}
 
     @Override
     public int hashCode() {
@@ -50,25 +48,20 @@ public class Avaliacao implements Serializable {
         if (getClass() != obj.getClass())
             return false;
         Avaliacao other = (Avaliacao) obj;
-        if (concluintesInscritos != other.concluintesInscritos)
-            return false;
-        if (concluintesParticipantes != other.concluintesParticipantes)
-            return false;
-        if (Double.doubleToLongBits(enadeContinuo) != Double.doubleToLongBits(other.enadeContinuo))
-            return false;
-        if (enadeFaixa != other.enadeFaixa)
-            return false;
-        if (Double.doubleToLongBits(notaBrutaCE) != Double.doubleToLongBits(other.notaBrutaCE))
-            return false;
-        if (Double.doubleToLongBits(notaBrutaFG) != Double.doubleToLongBits(other.notaBrutaFG))
-            return false;
-        if (Double.doubleToLongBits(notaPadronizadaCE) != Double
-                .doubleToLongBits(other.notaPadronizadaCE))
-            return false;
-        if (Double.doubleToLongBits(notaPadronizadaFG) != Double
-                .doubleToLongBits(other.notaPadronizadaFG))
-            return false;
-        return true;
+
+        return concluintesInscritos == other.concluintesInscritos
+                && concluintesParticipantes == other.concluintesParticipantes
+                && Double.doubleToLongBits(enadeContinuo) == Double
+                        .doubleToLongBits(other.enadeContinuo)
+                && enadeFaixa == other.enadeFaixa
+                && Double.doubleToLongBits(notaBrutaCE) == Double
+                        .doubleToLongBits(other.notaBrutaCE)
+                && Double.doubleToLongBits(notaBrutaFG) == Double
+                        .doubleToLongBits(other.notaBrutaFG)
+                && Double.doubleToLongBits(notaPadronizadaCE) == Double
+                        .doubleToLongBits(other.notaPadronizadaCE)
+                && Double.doubleToLongBits(notaPadronizadaFG) == Double
+                        .doubleToLongBits(other.notaPadronizadaFG);
     }
 
     public int getConcluintesInscritos() {
