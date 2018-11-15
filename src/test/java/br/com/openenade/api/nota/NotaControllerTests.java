@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 import java.util.HashSet;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -57,7 +58,8 @@ public class NotaControllerTests extends BaseUnitTest {
                 CategoriaAdmin.PUBLICO, new HashSet<>());
         universidade.getCursos().add(curso);
 
-        Nota nota = new Nota(ano, curso, universidade);
+        Nota nota = new Nota.Builder().setAno(ano).setCurso(curso).setUniversidade(universidade)
+                .build();
         nota.getAvaliacao().setConcluintesInscritos(33);
         nota.getAvaliacao().setConcluintesParticipantes(20);
         nota.getAvaliacao().setNotaBrutaCE(2.2);
@@ -89,7 +91,8 @@ public class NotaControllerTests extends BaseUnitTest {
                 CategoriaAdmin.PUBLICO, new HashSet<>());
         universidade.getCursos().add(curso);
 
-        Nota nota = new Nota(ano, curso, universidade);
+        Nota nota = new Nota.Builder().setAno(ano).setCurso(curso).setUniversidade(universidade)
+                .build();
         nota.getAvaliacao().setConcluintesInscritos(3);
         nota.getAvaliacao().setConcluintesParticipantes(2);
         nota.getAvaliacao().setNotaBrutaCE(2.1);
@@ -106,10 +109,9 @@ public class NotaControllerTests extends BaseUnitTest {
                         nota.getInfo().getUniversidade().getCodigoIES(),
                         nota.getInfo().getUniversidade().getCampus().getCodigo());
 
-        MvcResult result =
-                mvc.perform(get(url)).andExpect(status().isOk()).andReturn();
+        MvcResult result = mvc.perform(get(url)).andExpect(status().isOk()).andReturn();
 
-        assertEquals(result.getResponse().getContentAsString(),
+        JSONAssert.assertEquals(
                 "{\"info\":{\"ano\":{\"ano\":2018},\"curso\":{\"codigoCurso\":"
                         + "9999,\"nome\":\"Ciência da Computação\",\"codigoArea\":33,\""
                         + "modalidade\":\"Educação Presencial\"},\"universidade\":{\"c"
@@ -121,7 +123,8 @@ public class NotaControllerTests extends BaseUnitTest {
                         + "ção Presencial\"}]}},\"avaliacao\":{\"concluintesInscritos"
                         + "\":3,\"concluintesParticipantes\":2,\"notaBrutaFG\":0.5,\""
                         + "notaPadronizadaFG\":0.0,\"notaBrutaCE\":2.1,\"notaPadroniz"
-                        + "adaCE\":0.0,\"enadeContinuo\":3.666,\"enadeFaixa\":1}}");
+                        + "adaCE\":0.0,\"enadeContinuo\":3.666,\"enadeFaixa\":1}}",
+                result.getResponse().getContentAsString(), true);
     }
 
 }

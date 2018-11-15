@@ -9,19 +9,48 @@ import br.com.openenade.api.universidade.Universidade;
 @Entity
 public class Nota {
 
+    private Avaliacao avaliacao;
+
     @EmbeddedId
     private NotaId info;
+    
+    public static class Builder {
 
-    private Avaliacao avaliacao;
+        private NotaId info;
+        
+        public Builder() {
+            this.info = new NotaId();
+        }
+
+        public Builder setAno(Ano ano) {
+            this.info.setAno(ano);
+
+            return this;
+        }
+
+        public Builder setCurso(Curso curso) {
+            this.info.setCurso(curso);
+
+            return this;
+        }
+
+        public Builder setUniversidade(Universidade universidade) {
+            this.info.setUniversidade(universidade);
+
+            return this;
+        }
+
+        public Nota build() {
+            Nota nota = new Nota();
+            nota.setInfo(info);
+
+            return nota;
+        }
+
+    }
 
     public Nota() {
         this.setAvaliacao(new Avaliacao());
-    }
-
-    public Nota(Ano ano, Curso curso, Universidade universidade) {
-        super();
-        this.setAvaliacao(new Avaliacao());
-        this.info = new NotaId(ano, curso, universidade);
     }
 
     @Override

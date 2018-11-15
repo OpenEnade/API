@@ -44,7 +44,8 @@ public class NotaServiceTests extends BaseUnitTest {
                 CategoriaAdmin.PUBLICO, new HashSet<>());
         universidade.getCursos().add(curso);
 
-        Nota nota = new Nota(ano, curso, universidade);
+        Nota nota = new Nota.Builder().setAno(ano).setCurso(curso).setUniversidade(universidade)
+                .build();
         nota.getAvaliacao().setConcluintesInscritos(33);
         nota.getAvaliacao().setConcluintesParticipantes(20);
         nota.getAvaliacao().setNotaBrutaCE(2.2);
@@ -75,7 +76,8 @@ public class NotaServiceTests extends BaseUnitTest {
                 CategoriaAdmin.PUBLICO, new HashSet<>());
         universidade.getCursos().add(curso);
 
-        Nota nota3 = new Nota(ano, curso, universidade);
+        Nota nota3 = new Nota.Builder().setAno(ano).setCurso(curso).setUniversidade(universidade)
+                .build();
 
         nota3 = this.notaService.save(nota3);
 
@@ -90,7 +92,8 @@ public class NotaServiceTests extends BaseUnitTest {
                 new HashSet<>());
         universidade.getCursos().add(curso);
 
-        Nota nota4 = new Nota(ano, curso, universidade);
+        Nota nota4 = new Nota.Builder().setAno(ano).setCurso(curso).setUniversidade(universidade)
+                .build();
 
         nota4 = this.notaService.save(nota4);
 
@@ -113,7 +116,8 @@ public class NotaServiceTests extends BaseUnitTest {
                 CategoriaAdmin.PRIVADO, new HashSet<>());
         universidade.getCursos().add(curso);
 
-        Nota nota3 = new Nota(ano, curso, universidade);
+        Nota nota3 = new Nota.Builder().setAno(ano).setCurso(curso).setUniversidade(universidade)
+                .build();
 
         nota3 = this.notaService.save(nota3);
 
@@ -145,7 +149,8 @@ public class NotaServiceTests extends BaseUnitTest {
                 CategoriaAdmin.PUBLICO, new HashSet<>());
         universidade.getCursos().add(curso);
 
-        Nota nota3 = new Nota(ano, curso, universidade);
+        Nota nota3 = new Nota.Builder().setAno(ano).setCurso(curso).setUniversidade(universidade)
+                .build();
 
         nota3 = this.notaService.save(nota3);
 
