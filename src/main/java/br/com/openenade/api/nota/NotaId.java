@@ -37,34 +37,43 @@ public class NotaId implements Serializable {
 	}
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((ano == null) ? 0 : ano.hashCode());
-		result = prime * result + ((curso == null) ? 0 : curso.hashCode());
-		result = prime * result + ((universidade == null) ? 0 : universidade.hashCode());
-		return result;
-	}
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((ano == null) ? 0 : ano.hashCode());
+        result = prime * result + ((curso == null) ? 0 : curso.hashCode());
+        result = prime * result + ((universidade == null) ? 0 : universidade.hashCode());
+        return result;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		NotaId other = (NotaId) obj;
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        NotaId other = (NotaId) obj;
+        if (ano == null) {
+            if (other.ano != null)
+                return false;
+        } else if (!ano.equals(other.ano))
+            return false;
+        if (curso == null) {
+            if (other.curso != null)
+                return false;
+        } else if (!curso.equals(other.curso))
+            return false;
+        if (universidade == null) {
+            if (other.universidade != null)
+                return false;
+        } else if (!universidade.equals(other.universidade))
+            return false;
+        return true;
+    }
 
-		boolean anoCond = ano == null && other.ano == null || ano.equals(other.ano);
-		boolean cursoCond = curso == null && other.curso == null || curso.equals(other.curso);
-		boolean universidadeCond = universidade == null && other.universidade == null
-				|| universidade.equals(universidade);
-
-		return anoCond && cursoCond && universidadeCond;
-	}
-
-	public Ano getAno() {
+    public Ano getAno() {
 		return ano;
 	}
 

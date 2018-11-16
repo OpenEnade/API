@@ -110,6 +110,8 @@ public class NotaControllerTests extends BaseUnitTest {
                         nota.getInfo().getUniversidade().getCampus().getCodigo());
 
         MvcResult result = mvc.perform(get(url)).andExpect(status().isOk()).andReturn();
+        
+        assertEquals("application/json;charset=UTF-8", result.getResponse().getContentType());
 
         JSONAssert.assertEquals(
                 "{\"info\":{\"ano\":{\"ano\":2018},\"curso\":{\"codigoCurso\":"

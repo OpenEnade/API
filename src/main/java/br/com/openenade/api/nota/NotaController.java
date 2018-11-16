@@ -1,10 +1,8 @@
 package br.com.openenade.api.nota;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,55 +20,37 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = NotaController.ENDPOINT)
 public class NotaController {
 
-	public static final String ENDPOINT = "notas";
+    public static final String ENDPOINT = "notas";
 
-	@Autowired
-	private NotaService service;
+    @Autowired
+    private NotaService service;
 
-	@PostMapping
-	public void postNota(@Valid @RequestBody Nota nota) {
-		this.service.save(nota);
-	}
+    @PostMapping
+    public void postNota(@Valid @RequestBody Nota nota) {
+        this.service.save(nota);
+    }
 
-	@GetMapping
-	@ResponseBody
-	public ResponseEntity<List<Nota>> getAll() {
-		return new ResponseEntity<>(this.service.getAll(), HttpStatus.OK);
-	}
+    @GetMapping
+    @ResponseBody
+    public ResponseEntity<List<Nota>> getAll() {
+        return new ResponseEntity<>(this.service.getAll(), HttpStatus.OK);
+    }
 
-	@ResponseBody
-	@GetMapping(path = "/{ano}-{codigoCurso}-{modalidade}-{codigoIES}-{codigoMunicipio}")
-	public ResponseEntity<Nota> getNotaByIndex(NotaIdInterface notaIdInterface) {
+    @ResponseBody
+    @GetMapping(path = "/{ano}-{codigoCurso}-{modalidade}-{codigoIES}-{codigoMunicipio}")
+    public ResponseEntity<Nota> getNotaByIndex(NotaIdInterface notaIdInterface) {
 
-		Optional<Nota> optNota = null;
-		try {
-			optNota = this.service.getNota(notaIdInterface);
-		} catch (NoSuchElementException ex) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
+        Optional<Nota> optNota = this.service.getNota(notaIdInterface);
 
-		if (optNota.isPresent()) {
-			return new ResponseEntity<>(optNota.get(), HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-	}
+        return new ResponseEntity<>(optNota.get(), HttpStatus.OK);
+    }
 
-	@DeleteMapping(path = "/{ano}-{codigoCurso}-{modalidade}-{codigoIES}-{codigoMunicipio}")
-	public ResponseEntity<String> deleteNotaByIndex(NotaIdInterface notaIdInterface) {
+    @DeleteMapping(path = "/{ano}-{codigoCurso}-{modalidade}-{codigoIES}-{codigoMunicipio}")
+    public ResponseEntity<String> deleteNotaByIndex(NotaIdInterface notaIdInterface) {
 
-		boolean deleted = false;
-		try {
-			deleted = this.service.deleteNota(notaIdInterface);
-		} catch (NoSuchElementException ex) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
+        this.service.deleteNota(notaIdInterface);
 
-		if (deleted) {
-			return new ResponseEntity<>("Deletado.", HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>("Nota não encontrada.", HttpStatus.NOT_FOUND);
-		}
-	}
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 }

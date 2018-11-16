@@ -154,7 +154,9 @@ public class NotaServiceTests extends BaseUnitTest {
 
         nota3 = this.notaService.save(nota3);
 
-        assertTrue(this.notaService.deleteNotaById(nota3.getInfo()));
+        this.notaService.deleteNotaById(nota3.getInfo());
+        
+        assertFalse(this.notaService.getNotaById(nota3.getInfo()).isPresent());
     }
 
 }

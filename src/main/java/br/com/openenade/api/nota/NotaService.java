@@ -65,17 +65,11 @@ public class NotaService {
         return this.notaRepository.findById(notaId);
     }
 
-    public boolean deleteNotaById(NotaId id) {
-        if (this.notaRepository.existsById(id)) {
-            this.notaRepository.deleteById(id);
-        } else {
-            return false;
-        }
-
-        return true;
+    public void deleteNotaById(NotaId id) {
+        this.notaRepository.deleteById(id);
     }
 
-    public boolean deleteNota(NotaIdInterface id) {
+    public void deleteNota(NotaIdInterface id) {
         Optional<Ano> optAno = this.anoRepository.findById(id.getAno());
 
         CursoId cursoId = new CursoId(id.getCodigoCurso(), id.getModalidade());
@@ -89,8 +83,6 @@ public class NotaService {
         NotaId notaId = new NotaId(optAno.get(), optCurso.get(), optUniversidade.get());
 
         this.notaRepository.deleteById(notaId);
-
-        return !this.notaRepository.findById(notaId).isPresent();
     }
 
 }
