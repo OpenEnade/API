@@ -45,44 +45,38 @@ public class NotaService {
         return this.notaRepository.findById(id);
     }
 
+    public void deleteNotaById(NotaId id) {
+        this.notaRepository.deleteById(id);
+    }
+
     public List<Nota> getAll() {
         return this.notaRepository.findAll();
     }
 
     public Optional<Nota> getNota(NotaIdInterface id) {
-        Optional<Ano> optAno = this.anoRepository.findById(id.getAno());
-
-        CursoId cursoId = new CursoId(id.getCodigoCurso(), id.getModalidade());
-        Optional<Curso> optCurso = this.cursoRepository.findById(cursoId);
-
-        UniversidadeId universidadeId =
-                new UniversidadeId(id.getCodigoIES(), id.getCodigoMunicipio());
-        Optional<Universidade> optUniversidade =
-                this.universidadeRepository.findById(universidadeId);
-
-        NotaId notaId = new NotaId(optAno.get(), optCurso.get(), optUniversidade.get());
+        NotaId notaId = makeNotaIdFromInterface(id);
 
         return this.notaRepository.findById(notaId);
     }
 
-    public void deleteNotaById(NotaId id) {
-        this.notaRepository.deleteById(id);
+    public void deleteNota(NotaIdInterface id) {
+        NotaId notaId = makeNotaIdFromInterface(id);
+
+        this.notaRepository.deleteById(notaId);
     }
 
-    public void deleteNota(NotaIdInterface id) {
-        Optional<Ano> optAno = this.anoRepository.findById(id.getAno());
+    private NotaId makeNotaIdFromInterface(NotaIdInterface idInterface) {
+        Optional<Ano> optAno = this.anoRepository.findById(idInterface.getAno());
 
-        CursoId cursoId = new CursoId(id.getCodigoCurso(), id.getModalidade());
+        CursoId cursoId = new CursoId(idInterface.getCodigoCurso(), idInterface.getModalidade());
         Optional<Curso> optCurso = this.cursoRepository.findById(cursoId);
 
         UniversidadeId universidadeId =
-                new UniversidadeId(id.getCodigoIES(), id.getCodigoMunicipio());
+                new UniversidadeId(idInterface.getCodigoIES(), idInterface.getCodigoMunicipio());
         Optional<Universidade> optUniversidade =
                 this.universidadeRepository.findById(universidadeId);
 
-        NotaId notaId = new NotaId(optAno.get(), optCurso.get(), optUniversidade.get());
-
-        this.notaRepository.deleteById(notaId);
+        return new NotaId(optAno.get(), optCurso.get(), optUniversidade.get());
     }
 
 }
