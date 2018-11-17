@@ -31,10 +31,21 @@ public class NotaService {
     private UniversidadeRepository universidadeRepository;
 
     public Nota save(Nota nota) {
-
         this.anoRepository.save(nota.getInfo().getAno());
 
         this.cursoRepository.save(nota.getInfo().getCurso());
+
+        Universidade universidadeA = nota.getInfo().getUniversidade();
+        UniversidadeId universidadeId = new UniversidadeId(universidadeA.getCodigoIES(),
+                universidadeA.getCampus().getCodigo());
+
+        if (this.universidadeRepository.existsById(universidadeId)) {
+            Universidade universidadeB = this.universidadeRepository.findById(universidadeId).get();
+
+            universidadeA.getCursos().addAll(universidadeB.getCursos());
+        }
+
+        this.universidadeRepository.save(universidadeA);
 
         this.universidadeRepository.save(nota.getInfo().getUniversidade());
 

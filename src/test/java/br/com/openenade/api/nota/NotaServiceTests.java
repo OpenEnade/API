@@ -61,6 +61,46 @@ public class NotaServiceTests extends BaseUnitTest {
 
         assertTrue(this.notaService.getNotaById(nota.getInfo()).isPresent());
     }
+    
+    public void saveUnivDuplicated() {
+        Ano ano = new Ano();
+        ano.setAno(2018);
+        Regiao regiao = new Regiao("NO");
+        Estado estado = new Estado("XD", regiao);
+        Municipio municipio = new Municipio(123L, estado, "Capoeira Grande");
+        this.municipioService.save(municipio);
+        Curso cursoA =
+                new Curso("Ciência da Computação", 41L, 2234234L, Modalidade.EDUCACAO_PRESENCIAL);
+        Curso cursoB =
+                new Curso("Ciência da Neurologia", 41L, 1112223L, Modalidade.EDUCACAO_PRESENCIAL);
+        
+        
+        Universidade universidadeA = new Universidade(123123L, "UFCG", municipio,
+                CategoriaAdmin.PUBLICO, new HashSet<>());
+        universidadeA.getCursos().add(cursoA);
+        
+        Universidade universidadeB = new Universidade(123123L, "UFCG", municipio,
+                CategoriaAdmin.PUBLICO, new HashSet<>());
+        universidadeA.getCursos().add(cursoB);
+
+        Nota nota = new Nota.Builder().setAno(ano).setCurso(cursoA).setUniversidade(universidadeA)
+                .build();
+
+        this.notaService.save(nota);
+        
+        nota = new Nota.Builder().setAno(ano).setCurso(cursoB).setUniversidade(universidadeB).build();
+        
+        this.notaService.save(nota);
+
+        assertTrue(this.notaService.getNotaById(nota.getInfo()).isPresent());
+        
+        nota = this.notaService.getNotaById(nota.getInfo()).get();
+        
+        assertEquals(2, nota.getInfo().getUniversidade().getCursos().size());
+        
+        assertTrue(nota.getInfo().getUniversidade().getCursos().contains(cursoA));
+        assertTrue(nota.getInfo().getUniversidade().getCursos().contains(cursoB));
+    }
 
     @Test
     public void getAll() {
