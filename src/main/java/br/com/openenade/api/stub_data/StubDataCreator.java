@@ -10,6 +10,8 @@ import br.com.openenade.api.estado.EstadoRepository;
 import br.com.openenade.api.modalidade.Modalidade;
 import br.com.openenade.api.municipio.Municipio;
 import br.com.openenade.api.municipio.MunicipioRepository;
+import br.com.openenade.api.nota.Nota;
+import br.com.openenade.api.nota.NotaService;
 import br.com.openenade.api.regiao.Regiao;
 import org.springframework.stereotype.Component;
 import org.springframework.boot.ApplicationRunner;
@@ -42,26 +44,31 @@ public class StubDataCreator implements ApplicationRunner {
     @Autowired
     private UniversidadeRepository universidadeRepository;
 
+    @Autowired
+    private NotaService notaService;
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        if(args.containsOption("stub-data")) {
+        if (args.containsOption("stub-data")) {
             this.addLines();
         }
     }
 
     public void addLines() {
 
-        Regiao[] regioes = addRegioes();
+        Regiao[] regioes = this.addRegioes();
 
-        Estado[] estados = addEstados(regioes);
+        Estado[] estados = this.addEstados(regioes);
 
-        Municipio[] municipios = addMunicipios(estados);
+        Municipio[] municipios = this.addMunicipios(estados);
 
-        Curso[] cursos = addCursos();
+        Curso[] cursos = this.addCursos();
 
-        addAnos();
+        Ano anos[] = this.addAnos();
 
-        addUniversidades(municipios, cursos);
+        Universidade universidades[] = this.addUniversidades(municipios, cursos);
+
+        this.addNotas(anos, cursos, universidades);
     }
 
     private Regiao[] addRegioes() {
@@ -136,8 +143,9 @@ public class StubDataCreator implements ApplicationRunner {
 
         Universidade[] universidades = new Universidade[codesIES.length];
         for (int i = 0; i < universidades.length; i++) {
-            UniversidadeId universidadeId = new UniversidadeId(codesIES[i], municipios[i].getCodigo());
-            
+            UniversidadeId universidadeId =
+                    new UniversidadeId(codesIES[i], municipios[i].getCodigo());
+
             if (this.universidadeRepository.existsById(universidadeId)) {
                 universidades[i] = this.universidadeRepository.findById(universidadeId).get();
             } else {
@@ -149,6 +157,17 @@ public class StubDataCreator implements ApplicationRunner {
         }
 
         return universidades;
+    }
+
+    private void addNotas(Ano anos[], Curso cursos[], Universidade universidades[]) {
+
+
+        for (int i = 0; i < anos.length; i++) {
+            Nota nota = new Nota.Builder().setAno(anos[i]).setCurso(cursos[i])
+                    .setUniversidade(universidades[i]).build();
+
+            this.notaService.save(nota);
+        }
     }
 
     private Integer[] getAnos() {
