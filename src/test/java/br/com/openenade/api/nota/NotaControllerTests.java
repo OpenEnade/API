@@ -103,16 +103,16 @@ public class NotaControllerTests extends BaseUnitTest {
         this.notaService.save(nota);
 
         String url = "/" + NotaController.ENDPOINT
-                + String.format("/%d-%d-%s-%d-%d", nota.getInfo().getAno().getAno(),
+                + String.format("/%d-%d-%d-%d-%d", nota.getInfo().getAno().getAno(),
                         nota.getInfo().getCurso().getCodigoCurso(),
-                        nota.getInfo().getCurso().getModalidade(),
+                        nota.getInfo().getCurso().getModalidade().ordinal(),
                         nota.getInfo().getUniversidade().getCodigoIES(),
                         nota.getInfo().getUniversidade().getCampus().getCodigo());
 
         MvcResult result = mvc.perform(get(url)).andExpect(status().isOk()).andReturn();
         
         assertEquals("application/json;charset=UTF-8", result.getResponse().getContentType());
-
+        
         JSONAssert.assertEquals(
                 "{\"info\":{\"ano\":{\"ano\":2018},\"curso\":{\"codigoCurso\":"
                         + "9999,\"nome\":\"Ciência da Computação\",\"codigoArea\":33,\""

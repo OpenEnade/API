@@ -1,12 +1,10 @@
 package br.com.openenade.api.nota;
 
-import br.com.openenade.api.modalidade.Modalidade;
-
 public class NotaIdInterface {
 
     private int ano;
     private long codigoCurso;
-    private Modalidade modalidade;
+    private int modalidade;
     private long codigoIES;
     private long codigoMunicipio;
 
@@ -26,11 +24,11 @@ public class NotaIdInterface {
         this.codigoCurso = codigoCurso;
     }
 
-    public Modalidade getModalidade() {
+    public int getModalidade() {
         return modalidade;
     }
 
-    public void setModalidade(Modalidade modalidade) {
+    public void setModalidade(int modalidade) {
         this.modalidade = modalidade;
     }
 

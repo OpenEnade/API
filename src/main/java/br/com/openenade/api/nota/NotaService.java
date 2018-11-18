@@ -10,6 +10,7 @@ import br.com.openenade.api.ano.AnoRepository;
 import br.com.openenade.api.curso.Curso;
 import br.com.openenade.api.curso.CursoId;
 import br.com.openenade.api.curso.CursoRepository;
+import br.com.openenade.api.modalidade.Modalidade;
 import br.com.openenade.api.universidade.Universidade;
 import br.com.openenade.api.universidade.UniversidadeService;
 
@@ -77,7 +78,7 @@ public class NotaService {
     private NotaId makeNotaIdFromInterface(NotaIdInterface idInterface) {
         Optional<Ano> optAno = this.anoRepository.findById(idInterface.getAno());
 
-        CursoId cursoId = new CursoId(idInterface.getCodigoCurso(), idInterface.getModalidade());
+        CursoId cursoId = new CursoId(idInterface.getCodigoCurso(), Modalidade.values()[idInterface.getModalidade()]);
         Optional<Curso> optCurso = this.cursoRepository.findById(cursoId);
 
         Optional<Universidade> optUniversidade = this.universidadeService
