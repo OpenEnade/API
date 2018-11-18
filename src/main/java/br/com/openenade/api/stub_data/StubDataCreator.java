@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.boot.ApplicationRunner;
 import br.com.openenade.api.regiao.RegiaoRepository;
 import br.com.openenade.api.universidade.Universidade;
+import br.com.openenade.api.universidade.UniversidadeId;
 import br.com.openenade.api.universidade.UniversidadeRepository;
 import org.springframework.boot.ApplicationArguments;
 import java.util.HashSet;
@@ -133,8 +134,10 @@ public class StubDataCreator implements ApplicationRunner {
 
         Universidade[] universidades = new Universidade[codesIES.length];
         for (int i = 0; i < universidades.length; i++) {
-            if (this.universidadeRepository.existsById(codesIES[i])) {
-                universidades[i] = this.universidadeRepository.findById(codesIES[i]).get();
+            UniversidadeId universidadeId = new UniversidadeId(codesIES[i], municipios[i].getCodigo());
+            
+            if (this.universidadeRepository.existsById(universidadeId)) {
+                universidades[i] = this.universidadeRepository.findById(universidadeId).get();
             } else {
                 universidades[i] = new Universidade(codesIES[i], namesIES[i], municipios[i],
                         categoriasAdm[i], new HashSet<>());
