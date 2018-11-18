@@ -11,8 +11,7 @@ import br.com.openenade.api.curso.Curso;
 import br.com.openenade.api.curso.CursoId;
 import br.com.openenade.api.curso.CursoRepository;
 import br.com.openenade.api.universidade.Universidade;
-import br.com.openenade.api.universidade.UniversidadeId;
-import br.com.openenade.api.universidade.UniversidadeRepository;
+import br.com.openenade.api.universidade.UniversidadeService;
 
 @Service
 @Transactional
@@ -28,7 +27,7 @@ public class NotaService {
     private CursoRepository cursoRepository;
 
     @Autowired
-    private UniversidadeRepository universidadeRepository;
+    private UniversidadeService universidadeService;
 
     public Nota save(Nota nota) {
         this.anoRepository.save(nota.getInfo().getAno());
@@ -36,18 +35,17 @@ public class NotaService {
         this.cursoRepository.save(nota.getInfo().getCurso());
 
         Universidade universidadeA = nota.getInfo().getUniversidade();
-        UniversidadeId universidadeId = new UniversidadeId(universidadeA.getCodigoIES(),
-                universidadeA.getCampus().getCodigo());
 
-        if (this.universidadeRepository.existsById(universidadeId)) {
-            Universidade universidadeB = this.universidadeRepository.findById(universidadeId).get();
+        Optional<Universidade> optUniB = this.universidadeService.getUniversidadeById(
+                universidadeA.getCodigoIES(), universidadeA.getCampus().getCodigo());
+
+        if (optUniB.isPresent()) {
+            Universidade universidadeB = optUniB.get();
 
             universidadeA.getCursos().addAll(universidadeB.getCursos());
         }
 
-        this.universidadeRepository.save(universidadeA);
-
-        this.universidadeRepository.save(nota.getInfo().getUniversidade());
+        this.universidadeService.save(universidadeA);
 
         return this.notaRepository.save(nota);
     }
@@ -82,10 +80,8 @@ public class NotaService {
         CursoId cursoId = new CursoId(idInterface.getCodigoCurso(), idInterface.getModalidade());
         Optional<Curso> optCurso = this.cursoRepository.findById(cursoId);
 
-        UniversidadeId universidadeId =
-                new UniversidadeId(idInterface.getCodigoIES(), idInterface.getCodigoMunicipio());
-        Optional<Universidade> optUniversidade =
-                this.universidadeRepository.findById(universidadeId);
+        Optional<Universidade> optUniversidade = this.universidadeService
+                .getUniversidadeById(idInterface.getCodigoIES(), idInterface.getCodigoMunicipio());
 
         return new NotaId(optAno.get(), optCurso.get(), optUniversidade.get());
     }
