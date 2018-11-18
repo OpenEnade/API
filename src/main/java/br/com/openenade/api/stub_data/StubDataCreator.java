@@ -44,7 +44,9 @@ public class StubDataCreator implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        this.addLines();
+        if(args.containsOption("stub-data")) {
+            this.addLines();
+        }
     }
 
     public void addLines() {

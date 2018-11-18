@@ -11,8 +11,10 @@ Aplicação responsável por recuperar, inserir, atualizar e deletar dados do EN
 
 Esta API foi desenvolvida para dar suporte ao [OpenEnade-ClientApp](https://github.com/OpenEnade/OpenEnade-ClientApp) para que seja possível ranquear e comparar cursos de diferentes IES.
 
-## Rodando o servidor
-1.  `mvn -Dmaven.test.skip=true install`
-2.  `mvn exec:java`
+## Rodando o servidor com dados stubs
+1.  `mvn install`
+2.  `java -jar target/api-0.0.1-SNAPSHOT.jar --stub-data`
 
 Pronto, agora basta acessar por exemplo: [http://localhost:8080/api/regiao](http://localhost:8080/api/regiao)
+
+Para acessar a documentacão da API [http://localhost:8080/api/swagger-ui.html#/](http://localhost:8080/api/swagger-ui.html#/).
