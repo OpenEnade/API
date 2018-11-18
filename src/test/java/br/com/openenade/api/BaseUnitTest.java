@@ -12,6 +12,8 @@ import br.com.openenade.api.estado.Estado;
 import br.com.openenade.api.estado.EstadoService;
 import br.com.openenade.api.municipio.Municipio;
 import br.com.openenade.api.municipio.MunicipioService;
+import br.com.openenade.api.nota.Nota;
+import br.com.openenade.api.nota.NotaService;
 import br.com.openenade.api.regiao.Regiao;
 import br.com.openenade.api.regiao.RegiaoService;
 import br.com.openenade.api.universidade.Universidade;
@@ -37,6 +39,9 @@ public class BaseUnitTest {
     @Autowired
     private UniversidadeService universidadeService;
 
+    @Autowired
+    private NotaService notaService;
+
     /**
      * Do not change the order of deletions, if you want to add any other service, please append the
      * operation.
@@ -44,12 +49,16 @@ public class BaseUnitTest {
     @Before
     @After
     public void clean() {
+        for (Nota nota : this.notaService.getAll()) {
+            this.notaService.deleteNotaById(nota.getInfo());
+        }
         for (Universidade universidade : this.universidadeService.getAll()) {
-            this.universidadeService.deleteUniversidadeByCodigoIES(universidade.getCodigoIES());
+            this.universidadeService.deleteUniversidadeById(universidade.getCodigoIES(),
+                    universidade.getCampus());
         }
         for (Curso curso : this.cursoService.getAll()) {
-        	
-        	CursoId id = new CursoId(curso.getCodigoCurso(), curso.getModalidade());
+
+            CursoId id = new CursoId(curso.getCodigoCurso(), curso.getModalidade());
             this.cursoService.deleteCursoById(id);
         }
         for (Ano ano : this.anoService.getAllAnos()) {

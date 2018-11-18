@@ -24,4 +24,20 @@ public class CursoId implements Serializable {
         this.modalidade = modalidade;
     }
 
+    public Long getCodigoCurso() {
+        return codigoCurso;
+    }
+
+    public void setCodigoCurso(Long codigoCurso) {
+        this.codigoCurso = codigoCurso;
+    }
+
+    public Modalidade getModalidade() {
+        return modalidade;
+    }
+
+    public void setModalidade(Modalidade modalidade) {
+        this.modalidade = modalidade;
+    }
+
 }
