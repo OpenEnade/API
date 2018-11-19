@@ -96,11 +96,6 @@
 						</goals>
 					</execution>
 				</executions>
-				<configuration>
-					<excludes>
-						<exclude>br.com.openenade.api.stub_data</exclude>
-					</excludes>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>
