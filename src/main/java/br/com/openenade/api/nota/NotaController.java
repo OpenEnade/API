@@ -59,9 +59,9 @@ public class NotaController {
     }
 
     @GetMapping(path = "/filtered")
-    public Collection<Nota> getFilteredNotas(Integer ano, CategoriaAdmin catAdm, CursoId curso,
+    public Collection<Nota> getFilteredNotas(Integer ano, CategoriaAdmin catAdm, @RequestBody CursoId curso,
             String estado, Modalidade modalidade, Long municipio, String regiao,
-            UniversidadeId universidade) {
+            @RequestBody UniversidadeId universidade) {
 
         return this.service.filterByGenericAtribute(ano, catAdm, curso, estado, modalidade,
                 municipio, regiao, universidade);
