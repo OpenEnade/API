@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import br.com.openenade.api.categoriaadmin.CategoriaAdmin;
-import br.com.openenade.api.curso.CursoId;
 import br.com.openenade.api.modalidade.Modalidade;
-import br.com.openenade.api.universidade.UniversidadeId;
 
 @RestController
 @CrossOrigin("*")
@@ -58,10 +56,12 @@ public class NotaController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    
+    // Falta settar como path variable
     @GetMapping(path = "/filtered")
-    public Collection<Nota> getFilteredNotas(Integer ano, CategoriaAdmin catAdm, @RequestBody CursoId curso,
+    public Collection<Nota> getFilteredNotas(Integer ano, CategoriaAdmin catAdm, Long curso,
             String estado, Modalidade modalidade, Long municipio, String regiao,
-            @RequestBody UniversidadeId universidade) {
+            Long universidade) {
 
         return this.service.filterByGenericAtribute(ano, catAdm, curso, estado, modalidade,
                 municipio, regiao, universidade);
