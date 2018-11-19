@@ -1,5 +1,6 @@
 package br.com.openenade.api.nota;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import javax.validation.Valid;
@@ -14,6 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import br.com.openenade.api.categoriaadmin.CategoriaAdmin;
+import br.com.openenade.api.curso.CursoId;
+import br.com.openenade.api.modalidade.Modalidade;
+import br.com.openenade.api.universidade.UniversidadeId;
 
 @RestController
 @CrossOrigin("*")
@@ -53,4 +58,13 @@ public class NotaController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @GetMapping(path = "/filtered")
+    public Collection<Nota> getFilteredNotas(Integer ano, CategoriaAdmin catAdm, CursoId curso,
+            String estado, Modalidade modalidade, Long municipio, String regiao,
+            UniversidadeId universidade) {
+
+        return this.service.filterByGenericAtribute(ano, catAdm, curso, estado, modalidade,
+                municipio, regiao, universidade);
+
+    }
 }
