@@ -13,68 +13,71 @@ import br.com.openenade.api.municipio.MunicipioService;
 @Transactional
 public class UniversidadeService {
 
-	@Autowired
-	private UniversidadeRepository repository;
+    @Autowired
+    private UniversidadeRepository repository;
 
-	@Autowired
-	private MunicipioService municipioService;
+    @Autowired
+    private MunicipioService municipioService;
 
-	public Universidade save(Universidade universidade) {
-		Optional<Municipio> optMunicipio = this.municipioService
-				.getOptionalByCodigo(universidade.getCampus().getCodigo());
-		Municipio newCampus;
-		if (optMunicipio.isPresent()) {
-			newCampus = optMunicipio.get();
-		} else {
-			newCampus = this.municipioService.save(universidade.getCampus());
-		}
-		universidade.setCampus(newCampus);
-		return this.repository.save(universidade);
+    public Universidade save(Universidade universidade) {
+        Optional<Municipio> optMunicipio =
+                this.municipioService.getOptionalByCodigo(universidade.getCampus().getCodigo());
+        Municipio newCampus;
+        if (optMunicipio.isPresent()) {
+            newCampus = optMunicipio.get();
+        } else {
+            newCampus = this.municipioService.save(universidade.getCampus());
+        }
+        universidade.setCampus(newCampus);
+        return this.repository.save(universidade);
 
-	}
+    }
 
-	public Collection<Universidade> getAll() {
-		return this.repository.findAll();
-	}
+    public Collection<Universidade> getAll() {
+        return this.repository.findAll();
+    }
 
-	// Issue #38
-	public Collection<Universidade> getAllByCodigoIES(Long codigoIES) {
+    // Issue #38
+    public Collection<Universidade> getAllByCodigoIES(Long codigoIES) {
 
-		return this.repository.findAllByCodigoIES(codigoIES);
+        return this.repository.findAllByCodigoIES(codigoIES);
 
-	}
+    }
 
-	public Universidade getUniversidadeByCodigoIES(Long codigoIES) {
-		Optional<Universidade> optUnivesidade = this.repository.findByCodigoIES(codigoIES);
-		if (optUnivesidade.isPresent()) {
-			return optUnivesidade.get();
-		} else {
-			throw new ResourceNotFound("" + codigoIES);
-		}
-	}
+    public Universidade getUniversidadeByCodigoIES(Long codigoIES) {
+        Optional<Universidade> optUnivesidade = this.repository.findByCodigoIES(codigoIES);
+        if (optUnivesidade.isPresent()) {
+            return optUnivesidade.get();
+        } else {
+            throw new ResourceNotFound("" + codigoIES);
+        }
+    }
 
-	public void deleteUniversidadeByCodigoIES(Long codigoIES) {
-		this.repository.deleteByCodigoIES(codigoIES);
-	}
+    public void deleteUniversidadeByCodigoIES(Long codigoIES) {
+        this.repository.deleteByCodigoIES(codigoIES);
+    }
 
-	public void deleteUniversidadesByMunicipioCodigo(Municipio campus) {
+    public void deleteUniversidadesByMunicipioCodigo(Municipio campus) {
 
-		this.repository.deleteAllByCampus(campus);
-	}
+        this.repository.deleteAllByCampus(campus);
+    }
 
-	public Optional<Universidade> getUniversidadeById(Long codigoIES, Long codigoMunicipio) {
+    public Optional<Universidade> getUniversidadeById(Long codigoIES, Long codigoMunicipio) {
 
-		Municipio municipio = this.municipioService.getMunicipioByCodigo(codigoMunicipio);
+        Optional<Municipio> municipio = this.municipioService.getOptionalByCodigo(codigoMunicipio);
 
-		UniversidadeId id = new UniversidadeId(codigoIES, municipio.getCodigo());
-		return this.repository.findById(id);
+        if (municipio.isPresent()) {
+            UniversidadeId id = new UniversidadeId(codigoIES, codigoMunicipio);
+            return this.repository.findById(id);
+        } else {
+            return Optional.ofNullable(null);
+        }
+    }
 
-	}
+    public void deleteUniversidadeById(Long codigoIES, Municipio campus) {
 
-	public void deleteUniversidadeById(Long codigoIES, Municipio campus) {
-
-		UniversidadeId id = new UniversidadeId(codigoIES, campus.getCodigo());
-		this.repository.deleteById(id);
-	}
+        UniversidadeId id = new UniversidadeId(codigoIES, campus.getCodigo());
+        this.repository.deleteById(id);
+    }
 
 }
