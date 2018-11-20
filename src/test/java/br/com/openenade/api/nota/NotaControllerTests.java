@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import br.com.openenade.api.BaseUnitTest;
 import br.com.openenade.api.ano.Ano;
@@ -78,7 +79,7 @@ public class NotaControllerTests extends BaseUnitTest {
     }
 
     @Test
-    public void getTestBasic() throws Exception {
+    public void getTestBasicPlusDelete() throws Exception {
         Ano ano = new Ano();
         ano.setAno(2018);
         Regiao regiao = new Regiao("NE");
@@ -127,6 +128,12 @@ public class NotaControllerTests extends BaseUnitTest {
                         + "notaPadronizadaFG\":0.0,\"notaBrutaCE\":2.1,\"notaPadroniz"
                         + "adaCE\":0.0,\"enadeContinuo\":3.666,\"enadeFaixa\":1}}",
                 result.getResponse().getContentAsString(), true);
+        
+        assertTrue(this.notaService.getNotaById(nota.getInfo()).isPresent());
+        
+        result = mvc.perform(delete(url)).andExpect(status().isOk()).andReturn();
+        
+        assertFalse(this.notaService.getNotaById(nota.getInfo()).isPresent());
     }
 
 }
