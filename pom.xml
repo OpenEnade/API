@@ -84,7 +84,7 @@
 				<version>0.7.9</version>
 				<configuration>
 					<excludes>
-						<exclude>br/com/openenade/api/stub_data</exclude>
+						<exclude>br/com/openenade/api/stub_data/**/*.class</exclude>
 					</excludes>
 				</configuration>
 				<executions>
