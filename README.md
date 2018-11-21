@@ -15,6 +15,6 @@ Esta API foi desenvolvida para dar suporte ao [OpenEnade-ClientApp](https://gith
 1.  `mvn install`
 2.  `java -jar target/api-0.0.1-SNAPSHOT.jar --stub-data`
 
-Pronto, agora basta acessar por exemplo: [http://localhost:8080/api/regiao](http://localhost:8080/api/regiao)
+Pronto, agora basta acessar por exemplo: [http://localhost:8080/api/regioes](http://localhost:8080/api/regioes)
 
 Para acessar a documentacão da API [http://localhost:8080/api/swagger-ui.html#/](http://localhost:8080/api/swagger-ui.html#/).
