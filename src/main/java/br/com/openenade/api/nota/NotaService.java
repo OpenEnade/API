@@ -79,11 +79,10 @@ public class NotaService {
 	private NotaId makeNotaIdFromInterface(NotaIdInterface idInterface) {
 		Optional<Ano> optAno = this.anoRepository.findById(idInterface.getAno());
 
-		CursoId cursoId = new CursoId(idInterface.getCodigoCurso(), idInterface.getModalidade());
-		Optional<Curso> optCurso = this.cursoRepository.findById(cursoId);
-
 		Optional<Universidade> optUniversidade = this.universidadeService
 				.getUniversidadeById(idInterface.getCodigoIES(), idInterface.getCodigoMunicipio());
+        CursoId cursoId = new CursoId(idInterface.getCodigoCurso(), Modalidade.values()[idInterface.getModalidade()]);
+        Optional<Curso> optCurso = this.cursoRepository.findById(cursoId);
 
 		return new NotaId(optAno.get(), optCurso.get(), optUniversidade.get());
 	}
