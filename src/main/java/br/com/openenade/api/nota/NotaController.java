@@ -58,7 +58,7 @@ public class NotaController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/findby")
+    @GetMapping("/filterby")
     public Collection<Nota> getFilteredNotas(@RequestParam("ano") Integer ano, 
     		@RequestParam("categoria") CategoriaAdmin catAdm, @RequestParam("curso") Long curso,
     		@RequestParam("estado") String estado, @RequestParam("modalidade") Modalidade modalidade,

@@ -19,93 +19,95 @@ import br.com.openenade.api.universidade.UniversidadeService;
 @Transactional
 public class NotaService {
 
-	@Autowired
-	private NotaRepository notaRepository;
+    @Autowired
+    private NotaRepository notaRepository;
 
-	@Autowired
-	private AnoRepository anoRepository;
+    @Autowired
+    private AnoRepository anoRepository;
 
-	@Autowired
-	private CursoRepository cursoRepository;
+    @Autowired
+    private CursoRepository cursoRepository;
 
-	@Autowired
-	private UniversidadeService universidadeService;
+    @Autowired
+    private UniversidadeService universidadeService;
 
-	public Nota save(Nota nota) {
-		this.anoRepository.save(nota.getInfo().getAno());
+    public Nota save(Nota nota) {
+        this.anoRepository.save(nota.getInfo().getAno());
 
-		this.cursoRepository.save(nota.getInfo().getCurso());
+        this.cursoRepository.save(nota.getInfo().getCurso());
 
-		Universidade universidadeA = nota.getInfo().getUniversidade();
+        Universidade universidadeA = nota.getInfo().getUniversidade();
 
-		Optional<Universidade> optUniB = this.universidadeService.getUniversidadeById(universidadeA.getCodigoIES(),
-				universidadeA.getCampus().getCodigo());
+        Optional<Universidade> optUniB = this.universidadeService.getUniversidadeById(
+                universidadeA.getCodigoIES(), universidadeA.getCampus().getCodigo());
 
-		if (optUniB.isPresent()) {
-			Universidade universidadeB = optUniB.get();
+        if (optUniB.isPresent()) {
+            Universidade universidadeB = optUniB.get();
 
-			universidadeA.getCursos().addAll(universidadeB.getCursos());
-		}
+            universidadeA.getCursos().addAll(universidadeB.getCursos());
+        }
 
-		this.universidadeService.save(universidadeA);
+        this.universidadeService.save(universidadeA);
 
-		return this.notaRepository.save(nota);
-	}
+        return this.notaRepository.save(nota);
+    }
 
-	public Optional<Nota> getNotaById(NotaId id) {
-		return this.notaRepository.findById(id);
-	}
+    public Optional<Nota> getNotaById(NotaId id) {
+        return this.notaRepository.findById(id);
+    }
 
-	public void deleteNotaById(NotaId id) {
-		this.notaRepository.deleteById(id);
-	}
+    public void deleteNotaById(NotaId id) {
+        this.notaRepository.deleteById(id);
+    }
 
-	public List<Nota> getAll() {
-		return this.notaRepository.findAll();
-	}
+    public List<Nota> getAll() {
+        return this.notaRepository.findAll();
+    }
 
-	public Optional<Nota> getNota(NotaIdInterface id) {
-		NotaId notaId = makeNotaIdFromInterface(id);
+    public Optional<Nota> getNota(NotaIdInterface id) {
+        NotaId notaId = makeNotaIdFromInterface(id);
 
-		return this.notaRepository.findById(notaId);
-	}
+        return this.notaRepository.findById(notaId);
+    }
 
-	public void deleteNota(NotaIdInterface id) {
-		NotaId notaId = makeNotaIdFromInterface(id);
+    public void deleteNota(NotaIdInterface id) {
+        NotaId notaId = makeNotaIdFromInterface(id);
 
-		this.notaRepository.deleteById(notaId);
-	}
+        this.notaRepository.deleteById(notaId);
+    }
 
-	private NotaId makeNotaIdFromInterface(NotaIdInterface idInterface) {
-		Optional<Ano> optAno = this.anoRepository.findById(idInterface.getAno());
+    private NotaId makeNotaIdFromInterface(NotaIdInterface idInterface) {
+        Optional<Ano> optAno = this.anoRepository.findById(idInterface.getAno());
 
-		Optional<Universidade> optUniversidade = this.universidadeService
-				.getUniversidadeById(idInterface.getCodigoIES(), idInterface.getCodigoMunicipio());
-        CursoId cursoId = new CursoId(idInterface.getCodigoCurso(), Modalidade.values()[idInterface.getModalidade()]);
+        Optional<Universidade> optUniversidade = this.universidadeService
+                .getUniversidadeById(idInterface.getCodigoIES(), idInterface.getCodigoMunicipio());
+        CursoId cursoId = new CursoId(idInterface.getCodigoCurso(),
+                Modalidade.values()[idInterface.getModalidade()]);
         Optional<Curso> optCurso = this.cursoRepository.findById(cursoId);
 
-		return new NotaId(optAno.get(), optCurso.get(), optUniversidade.get());
-	}
+        return new NotaId(optAno.get(), optCurso.get(), optUniversidade.get());
+    }
 
     public List<Nota> filterByIntervaloAno(Integer anoIni, Integer anoFin) {
-		FilterBy filter = new FilterBy(this.getAll());
+        FilterBy filter = new FilterBy(this.getAll());
 
         return filter.filterByIntervaloAno(anoIni, anoFin).get();
     }
 
-	public List<Nota> filterByGenericAtribute(Integer ano, CategoriaAdmin catAdm, Long codigoCurso, String estado,
-			Modalidade modalidade, Long municipio, String regiao, Long codigoIES) {
+    public List<Nota> filterByGenericAtribute(Integer ano, CategoriaAdmin catAdm, Long codigoCurso,
+            String estado, Modalidade modalidade, Long municipio, String regiao, Long codigoIES) {
 
-		FilterBy filter = new FilterBy(this.getAll());
+        FilterBy filter = new FilterBy(this.getAll());
 
-		return filter.filterByRegiao(regiao).filterByEstado(estado).filterByMunicipio(municipio).filterByCategAdmin(catAdm)
-				.filterByCodigoIES(codigoIES).filterByCodigoCurso(codigoCurso).filterByModalidadeEnsino(modalidade)
-				.filterByAno(ano).get();
-	}
+        return filter.filterByRegiao(regiao).filterByEstado(estado).filterByMunicipio(municipio)
+                .filterByCategAdmin(catAdm).filterByCodigoIES(codigoIES)
+                .filterByCodigoCurso(codigoCurso).filterByModalidadeEnsino(modalidade)
+                .filterByAno(ano).get();
+    }
 
-	public void deleteAll() {
+    public void deleteAll() {
 
-		this.notaRepository.deleteAll();
+        this.notaRepository.deleteAll();
 
-	}
+    }
 }
