@@ -63,15 +63,8 @@ public class UniversidadeService {
     }
 
     public Optional<Universidade> getUniversidadeById(Long codigoIES, Long codigoMunicipio) {
-
-        Optional<Municipio> municipio = this.municipioService.getOptionalByCodigo(codigoMunicipio);
-
-        if (municipio.isPresent()) {
-            UniversidadeId id = new UniversidadeId(codigoIES, codigoMunicipio);
-            return this.repository.findById(id);
-        } else {
-            return Optional.ofNullable(null);
-        }
+        UniversidadeId id = new UniversidadeId(codigoIES, codigoMunicipio);
+        return this.repository.findById(id);
     }
 
     public void deleteUniversidadeById(Long codigoIES, Municipio campus) {
