@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +33,82 @@ public class NotaServiceTests extends BaseUnitTest {
 
     @Autowired
     private MunicipioService municipioService;
+    
+    private List<Nota> notas;
+    
+    @After
+    public void deleteAll() {
+    	
+    	this.notaService.deleteAll();
+    }
+    
+    @Before
+    public void setUp() {
+    
+    	this.notas = this.addAnos();
+    }
 
+    public List<Nota> addAnos() {
+
+        Ano ano1 = new Ano();
+        ano1.setAno(2017);
+        Regiao regiao1 = new Regiao("NE");
+        Estado estado1 = new Estado("PE", regiao1);
+        Municipio municipio1 = new Municipio(333L, estado1, "Recife");
+        this.municipioService.save(municipio1);
+        Curso curso1 =
+                new Curso("Ciência da Computação", 41L, 2234234L, Modalidade.EDUCACAO_PRESENCIAL);
+        Universidade universidade1 = new Universidade(11111L, "UFPE", municipio1,
+                CategoriaAdmin.PUBLICO, new HashSet<>());
+        universidade1.getCursos().add(curso1);
+
+        Nota nota1 = new Nota.Builder().setAno(ano1).setCurso(curso1).setUniversidade(universidade1)
+                .build();
+
+
+        Ano ano2 = new Ano();
+        ano2.setAno(2018);
+        Regiao regiao2 = new Regiao("CO");
+        Estado estado2 = new Estado("MG", regiao2);
+        Municipio municipio2 = new Municipio(222L, estado2, "Minas Gerais");
+        this.municipioService.save(municipio2);
+        Curso curso2 =
+                new Curso("Ciência da Computação", 41L, 2234234L, Modalidade.EDUCACAO_PRESENCIAL);
+        Universidade universidade2 = new Universidade(11111L, "UFMG", municipio2,
+                CategoriaAdmin.PUBLICO, new HashSet<>());
+        universidade2.getCursos().add(curso2);
+
+        Nota nota2 = new Nota.Builder().setAno(ano2).setCurso(curso2).setUniversidade(universidade2)
+                .build();
+
+        Ano ano = new Ano();
+        ano.setAno(2019);
+        Regiao regiao = new Regiao("NE");
+        Estado estado = new Estado("PB", regiao);
+        Municipio municipio = new Municipio(123L, estado, "Campina Grande");
+        this.municipioService.save(municipio);
+        Curso curso =
+                new Curso("Ciência da Computação", 41L, 2234234L, Modalidade.EDUCACAO_PRESENCIAL);
+        Universidade universidade = new Universidade(123123L, "UFCG", municipio,
+                CategoriaAdmin.PRIVADO, new HashSet<>());
+        universidade.getCursos().add(curso);
+
+        Nota nota3 = new Nota.Builder().setAno(ano).setCurso(curso).setUniversidade(universidade)
+                .build();
+
+        List<Nota> notas = new ArrayList<>();
+
+        notas.add(nota1);
+        notas.add(nota2);
+        notas.add(nota3);
+
+        this.notaService.save(nota1);
+        this.notaService.save(nota2);
+        this.notaService.save(nota3);
+
+        return notas;
+    }
+    
     @Test
     public void save() {
         Ano ano = new Ano();
@@ -202,121 +280,94 @@ public class NotaServiceTests extends BaseUnitTest {
     }
 
 
-    public List<Nota> addAnos() {
-
-
-        Ano ano1 = new Ano();
-        ano1.setAno(2017);
-        Regiao regiao1 = new Regiao("NE");
-        Estado estado1 = new Estado("PE", regiao1);
-        Municipio municipio1 = new Municipio(333L, estado1, "Recife");
-        this.municipioService.save(municipio1);
-        Curso curso1 =
-                new Curso("Ciência da Computação", 41L, 2234234L, Modalidade.EDUCACAO_PRESENCIAL);
-        Universidade universidade1 = new Universidade(11111L, "UFPE", municipio1,
-                CategoriaAdmin.PUBLICO, new HashSet<>());
-        universidade1.getCursos().add(curso1);
-
-        Nota nota1 = new Nota.Builder().setAno(ano1).setCurso(curso1).setUniversidade(universidade1)
-                .build();
-
-
-        Ano ano2 = new Ano();
-        ano2.setAno(2018);
-        Regiao regiao2 = new Regiao("CO");
-        Estado estado2 = new Estado("MG", regiao2);
-        Municipio municipio2 = new Municipio(222L, estado2, "Minas Gerais");
-        this.municipioService.save(municipio2);
-        Curso curso2 =
-                new Curso("Ciência da Computação", 41L, 2234234L, Modalidade.EDUCACAO_PRESENCIAL);
-        Universidade universidade2 = new Universidade(11111L, "UFMG", municipio2,
-                CategoriaAdmin.PUBLICO, new HashSet<>());
-        universidade2.getCursos().add(curso2);
-
-        Nota nota2 = new Nota.Builder().setAno(ano2).setCurso(curso2).setUniversidade(universidade2)
-                .build();
-
-        Ano ano = new Ano();
-        ano.setAno(2019);
-        Regiao regiao = new Regiao("NE");
-        Estado estado = new Estado("PB", regiao);
-        Municipio municipio = new Municipio(123L, estado, "Campina Grande");
-        this.municipioService.save(municipio);
-        Curso curso =
-                new Curso("Ciência da Computação", 41L, 2234234L, Modalidade.EDUCACAO_PRESENCIAL);
-        Universidade universidade = new Universidade(123123L, "UFCG", municipio,
-                CategoriaAdmin.PRIVADO, new HashSet<>());
-        universidade.getCursos().add(curso);
-
-        Nota nota3 = new Nota.Builder().setAno(ano).setCurso(curso).setUniversidade(universidade)
-                .build();
-
-
-
-        List<Nota> notas = new ArrayList<>();
-
-        notas.add(nota1);
-        notas.add(nota2);
-        notas.add(nota3);
-
-        this.notaService.save(nota1);
-        this.notaService.save(nota2);
-        this.notaService.save(nota3);
-
-
-        return notas;
-    }
-
     @Test
-    public void testFilterIndividual() {
-
-        List<Nota> notas = this.addAnos();
-
-        Nota nota1 = notas.get(0);
-        Nota nota2 = notas.get(1);
-        Nota nota3 = notas.get(2);
-
-        assertEquals(nota1, this.notaService.filterByGenericAtribute(2017, null, null, null,
+    public void testFilterByAno() {
+        
+        assertEquals(this.notas.get(0), this.notaService.filterByGenericAtribute(2017, null, null, null,
                 null, null, null, null).get(0));
-
+    }
+    
+    @Test
+    public void testFilterByCategoria() {
+     
         List<Nota> publica = new ArrayList<>();
         
-        publica.add(nota1);
-        publica.add(nota2);
+        publica.add(this.notas.get(0));
+        publica.add(this.notas.get(1));
         
         assertEquals(publica, this.notaService.filterByGenericAtribute(null, CategoriaAdmin.PUBLICO, null, null,
                 null, null, null, null));
-        
-        assertEquals(notas, this.notaService.filterByGenericAtribute(null, null, 2234234L, null,
+    }
+    
+    @Test
+    public void testFilterByCodigoCurso() {
+    	
+        assertEquals(this.notas, this.notaService.filterByGenericAtribute(null, null, 2234234L, null,
                 null, null, null, null));
-
-        assertEquals(nota3, this.notaService.filterByGenericAtribute(null, null, null, "PB",
+    }
+    
+    @Test
+    public void testFilterByEstado() {
+    	
+        assertEquals(this.notas.get(2), this.notaService.filterByGenericAtribute(null, null, null, "PB",
                 null, null, null, null).get(0));
-        
-        assertEquals(notas, this.notaService.filterByGenericAtribute(null, null, null, null,
+    }
+    
+    @Test
+    public void testFilterByModalidade() {
+    	
+        assertEquals(this.notas, this.notaService.filterByGenericAtribute(null, null, null, null,
                 Modalidade.EDUCACAO_PRESENCIAL, null, null, null));
-        
-        assertEquals(nota3, this.notaService.filterByGenericAtribute(null, null, null, null,
+    }
+    
+    @Test
+    public void testFilterByMunicipio() {
+
+        assertEquals(this.notas.get(2), this.notaService.filterByGenericAtribute(null, null, null, null,
                 null, 123L, null, null).get(0));
-       
+    }
+    
+    @Test
+    public void testFilterByRegiao() {
         List<Nota> nordeste = new ArrayList<>();
         
-        nordeste.add(nota1);
-        nordeste.add(nota3);
+        nordeste.add(this.notas.get(0));
+        nordeste.add(this.notas.get(2));
         
         assertEquals(nordeste, this.notaService.filterByGenericAtribute(null, null, null, null,
                 null, null, "NE", null));
-        
-        List<Nota> mesmoCodigo = publica;
-        
-        assertEquals(mesmoCodigo, this.notaService.filterByGenericAtribute(null, null, null, null,
-                null, null, null, 11111L));
-        
-        assertEquals(notas, this.notaService.filterByGenericAtribute(null, null, null, null,
-                null, null, null, null));
-        
-        this.notaService.deleteAll();
-        
     }
-
+    
+    @Test
+    public void testFilterByCodigoIES() {
+        
+    	List<Nota> byIES = new ArrayList<>();
+        
+        byIES.add(this.notas.get(0));
+        byIES.add(this.notas.get(1));
+        
+        assertEquals(byIES, this.notaService.filterByGenericAtribute(null, null, null, null,
+                null, null, null, 11111L));
+    }
+    
+    @Test
+    public void testFilterByNothing() {
+        assertEquals(this.notas, this.notaService.filterByGenericAtribute(null, null, null, null,
+                null, null, null, null));
+    }
+    
+    @Test
+    public void testFilterByAnoInterval() {
+    	
+        List<Nota> anos = new ArrayList<>();
+        
+        anos.add(this.notas.get(0));
+        assertEquals(anos, this.notaService.filterByIntervaloAno(2017, 2017));
+        
+        anos.add(this.notas.get(1));
+        assertEquals(anos, this.notaService.filterByIntervaloAno(2017, 2018));
+        
+        anos.add(this.notas.get(2));
+        assertEquals(anos, this.notaService.filterByIntervaloAno(2017, 2019));
+    }
 }
