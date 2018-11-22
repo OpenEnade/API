@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import br.com.openenade.api.ano.Ano;
 import br.com.openenade.api.ano.AnoRepository;
-import br.com.openenade.api.categoriaadmin.CategoriaAdmin;
 import br.com.openenade.api.curso.Curso;
 import br.com.openenade.api.curso.CursoId;
 import br.com.openenade.api.curso.CursoRepository;
@@ -89,15 +88,15 @@ public class NotaService {
     }
 
 
-    public List<Nota> filterByGenericAtribute(Integer beginAno, Integer endAno, CategoriaAdmin catAdm, Long codigoCurso,
-            String estado, Modalidade modalidade, Long municipio, String regiao, Long codigoIES) {
+    public List<Nota> filterByGenericAtribute(NotaFilterInterface nfi) {
 
         FilterBy filter = new FilterBy(this.getAll());
 
-        return filter.filterByRegiao(regiao).filterByEstado(estado).filterByMunicipio(municipio)
-                .filterByCategAdmin(catAdm).filterByCodigoIES(codigoIES)
-                .filterByCodigoCurso(codigoCurso).filterByModalidadeEnsino(modalidade)
-                .filterByIntervaloAno(beginAno, endAno).get();
+        return filter.filterByRegiao(nfi.getRegiao()).filterByEstado(nfi.getEstado())
+                .filterByMunicipio(nfi.getMunicipio()).filterByCategAdmin(nfi.getCategoria())
+                .filterByCodigoIES(nfi.getUniversidade()).filterByCodigoCurso(nfi.getCurso())
+                .filterByModalidadeEnsino(nfi.getModalidade())
+                .filterByIntervaloAno(nfi.getBeginAno(), nfi.getEndAno()).get();
     }
 
     public void deleteAll() {

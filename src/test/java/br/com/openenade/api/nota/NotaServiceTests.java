@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,19 +32,19 @@ public class NotaServiceTests extends BaseUnitTest {
 
     @Autowired
     private MunicipioService municipioService;
-    
+
     private List<Nota> notas;
-    
+
     @After
     public void deleteAll() {
-    	
-    	this.notaService.deleteAll();
+
+        this.notaService.deleteAll();
     }
-    
+
     @Before
     public void setUp() {
-    
-    	this.notas = this.addAnos();
+
+        this.notas = this.addAnos();
     }
 
     public List<Nota> addAnos() {
@@ -276,10 +275,11 @@ public class NotaServiceTests extends BaseUnitTest {
 
     @Test
     public void testFilterByAno() {
-        
-        assertEquals(this.notas.get(0), this.notaService
-                .filterByGenericAtribute(2017, 2017, null, null, null, null, null, null, null)
-                .get(0));
+
+        NotaFilterInterface nfi = new NotaFilterInterface();
+        nfi.setBeginAno(2017);
+        nfi.setEndAno(2017);
+        assertEquals(this.notas.get(0), this.notaService.filterByGenericAtribute(nfi).get(0));
     }
 
     @Test
@@ -290,38 +290,41 @@ public class NotaServiceTests extends BaseUnitTest {
         publica.add(this.notas.get(0));
         publica.add(this.notas.get(1));
 
-        assertEquals(publica, this.notaService.filterByGenericAtribute(null, null,
-                CategoriaAdmin.PUBLICO, null, null, null, null, null, null));
+        NotaFilterInterface nfi = new NotaFilterInterface();
+        nfi.setCategoria(CategoriaAdmin.PUBLICO);
+        assertEquals(publica, this.notaService.filterByGenericAtribute(nfi));
     }
 
     @Test
     public void testFilterByCodigoCurso() {
 
-        assertEquals(this.notas, this.notaService.filterByGenericAtribute(null, null, null,
-                2234234L, null, null, null, null, null));
+        NotaFilterInterface nfi = new NotaFilterInterface();
+        nfi.setCurso(2234234L);
+        assertEquals(this.notas, this.notaService.filterByGenericAtribute(nfi));
     }
 
     @Test
     public void testFilterByEstado() {
 
-        assertEquals(this.notas.get(2), this.notaService
-                .filterByGenericAtribute(null, null, null, null, "PB", null, null, null, null)
-                .get(0));
+        NotaFilterInterface nfi = new NotaFilterInterface();
+        nfi.setEstado("PB");
+        assertEquals(this.notas.get(2), this.notaService.filterByGenericAtribute(nfi).get(0));
     }
 
     @Test
     public void testFilterByModalidade() {
 
-        assertEquals(this.notas, this.notaService.filterByGenericAtribute(null, null, null, null,
-                null, Modalidade.EDUCACAO_PRESENCIAL, null, null, null));
+        NotaFilterInterface nfi = new NotaFilterInterface();
+        nfi.setModalidade(Modalidade.EDUCACAO_PRESENCIAL);
+        assertEquals(this.notas, this.notaService.filterByGenericAtribute(nfi));
     }
 
     @Test
     public void testFilterByMunicipio() {
 
-        assertEquals(this.notas.get(2), this.notaService
-                .filterByGenericAtribute(null, null, null, null, null, null, 123L, null, null)
-                .get(0));
+        NotaFilterInterface nfi = new NotaFilterInterface();
+        nfi.setMunicipio(123L);
+        assertEquals(this.notas.get(2), this.notaService.filterByGenericAtribute(nfi).get(0));
     }
 
     @Test
@@ -331,8 +334,9 @@ public class NotaServiceTests extends BaseUnitTest {
         nordeste.add(this.notas.get(0));
         nordeste.add(this.notas.get(2));
 
-        assertEquals(nordeste, this.notaService.filterByGenericAtribute(null, null, null, null,
-                null, null, null, "NE", null));
+        NotaFilterInterface nfi = new NotaFilterInterface();
+        nfi.setRegiao("NE");
+        assertEquals(nordeste, this.notaService.filterByGenericAtribute(nfi));
     }
 
     @Test
@@ -343,14 +347,15 @@ public class NotaServiceTests extends BaseUnitTest {
         byIES.add(this.notas.get(0));
         byIES.add(this.notas.get(1));
 
-        assertEquals(byIES, this.notaService.filterByGenericAtribute(null, null, null, null, null,
-                null, null, null, 11111L));
+        NotaFilterInterface nfi = new NotaFilterInterface();
+        nfi.setUniversidade(11111L);
+        assertEquals(byIES, this.notaService.filterByGenericAtribute(nfi));
     }
 
     @Test
     public void testFilterByNothing() {
-        assertEquals(this.notas, this.notaService.filterByGenericAtribute(null, null, null, null,
-                null, null, null, null, null));
+        NotaFilterInterface nfi = new NotaFilterInterface();
+        assertEquals(this.notas, this.notaService.filterByGenericAtribute(nfi));
     }
 
     @Test
@@ -359,12 +364,14 @@ public class NotaServiceTests extends BaseUnitTest {
         List<Nota> anos = new ArrayList<>();
         anos.add(this.notas.get(0));
         anos.add(this.notas.get(1));
-        
-        assertEquals(anos, this.notaService.filterByGenericAtribute(2017, 2018, null, null, null,
-        null, null, null, null));
 
+        NotaFilterInterface nfi = new NotaFilterInterface();
+        nfi.setBeginAno(2017);
+        nfi.setEndAno(2018);
+        assertEquals(anos, this.notaService.filterByGenericAtribute(nfi));
+
+        nfi.setEndAno(2019);
         anos.add(this.notas.get(2));
-        assertEquals(anos, this.notaService.filterByGenericAtribute(2017, 2019, null, null, null,
-        null, null, null, null));
+        assertEquals(anos, this.notaService.filterByGenericAtribute(nfi));
     }
 }

@@ -58,15 +58,9 @@ public class NotaController {
     }
 
     @GetMapping("/filterby")
-    public Collection<Nota> getFilteredNotas(@RequestParam("beginAno") Integer beginAno,
-            @RequestParam("endAno") Integer endAno, @RequestParam("categoria") CategoriaAdmin catAdm,
-            @RequestParam("curso") Long curso, @RequestParam("estado") String estado,
-            @RequestParam("modalidade") Modalidade modalidade,
-            @RequestParam("municipio") Long municipio, @RequestParam("regiao") String regiao,
-            @RequestParam("universidade") Long universidade) {
+    public Collection<Nota> getFilteredNotas(NotaFilterInterface notaFilterInterface) {
 
-        return this.service.filterByGenericAtribute(beginAno, endAno, catAdm, curso, estado, modalidade,
-                municipio, regiao, universidade);
+        return this.service.filterByGenericAtribute(notaFilterInterface);
     }
     
 }
