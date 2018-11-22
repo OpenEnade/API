@@ -65,7 +65,7 @@ public class NotaController {
             @RequestParam("municipio") Long municipio, @RequestParam("regiao") String regiao,
             @RequestParam("universidade") Long universidade) {
 
-        return this.service.filterByGenericAtribute(endAno, beginAno, catAdm, curso, estado, modalidade,
+        return this.service.filterByGenericAtribute(beginAno, endAno, catAdm, curso, estado, modalidade,
                 municipio, regiao, universidade);
     }
     
