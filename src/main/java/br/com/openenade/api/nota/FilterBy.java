@@ -69,7 +69,7 @@ public class FilterBy {
 
         if (codigoIES != null) {
             this.notas = this.notas.stream().filter(
-                    nota -> (nota.getInfo().getUniversidade().getCodigoIES().equals(codigoIES)))
+                    nota -> nota.getInfo().getUniversidade().getCodigoIES().equals(codigoIES))
                     .collect(Collectors.toList());
         }
         return this;
@@ -78,8 +78,8 @@ public class FilterBy {
     public FilterBy filterByCodigoCurso(Long codigoCurso) {
 
         if (codigoCurso != null) {
-            this.notas = this.notas.stream().filter(
-                    nota -> (nota.getInfo().getCurso().getCodigoCurso().equals(codigoCurso)))
+            this.notas = this.notas.stream()
+                    .filter(nota -> nota.getInfo().getCurso().getCodigoCurso().equals(codigoCurso))
                     .collect(Collectors.toList());
         }
         return this;
@@ -103,6 +103,6 @@ public class FilterBy {
                             && (nota.getInfo().getAno().getAno() <= anoFin))
                     .collect(Collectors.toList());
         }
-            return this;   
+        return this;
     }
 }
