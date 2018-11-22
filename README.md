@@ -16,7 +16,7 @@ Esta API foi desenvolvida para dar suporte ao [OpenEnade-ClientApp](https://gith
 1.  `mvn install`
 2.  `mvn spring-boot:run`
 
-## Com stub data
+### Com stub data
 1.  `mvn install`
 2.  `mvn spring-boot:run -Dspring-boot.run.arguments=--stub-data`
 
