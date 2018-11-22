@@ -13,11 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import br.com.openenade.api.categoriaadmin.CategoriaAdmin;
-import br.com.openenade.api.modalidade.Modalidade;
 
 @RestController
 @CrossOrigin("*")
@@ -58,15 +55,9 @@ public class NotaController {
     }
 
     @GetMapping("/filterby")
-    public Collection<Nota> getFilteredNotas(@RequestParam("beginAno") Integer beginAno,
-            @RequestParam("endAno") Integer endAno, @RequestParam("categoria") CategoriaAdmin catAdm,
-            @RequestParam("curso") Long curso, @RequestParam("estado") String estado,
-            @RequestParam("modalidade") Modalidade modalidade,
-            @RequestParam("municipio") Long municipio, @RequestParam("regiao") String regiao,
-            @RequestParam("universidade") Long universidade) {
+    public Collection<Nota> getFilteredNotas(NotaFilterInterface notaFilterInterface) {
 
-        return this.service.filterByGenericAtribute(beginAno, endAno, catAdm, curso, estado, modalidade,
-                municipio, regiao, universidade);
+        return this.service.filterByGenericAtribute(notaFilterInterface);
     }
     
 }
