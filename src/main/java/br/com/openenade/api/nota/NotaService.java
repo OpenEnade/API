@@ -88,13 +88,8 @@ public class NotaService {
         return new NotaId(optAno.get(), optCurso.get(), optUniversidade.get());
     }
 
-    public List<Nota> filterByIntervaloAno(Integer anoIni, Integer anoFin) {
-        FilterBy filter = new FilterBy(this.getAll());
 
-        return filter.filterByIntervaloAno(anoIni, anoFin).get();
-    }
-
-    public List<Nota> filterByGenericAtribute(Integer ano, CategoriaAdmin catAdm, Long codigoCurso,
+    public List<Nota> filterByGenericAtribute(Integer beginAno, Integer endAno, CategoriaAdmin catAdm, Long codigoCurso,
             String estado, Modalidade modalidade, Long municipio, String regiao, Long codigoIES) {
 
         FilterBy filter = new FilterBy(this.getAll());
@@ -102,7 +97,7 @@ public class NotaService {
         return filter.filterByRegiao(regiao).filterByEstado(estado).filterByMunicipio(municipio)
                 .filterByCategAdmin(catAdm).filterByCodigoIES(codigoIES)
                 .filterByCodigoCurso(codigoCurso).filterByModalidadeEnsino(modalidade)
-                .filterByAno(ano).get();
+                .filterByIntervaloAno(beginAno, endAno).get();
     }
 
     public void deleteAll() {

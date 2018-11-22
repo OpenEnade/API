@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -59,20 +58,15 @@ public class NotaController {
     }
 
     @GetMapping("/filterby")
-    public Collection<Nota> getFilteredNotas(@RequestParam("ano") Integer ano, 
-    		@RequestParam("categoria") CategoriaAdmin catAdm, @RequestParam("curso") Long curso,
-    		@RequestParam("estado") String estado, @RequestParam("modalidade") Modalidade modalidade,
-    		@RequestParam("municipio") Long municipio, @RequestParam("regiao") String regiao,
-    		@RequestParam("universidade") Long universidade) {
+    public Collection<Nota> getFilteredNotas(@RequestParam("beginAno") Integer beginAno,
+            @RequestParam("endAno") Integer endAno, @RequestParam("categoria") CategoriaAdmin catAdm,
+            @RequestParam("curso") Long curso, @RequestParam("estado") String estado,
+            @RequestParam("modalidade") Modalidade modalidade,
+            @RequestParam("municipio") Long municipio, @RequestParam("regiao") String regiao,
+            @RequestParam("universidade") Long universidade) {
 
-        return this.service.filterByGenericAtribute(ano, catAdm, curso, estado, modalidade,
+        return this.service.filterByGenericAtribute(endAno, beginAno, catAdm, curso, estado, modalidade,
                 municipio, regiao, universidade);
     }
     
-    @GetMapping(path = "/ano/interval/{of}/{to}")
-    public Collection<Nota> getAnoByInterval(@PathVariable("of") Integer anoOf, @PathVariable("to") Integer anoTo ){
-    	
-    	return this.service.filterByIntervaloAno(anoOf, anoTo);
-    	
-    }
 }
