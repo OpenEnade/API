@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import br.com.openenade.api.ano.Ano;
 import br.com.openenade.api.ano.AnoRepository;
+import br.com.openenade.api.categoriaadmin.CategoriaAdmin;
 import br.com.openenade.api.curso.Curso;
 import br.com.openenade.api.curso.CursoId;
 import br.com.openenade.api.curso.CursoRepository;
@@ -78,13 +79,30 @@ public class NotaService {
     private NotaId makeNotaIdFromInterface(NotaIdInterface idInterface) {
         Optional<Ano> optAno = this.anoRepository.findById(idInterface.getAno());
 
-        CursoId cursoId = new CursoId(idInterface.getCodigoCurso(), Modalidade.values()[idInterface.getModalidade()]);
-        Optional<Curso> optCurso = this.cursoRepository.findById(cursoId);
-
         Optional<Universidade> optUniversidade = this.universidadeService
                 .getUniversidadeById(idInterface.getCodigoIES(), idInterface.getCodigoMunicipio());
+        CursoId cursoId = new CursoId(idInterface.getCodigoCurso(),
+                Modalidade.values()[idInterface.getModalidade()]);
+        Optional<Curso> optCurso = this.cursoRepository.findById(cursoId);
 
         return new NotaId(optAno.get(), optCurso.get(), optUniversidade.get());
     }
 
+
+    public List<Nota> filterByGenericAtribute(Integer beginAno, Integer endAno, CategoriaAdmin catAdm, Long codigoCurso,
+            String estado, Modalidade modalidade, Long municipio, String regiao, Long codigoIES) {
+
+        FilterBy filter = new FilterBy(this.getAll());
+
+        return filter.filterByRegiao(regiao).filterByEstado(estado).filterByMunicipio(municipio)
+                .filterByCategAdmin(catAdm).filterByCodigoIES(codigoIES)
+                .filterByCodigoCurso(codigoCurso).filterByModalidadeEnsino(modalidade)
+                .filterByIntervaloAno(beginAno, endAno).get();
+    }
+
+    public void deleteAll() {
+
+        this.notaRepository.deleteAll();
+
+    }
 }
