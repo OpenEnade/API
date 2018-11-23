@@ -95,5 +95,4 @@ public class UniversidadeService {
         
         return universidades;
     }
-
 }
