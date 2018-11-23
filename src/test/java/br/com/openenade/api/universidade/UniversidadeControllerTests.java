@@ -1,6 +1,8 @@
 package br.com.openenade.api.universidade;
 
 import static org.junit.Assert.assertEquals;
+
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import org.junit.Test;
@@ -55,6 +57,15 @@ public class UniversidadeControllerTests extends BaseUnitTest {
     assertEquals(optUniversidade,
             controller.getUniversidadeByCodigoIES((long) 10));
     
+    //Issue57
+	Collection<Universidade> expect = new HashSet<Universidade>();
+	expect.add(univ);
+	
+    assertEquals(new ResponseEntity<>(expect ,HttpStatus.OK),
+            controller.getAllUniversidadeByCurso((long) 10, Modalidade.EDUCACAO_PRESENCIAL));
+    
+    
+    
     assertEquals(new ResponseEntity<>(HttpStatus.OK),
             controller.deleteUniversidade((long) 10));
     
@@ -76,4 +87,6 @@ public class UniversidadeControllerTests extends BaseUnitTest {
         return cursos;
     }
     
+
+
 }

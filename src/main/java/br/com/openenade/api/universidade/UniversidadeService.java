@@ -3,13 +3,14 @@ package br.com.openenade.api.universidade;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Optional;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import br.com.openenade.api.exceptions.ResourceNotFound;
+import br.com.openenade.api.modalidade.Modalidade;
 import br.com.openenade.api.municipio.Municipio;
 import br.com.openenade.api.curso.Curso;
+import br.com.openenade.api.curso.CursoService;
 import br.com.openenade.api.municipio.MunicipioService;
 
 @Service
@@ -22,6 +23,9 @@ public class UniversidadeService {
     @Autowired
     private MunicipioService municipioService;
 
+    @Autowired
+    private CursoService cursoService;
+    
     public Universidade save(Universidade universidade) {
         Optional<Municipio> optMunicipio =
                 this.municipioService.getOptionalByCodigo(universidade.getCampus().getCodigo());
@@ -77,12 +81,14 @@ public class UniversidadeService {
     }
     
     // Issue #57
-    public Collection<Universidade> getAllByCurso(Curso curso) {
+    public Collection<Universidade> getAllByCurso(Long codigoCurso, Modalidade modalidade) {
 
-    	List<Universidade> repository = this.repository.findAll();
+    	Collection<Universidade> repositoryUniv = this.repository.findAll();
+    	
+    	Curso curso = this.cursoService.getByCodigo(codigoCurso, modalidade).get();
     	
         Collection<Universidade> universidades = new HashSet<Universidade>();
-        for(Universidade univ : repository) {
+        for(Universidade univ : repositoryUniv) {
         	if(univ.getCursos().contains(curso))
         		universidades.add(univ);
         }

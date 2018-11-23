@@ -117,6 +117,26 @@ public class UniversidadeServiceTests extends BaseUnitTest {
 		assertEquals(ufcg, this.service.getUniversidadeById(ufcg.getCodigoIES(), ufcg.getCampus().getCodigo()).get());
 
 	}
+	
+	@Test
+	public void getUniversidadeByCurso() {
+		Set<Curso> cursosEmpty = new HashSet<Curso>();
+		Set<Curso> cursos = createCursos();
+		Universidade ufcg = new Universidade((long) 10, "UFCG", campus, CategoriaAdmin.PUBLICO, cursos);
+		Universidade uepb = new Universidade((long) 11, "UEPB", campus, CategoriaAdmin.PUBLICO, cursos);
+		Universidade ufpb = new Universidade((long) 12, "UFPB", campus, CategoriaAdmin.PUBLICO, cursosEmpty);
+
+		this.service.save(ufcg);
+		this.service.save(uepb);
+		this.service.save(ufpb);
+		
+		Collection<Universidade> expect = new HashSet<Universidade>();
+		expect.add(ufcg);
+		expect.add(uepb);
+		
+		assertEquals( expect , this.service.getAllByCurso((long) 10, Modalidade.EDUCACAO_PRESENCIAL));
+
+	}
 
 	@Test
 	public void deleteUniversidadeById() {

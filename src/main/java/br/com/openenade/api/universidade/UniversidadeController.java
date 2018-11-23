@@ -5,7 +5,8 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import br.com.openenade.api.curso.Curso;
+import br.com.openenade.api.modalidade.Modalidade;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,10 +40,10 @@ public class UniversidadeController {
     }
 
     @ResponseBody
-    @GetMapping(path = "/teste/{curso}")
-    public ResponseEntity<Collection<Universidade>> getAllByCurso(
-    		@Valid @RequestBody Curso curso) {
-        return new ResponseEntity<>(this.service.getAllByCurso(curso), HttpStatus.OK);
+    @GetMapping(path = "/curso/{modalidade}/{codigoCurso}")
+    public ResponseEntity<Collection<Universidade>> getAllUniversidadeByCurso(
+    		@PathVariable(name = "codigoCurso") Long codigoCurso, @PathVariable(name = "modalidade") Modalidade modalidade) {
+        return new ResponseEntity<>(this.service.getAllByCurso(codigoCurso, modalidade), HttpStatus.OK);
     }
 
     @ResponseBody
@@ -70,3 +71,4 @@ public class UniversidadeController {
     }
 
 }
+
