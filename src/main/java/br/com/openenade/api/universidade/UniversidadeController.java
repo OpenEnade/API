@@ -5,8 +5,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import br.com.openenade.api.modalidade.Modalidade;
-
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,52 +21,58 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = UniversidadeController.ENDPOINT)
 public class UniversidadeController {
 
-    public static final String ENDPOINT = "universidades";
+  public static final String ENDPOINT = "universidades";
 
-    @Autowired
-    private UniversidadeService service;
+  @Autowired
+  private UniversidadeService service;
 
-    @PostMapping
-    public void postUniversidade(@Valid @RequestBody Universidade universidade) {
-        this.service.save(universidade);
+  @PostMapping
+  public void postUniversidade(@Valid @RequestBody Universidade universidade) {
+    this.service.save(universidade);
+  }
+
+  @GetMapping(value = "/todas")
+  @ResponseBody
+  public ResponseEntity<Collection<Universidade>> getAll() {
+    return new ResponseEntity<>(this.service.getAll(), HttpStatus.OK);
+  }
+
+  @ResponseBody
+  @GetMapping
+  public ResponseEntity<UniversidadesResponseModel> getAllUniversidadeByNomeCurso(
+      @RequestParam String nomeCurso) {
+    Collection<Universidade> matchedUniversidades = service.getAllByNomeCurso(nomeCurso);
+
+    if (matchedUniversidades.isEmpty()) {
+      new ResponseEntity<>(new UniversidadesResponseModel(false), HttpStatus.BAD_REQUEST);
     }
 
-    @GetMapping
-    @ResponseBody
-    public ResponseEntity<Collection<Universidade>> getAll() {
-        return new ResponseEntity<>(this.service.getAll(), HttpStatus.OK);
-    }
+    return new ResponseEntity<>(new UniversidadesResponseModel(true, matchedUniversidades),
+        HttpStatus.OK);
+  }
 
-    @ResponseBody
-    @GetMapping(path = "/curso/{modalidade}/{codigoCurso}")
-    public ResponseEntity<Collection<Universidade>> getAllUniversidadeByCurso(
-    		@PathVariable(name = "codigoCurso") Long codigoCurso, @PathVariable(name = "modalidade") Modalidade modalidade) {
-        return new ResponseEntity<>(this.service.getAllByCurso(codigoCurso, modalidade), HttpStatus.OK);
-    }
+  @ResponseBody
+  @GetMapping(path = "/{codigoIES}")
+  public Universidade getUniversidadeByCodigoIES(@PathVariable(name = "codigoIES") Long codigoIES) {
 
-    @ResponseBody
-    @GetMapping(path = "/{codigoIES}")
-    public Universidade getUniversidadeByCodigoIES(
-            @PathVariable(name = "codigoIES") Long codigoIES) {
+    return this.service.getUniversidadeByCodigoIES(codigoIES);
+  }
 
-        return this.service.getUniversidadeByCodigoIES(codigoIES);
-    }
+  @ResponseBody
+  @GetMapping(path = "/{codigoIES}/{codigoMunicipio}")
+  public Universidade getUniversidadeById(@PathVariable(name = "codigoIES") Long codigoIES,
+      @PathVariable(name = "codigoMunicipio") Long codigoMunicipio) {
 
-    @ResponseBody
-    @GetMapping(path = "/{codigoIES}/{codigoMunicipio}")
-    public Universidade getUniversidadeById(@PathVariable(name = "codigoIES") Long codigoIES,
-            @PathVariable(name = "codigoMunicipio") Long codigoMunicipio) {
+    return this.service.getUniversidadeById(codigoIES, codigoMunicipio).get();
+  }
 
-        return this.service.getUniversidadeById(codigoIES, codigoMunicipio).get();
-    }
+  @DeleteMapping(path = "/{codigoIES}")
+  public ResponseEntity<Universidade> deleteUniversidade(
+      @PathVariable(name = "codigoIES") Long codigoIES) {
 
-    @DeleteMapping(path = "/{codigoIES}")
-    public ResponseEntity<Universidade> deleteUniversidade(
-            @PathVariable(name = "codigoIES") Long codigoIES) {
-
-        this.service.deleteUniversidadeByCodigoIES(codigoIES);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
+    this.service.deleteUniversidadeByCodigoIES(codigoIES);
+    return new ResponseEntity<>(HttpStatus.OK);
+  }
 
 }
 

@@ -3,6 +3,7 @@ package br.com.openenade.api.universidade;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -119,22 +120,23 @@ public class UniversidadeServiceTests extends BaseUnitTest {
 	}
 	
 	@Test
-	public void getUniversidadeByCurso() {
+	public void getUniversidadeByNomeCurso() {
 		Set<Curso> cursosEmpty = new HashSet<Curso>();
 		Set<Curso> cursos = createCursos();
 		Universidade ufcg = new Universidade((long) 10, "UFCG", campus, CategoriaAdmin.PUBLICO, cursos);
 		Universidade uepb = new Universidade((long) 11, "UEPB", campus, CategoriaAdmin.PUBLICO, cursos);
 		Universidade ufpb = new Universidade((long) 12, "UFPB", campus, CategoriaAdmin.PUBLICO, cursosEmpty);
 
-		this.service.save(ufcg);
 		this.service.save(uepb);
+		this.service.save(ufcg);
 		this.service.save(ufpb);
 		
-		Collection<Universidade> expect = new HashSet<Universidade>();
-		expect.add(ufcg);
+		Collection<Universidade> expect = new ArrayList<Universidade>();
 		expect.add(uepb);
+		expect.add(ufcg);		
 		
-		assertEquals( expect , this.service.getAllByCurso((long) 10, Modalidade.EDUCACAO_PRESENCIAL));
+		assertEquals( expect , this.service.getAllByNomeCurso("CC"));		
+		assertEquals( expect , this.service.getAllByNomeCurso("EE"));
 
 	}
 

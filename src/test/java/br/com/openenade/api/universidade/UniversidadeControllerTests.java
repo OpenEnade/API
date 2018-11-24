@@ -58,11 +58,12 @@ public class UniversidadeControllerTests extends BaseUnitTest {
             controller.getUniversidadeByCodigoIES((long) 10));
     
     //Issue57
-	Collection<Universidade> expect = new HashSet<Universidade>();
-	expect.add(univ);
+	Collection<Universidade> matchedUniversidades = this.service.getAllByNomeCurso("CC");	
 	
-    assertEquals(new ResponseEntity<>(expect ,HttpStatus.OK),
-            controller.getAllUniversidadeByCurso((long) 10, Modalidade.EDUCACAO_PRESENCIAL));
+	UniversidadesResponseModel expect = new UniversidadesResponseModel(true, matchedUniversidades);
+	
+    assertEquals(new ResponseEntity<>(expect, HttpStatus.OK),
+            controller.getAllUniversidadeByNomeCurso("CC"));
     
     
     
