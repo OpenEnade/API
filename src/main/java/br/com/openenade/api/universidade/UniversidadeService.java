@@ -71,11 +71,9 @@ public class UniversidadeService {
     }
 
     /**
-     * Seleciona todas as universidades que, em seu conjunto de cursos, o nome tenha a string
-     * nomeCurso.
+     * Seleciona todas as universidades que, em seu conjunto de cursos, tenham o código do curso e a
+     * modalidade especificados.
      * 
-     * @param nomeCurso = O string que representa nome genérico do curso.
-     * @return Uma colecao de universidades que os nomes dos cursos dão match com o parametro.
      */
     public Collection<Universidade> getAllUniversidadesByCurso(Long codigoCurso,
             Modalidade modalidade) {
@@ -107,5 +105,13 @@ public class UniversidadeService {
         } else {
             return universidades;
         }
+    }
+
+    public Collection<Universidade> getAllUniversidadesByCursoNome(String nomeCurso) {
+        Collection<Universidade> universidades = this.repository.findAll();
+        return universidades.stream()
+                .filter(universidade -> universidade.getCursos().stream()
+                        .anyMatch(curso -> curso.getNome().equals(nomeCurso)))
+                .collect(Collectors.toList());
     }
 }

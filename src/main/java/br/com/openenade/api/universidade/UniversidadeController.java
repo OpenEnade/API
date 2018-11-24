@@ -78,6 +78,16 @@ public class UniversidadeController {
         return new ResponseEntity<>(matchedUniversidades, HttpStatus.OK);
     }
 
+    @ResponseBody
+    @GetMapping(path = "/cursos/{nomeCurso}")
+    public ResponseEntity<Collection<Universidade>> getUniversidadesByCursoNome(
+            @PathVariable(name = "nomeCurso") String nomeCurso) {
+        Collection<Universidade> matchedUniversidades =
+                this.service.getAllUniversidadesByCursoNome(nomeCurso);
+
+        return new ResponseEntity<>(matchedUniversidades, HttpStatus.OK);
+    }
+    
     @DeleteMapping(path = "/{codigoIES}")
     public ResponseEntity<Universidade> deleteUniversidadesByCodigoCurso(
             @PathVariable(name = "codigoIES") Long codigoIES) {
