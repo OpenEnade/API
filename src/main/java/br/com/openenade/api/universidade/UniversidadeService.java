@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import br.com.openenade.api.curso.Curso;
+import br.com.openenade.api.curso.CursoService;
 import br.com.openenade.api.exceptions.ResourceNotFound;
 import br.com.openenade.api.municipio.Municipio;
 import br.com.openenade.api.municipio.MunicipioService;
@@ -16,6 +18,9 @@ public class UniversidadeService {
 
     @Autowired
     private UniversidadeRepository repository;
+
+    @Autowired
+    private CursoService cursoService;
 
     @Autowired
     private MunicipioService municipioService;
@@ -31,6 +36,17 @@ public class UniversidadeService {
         }
         universidade.setCampus(newCampus);
         return this.repository.save(universidade);
+    }
+
+    public Universidade addCurso2Universidade(Universidade universidade, Curso curso) {
+        Optional<Curso> optCurso =
+                this.cursoService.getByCodigo(curso.getCodigoCurso(), curso.getModalidade());
+        if (optCurso.isPresent()) {
+            universidade.addCurso(optCurso.get());
+            return this.repository.saveAndFlush(universidade);
+        } else {
+            throw new ResourceNotFound(curso.toString());
+        }
     }
 
     public Collection<Universidade> getAll() {

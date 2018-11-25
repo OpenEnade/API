@@ -56,6 +56,14 @@ public class UniversidadeController {
                 HttpStatus.OK);
     }
 
+    @DeleteMapping(path = "/{codigoIES}")
+    public ResponseEntity<Universidade> deleteUniversidadesByCodigoCurso(
+            @PathVariable(name = "codigoIES") Long codigoIES) {
+
+        this.service.deleteUniversidadesByCodigoIES(codigoIES);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @ResponseBody
     @GetMapping(path = "/{codigoIES}/{codigoMunicipio}/cursos")
     public ResponseEntity<Collection<Curso>> getUniversidadeCursos(
@@ -77,12 +85,15 @@ public class UniversidadeController {
         return new ResponseEntity<>(matchedUniversidades, HttpStatus.OK);
     }
 
-    @DeleteMapping(path = "/{codigoIES}")
-    public ResponseEntity<Universidade> deleteUniversidadesByCodigoCurso(
-            @PathVariable(name = "codigoIES") Long codigoIES) {
-
-        this.service.deleteUniversidadesByCodigoIES(codigoIES);
-        return new ResponseEntity<>(HttpStatus.OK);
+    @ResponseBody
+    @PostMapping(path = "/{codigoIES}/{codigoMunicipio}/cursos")
+    public ResponseEntity<Universidade> addCurso2Universidade(
+            @PathVariable(name = "codigoIES") Long codigoIES,
+            @PathVariable(name = "codigoMunicipio") Long codigoMunicipio,
+            @Valid @RequestBody Curso curso) {
+        Universidade universidade = this.service.getUniversidadeById(codigoIES, codigoMunicipio);
+        return new ResponseEntity<>(this.service.addCurso2Universidade(universidade, curso),
+                HttpStatus.OK);
     }
 
 }
