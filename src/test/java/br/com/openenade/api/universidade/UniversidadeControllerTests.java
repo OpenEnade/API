@@ -58,7 +58,7 @@ public class UniversidadeControllerTests extends BaseUnitTest {
 
         // Issue57
         Collection<Universidade> matchedUniversidades =
-                this.service.getAllUniversidadesByCursoNome("CC");
+                this.controller.getUniversidadesByCursoNome("CC").getBody();
 
         Assert.assertEquals(matchedUniversidades.size(), 1);
         Assert.assertTrue(matchedUniversidades.contains(univ));
