@@ -2,6 +2,7 @@ package br.com.openenade.api.universidade;
 
 import java.util.Collection;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,7 +31,6 @@ public class UniversidadeService {
         }
         universidade.setCampus(newCampus);
         return this.repository.save(universidade);
-
     }
 
     public Collection<Universidade> getAll() {
@@ -39,13 +39,12 @@ public class UniversidadeService {
 
     // Issue #38
     public Collection<Universidade> getAllByCodigoIES(Long codigoIES) {
-
         return this.repository.findAllByCodigoIES(codigoIES);
-
     }
 
-    public Universidade getUniversidadeByCodigoIES(Long codigoIES) {
-        Optional<Universidade> optUnivesidade = this.repository.findByCodigoIES(codigoIES);
+    public Universidade getUniversidadeById(Long codigoIES, Long codigoMunicipio) {
+        Optional<Universidade> optUnivesidade =
+                this.repository.findById(new UniversidadeId(codigoIES, codigoMunicipio));
         if (optUnivesidade.isPresent()) {
             return optUnivesidade.get();
         } else {
@@ -53,24 +52,28 @@ public class UniversidadeService {
         }
     }
 
-    public void deleteUniversidadeByCodigoIES(Long codigoIES) {
-        this.repository.deleteByCodigoIES(codigoIES);
+    public Optional<Universidade> getOptUniversidadeById(Long codigoIES, Long codigoMunicipio) {
+        return this.repository.findById(new UniversidadeId(codigoIES, codigoMunicipio));
+    }
+
+    public void deleteUniversidadesByCodigoIES(Long codigoIES) {
+        this.repository.deleteAllByCodigoIES(codigoIES);
     }
 
     public void deleteUniversidadesByMunicipioCodigo(Municipio campus) {
-
         this.repository.deleteAllByCampus(campus);
     }
 
-    public Optional<Universidade> getUniversidadeById(Long codigoIES, Long codigoMunicipio) {
-        UniversidadeId id = new UniversidadeId(codigoIES, codigoMunicipio);
-        return this.repository.findById(id);
-    }
-
     public void deleteUniversidadeById(Long codigoIES, Municipio campus) {
-
         UniversidadeId id = new UniversidadeId(codigoIES, campus.getCodigo());
         this.repository.deleteById(id);
     }
 
+    public Collection<Universidade> getAllUniversidadesByCursoNome(String nomeCurso) {
+        Collection<Universidade> universidades = this.repository.findAll();
+        return universidades.stream()
+                .filter(universidade -> universidade.getCursos().stream()
+                        .anyMatch(curso -> curso.getNome().equals(nomeCurso)))
+                .collect(Collectors.toList());
+    }
 }
