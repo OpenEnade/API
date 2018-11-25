@@ -100,5 +100,9 @@ fact {
 	all ef:EnadeFaixa | one ef.~enadeFaixa	
 }
 
-pred show{}
-run show 
+--Checa se todos os cursos que estão na avaliação da Nota pertecem aos cursos da Universidade avaliada
+assert cursoInUniversidadeAndAvaliacao{
+	all n:Nota, c:Curso| (c in n.avaliacao.curso) => c in n.universidade.cursos
+}
+
+check cursoInUniversidadeAndAvaliacao for 30
