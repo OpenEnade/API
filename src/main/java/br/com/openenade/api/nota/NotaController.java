@@ -1,5 +1,6 @@
 package br.com.openenade.api.nota;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import javax.validation.Valid;
@@ -53,4 +54,10 @@ public class NotaController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @GetMapping("/filterby")
+    public Collection<Nota> getFilteredNotas(NotaFilterInterface notaFilterInterface) {
+
+        return this.service.filterByGenericAtribute(notaFilterInterface);
+    }
+    
 }

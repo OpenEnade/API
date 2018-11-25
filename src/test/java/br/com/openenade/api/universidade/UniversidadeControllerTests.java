@@ -1,8 +1,9 @@
 package br.com.openenade.api.universidade;
 
-import static org.junit.Assert.assertEquals;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,6 @@ import br.com.openenade.api.categoriaadmin.CategoriaAdmin;
 import br.com.openenade.api.curso.Curso;
 import br.com.openenade.api.curso.CursoService;
 import br.com.openenade.api.estado.Estado;
-import br.com.openenade.api.exceptions.ResourceNotFound;
 import br.com.openenade.api.modalidade.Modalidade;
 import br.com.openenade.api.municipio.Municipio;
 import br.com.openenade.api.regiao.Regiao;
@@ -26,45 +26,65 @@ public class UniversidadeControllerTests extends BaseUnitTest {
 
     @Autowired
     private UniversidadeService service;
-    
+
     @Autowired
     private UniversidadeController controller;
-    
+
     @Autowired
     private CursoService cursoService;
     
     @Test
     public void controllerTest() {
+        Regiao regiao = new Regiao("AA");
+        Estado estado = new Estado("PK", regiao);
+        Municipio campus = new Municipio((long) 10, estado, "zimbabue");
 
-    Regiao regiao = new Regiao("AA");
-    Estado estado = new Estado("PK", regiao);
-    Municipio campus = new Municipio((long) 10, estado, "zimbabue");
-    
-    Set<Curso> cursos = createCursos();
-    
-    Universidade univ = new Universidade((long) 10, "UFCG" , campus, CategoriaAdmin.PUBLICO , cursos);
-    
-    controller.postUniversidade(univ);
-    
-    this.service.save(univ);
-    
-    assertEquals(new ResponseEntity<>(this.service.getAll(), HttpStatus.OK), controller.getAll());
-    
-    Universidade optUniversidade = this.service.getUniversidadeByCodigoIES(univ.getCodigoIES());
-    
-    assertEquals(optUniversidade,
-            controller.getUniversidadeByCodigoIES((long) 10));
-    
-    assertEquals(new ResponseEntity<>(HttpStatus.OK),
-            controller.deleteUniversidade((long) 10));
-    
+        Set<Curso> cursos = createCursos();
+
+        Universidade univ =
+                new Universidade((long) 10, "UFCG", campus, CategoriaAdmin.PUBLICO, cursos);
+
+        this.controller.addUniversidade(univ);
+
+        Assert.assertEquals(new ResponseEntity<>(this.service.getAll(), HttpStatus.OK),
+                controller.getAll());
+
+        Collection<Universidade> universidades =
+                this.service.getAllByCodigoIES(univ.getCodigoIES());
+
+        Assert.assertEquals(universidades.size(), 1);
+        Assert.assertEquals(universidades,
+                controller.getUniversidadesByCodigoIES((long) 10).getBody());
+
+        // Issue57
+        Collection<Universidade> matchedUniversidades =
+                this.controller.getUniversidadesByCursoNome("CC").getBody();
+
+        Assert.assertEquals(matchedUniversidades.size(), 1);
+        Assert.assertTrue(matchedUniversidades.contains(univ));
+
     }
-    
-    @Test(expected = ResourceNotFound.class)
+
+    @Test
     public void deleteTests() {
-        controller.getUniversidadeByCodigoIES((long) 10);
+        Regiao regiao = new Regiao("AA");
+        Estado estado = new Estado("PK", regiao);
+        Municipio campus = new Municipio((long) 10, estado, "zimbabue");
+
+        Set<Curso> cursos = createCursos();
+
+        Universidade univ =
+                new Universidade((long) 10, "UFCG", campus, CategoriaAdmin.PUBLICO, cursos);
+
+        this.controller.addUniversidade(univ);
+
+        Assert.assertEquals(new ResponseEntity<>(HttpStatus.OK),
+                this.controller.deleteUniversidadesByCodigoCurso((long) 10));
+
+        Assert.assertTrue(
+                this.controller.getUniversidadesByCodigoIES(new Long(10)).getBody().isEmpty());
     }
-    
+
     private Set<Curso> createCursos() {
         Set<Curso> cursos = new HashSet<Curso>();
         Curso cursoCC =
@@ -75,5 +95,5 @@ public class UniversidadeControllerTests extends BaseUnitTest {
         cursos.add(cursoEE);
         return cursos;
     }
-    
+
 }

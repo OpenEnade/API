@@ -37,7 +37,7 @@ public class NotaService {
 
         Universidade universidadeA = nota.getInfo().getUniversidade();
 
-        Optional<Universidade> optUniB = this.universidadeService.getUniversidadeById(
+        Optional<Universidade> optUniB = this.universidadeService.getOptUniversidadeById(
                 universidadeA.getCodigoIES(), universidadeA.getCampus().getCodigo());
 
         if (optUniB.isPresent()) {
@@ -78,13 +78,30 @@ public class NotaService {
     private NotaId makeNotaIdFromInterface(NotaIdInterface idInterface) {
         Optional<Ano> optAno = this.anoRepository.findById(idInterface.getAno());
 
-        CursoId cursoId = new CursoId(idInterface.getCodigoCurso(), Modalidade.values()[idInterface.getModalidade()]);
+        Optional<Universidade> optUniversidade = this.universidadeService.getOptUniversidadeById(
+                idInterface.getCodigoIES(), idInterface.getCodigoMunicipio());
+        CursoId cursoId = new CursoId(idInterface.getCodigoCurso(),
+                Modalidade.values()[idInterface.getModalidade()]);
         Optional<Curso> optCurso = this.cursoRepository.findById(cursoId);
-
-        Optional<Universidade> optUniversidade = this.universidadeService
-                .getUniversidadeById(idInterface.getCodigoIES(), idInterface.getCodigoMunicipio());
 
         return new NotaId(optAno.get(), optCurso.get(), optUniversidade.get());
     }
 
+
+    public List<Nota> filterByGenericAtribute(NotaFilterInterface nfi) {
+
+        FilterBy filter = new FilterBy(this.getAll());
+
+        return filter.filterByRegiao(nfi.getRegiao()).filterByEstado(nfi.getEstado())
+                .filterByMunicipio(nfi.getMunicipio()).filterByCategAdmin(nfi.getCategoria())
+                .filterByCodigoIES(nfi.getUniversidade()).filterByCodigoCurso(nfi.getCurso())
+                .filterByModalidadeEnsino(nfi.getModalidade())
+                .filterByIntervaloAno(nfi.getBeginAno(), nfi.getEndAno()).get();
+    }
+
+    public void deleteAll() {
+
+        this.notaRepository.deleteAll();
+
+    }
 }

@@ -160,8 +160,6 @@ public class StubDataCreator implements ApplicationRunner {
     }
 
     private void addNotas(Ano anos[], Curso cursos[], Universidade universidades[]) {
-
-
         for (int i = 0; i < anos.length; i++) {
             Nota nota = new Nota.Builder().setAno(anos[i]).setCurso(cursos[i])
                     .setUniversidade(universidades[i]).build();

@@ -21,7 +21,7 @@ import br.com.openenade.api.municipio.Municipio;
 public class Universidade {
 
     @Id
-    @NotNull(message = "'codigoCurso' não pode ser nulo.")
+    @NotNull(message = "'codigoIES' não pode ser nulo.")
     private Long codigoIES;
 
     @NotBlank(message = "'nome' não pode ser vazio.")
