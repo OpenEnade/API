@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import br.com.openenade.api.curso.Curso;
-import br.com.openenade.api.modalidade.Modalidade;
 
 @RestController
 @CrossOrigin("*")
@@ -70,24 +69,14 @@ public class UniversidadeController {
 
     @ResponseBody
     @GetMapping(path = "/cursos")
-    public ResponseEntity<Collection<Universidade>> getUniversidadesByCurso(
-            @RequestParam Long codigoCurso, @RequestParam Modalidade modalidade) {
-        Collection<Universidade> matchedUniversidades =
-                this.service.getAllUniversidadesByCurso(codigoCurso, modalidade);
-
-        return new ResponseEntity<>(matchedUniversidades, HttpStatus.OK);
-    }
-
-    @ResponseBody
-    @GetMapping(path = "/cursos/{nomeCurso}")
     public ResponseEntity<Collection<Universidade>> getUniversidadesByCursoNome(
-            @PathVariable(name = "nomeCurso") String nomeCurso) {
+            @RequestParam String nomeCurso) {
         Collection<Universidade> matchedUniversidades =
                 this.service.getAllUniversidadesByCursoNome(nomeCurso);
 
         return new ResponseEntity<>(matchedUniversidades, HttpStatus.OK);
     }
-    
+
     @DeleteMapping(path = "/{codigoIES}")
     public ResponseEntity<Universidade> deleteUniversidadesByCodigoCurso(
             @PathVariable(name = "codigoIES") Long codigoIES) {

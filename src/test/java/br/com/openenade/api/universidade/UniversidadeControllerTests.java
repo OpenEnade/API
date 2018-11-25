@@ -32,7 +32,7 @@ public class UniversidadeControllerTests extends BaseUnitTest {
 
     @Autowired
     private CursoService cursoService;
-
+    
     @Test
     public void controllerTest() {
         Regiao regiao = new Regiao("AA");
@@ -58,7 +58,7 @@ public class UniversidadeControllerTests extends BaseUnitTest {
 
         // Issue57
         Collection<Universidade> matchedUniversidades =
-                this.service.getAllUniversidadesByCurso(new Long(10), null);
+                this.service.getAllUniversidadesByCursoNome("CC");
 
         Assert.assertEquals(matchedUniversidades.size(), 1);
         Assert.assertTrue(matchedUniversidades.contains(univ));

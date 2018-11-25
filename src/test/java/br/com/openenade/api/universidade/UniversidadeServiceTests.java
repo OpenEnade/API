@@ -150,8 +150,8 @@ public class UniversidadeServiceTests extends BaseUnitTest {
         expect.add(uepb);
         expect.add(ufcg);
 
-        assertEquals(expect, this.service.getAllUniversidadesByCurso(new Long(10), null));
-        assertEquals(expect, this.service.getAllUniversidadesByCurso(new Long(11), null));
+        assertEquals(expect, this.service.getAllUniversidadesByCursoNome("CC"));
+        assertEquals(expect, this.service.getAllUniversidadesByCursoNome("EE"));
 
     }
 

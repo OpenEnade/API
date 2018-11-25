@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import br.com.openenade.api.exceptions.ResourceNotFound;
-import br.com.openenade.api.modalidade.Modalidade;
 import br.com.openenade.api.municipio.Municipio;
 import br.com.openenade.api.municipio.MunicipioService;
 
@@ -68,43 +67,6 @@ public class UniversidadeService {
     public void deleteUniversidadeById(Long codigoIES, Municipio campus) {
         UniversidadeId id = new UniversidadeId(codigoIES, campus.getCodigo());
         this.repository.deleteById(id);
-    }
-
-    /**
-     * Seleciona todas as universidades que, em seu conjunto de cursos, tenham o código do curso e a
-     * modalidade especificados.
-     * 
-     */
-    public Collection<Universidade> getAllUniversidadesByCurso(Long codigoCurso,
-            Modalidade modalidade) {
-        Collection<Universidade> universidades = this.repository.findAll();
-        universidades = applyCodigoCursoFilter(universidades, codigoCurso);
-        universidades = applyModalidadeFilter(universidades, modalidade);
-        return universidades;
-    }
-
-    private Collection<Universidade> applyCodigoCursoFilter(Collection<Universidade> universidades,
-            Long codigoCurso) {
-        if (codigoCurso != null) {
-            return universidades.stream()
-                    .filter(universidade -> universidade.getCursos().stream()
-                            .anyMatch(curso -> curso.getCodigoCurso().equals(codigoCurso)))
-                    .collect(Collectors.toList());
-        } else {
-            return universidades;
-        }
-    }
-
-    private Collection<Universidade> applyModalidadeFilter(Collection<Universidade> universidades,
-            Modalidade modalidade) {
-        if (modalidade != null) {
-            return universidades.stream()
-                    .filter(universidade -> universidade.getCursos().stream()
-                            .anyMatch(curso -> curso.getModalidade().equals(modalidade)))
-                    .collect(Collectors.toList());
-        } else {
-            return universidades;
-        }
     }
 
     public Collection<Universidade> getAllUniversidadesByCursoNome(String nomeCurso) {
