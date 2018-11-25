@@ -85,6 +85,10 @@ public class Universidade {
     public void setCategoriaAdmin(CategoriaAdmin categoriaAdmin) {
         this.categoriaAdmin = categoriaAdmin;
     }
+    
+    public void addCurso(Curso curso) {
+        this.cursos.add(curso);
+    }
 
     public Set<Curso> getCursos() {
         return cursos;
