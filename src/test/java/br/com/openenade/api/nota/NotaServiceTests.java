@@ -63,6 +63,14 @@ public class NotaServiceTests extends BaseUnitTest {
 
         Nota nota1 = new Nota.Builder().setAno(ano1).setCurso(curso1).setUniversidade(universidade1)
                 .build();
+        
+        
+        nota1.getAvaliacao().setConcluintesInscritos(50);
+        nota1.getAvaliacao().setConcluintesParticipantes(20);
+        nota1.getAvaliacao().setNotaBrutaCE(2.5);
+        nota1.getAvaliacao().setNotaBrutaFG(1.7);
+        nota1.getAvaliacao().setEnadeContinuo(3.553);
+        nota1.getAvaliacao().setEnadeFaixa(3);
 
 
         Ano ano2 = new Ano();
@@ -79,6 +87,13 @@ public class NotaServiceTests extends BaseUnitTest {
 
         Nota nota2 = new Nota.Builder().setAno(ano2).setCurso(curso2).setUniversidade(universidade2)
                 .build();
+        
+        nota2.getAvaliacao().setConcluintesInscritos(60);
+        nota2.getAvaliacao().setConcluintesParticipantes(60);
+        nota2.getAvaliacao().setNotaBrutaCE(2.9);
+        nota2.getAvaliacao().setNotaBrutaFG(1.9);
+        nota2.getAvaliacao().setEnadeContinuo(3.551);
+        nota2.getAvaliacao().setEnadeFaixa(4);
 
         Ano ano = new Ano();
         ano.setAno(2019);
@@ -95,6 +110,13 @@ public class NotaServiceTests extends BaseUnitTest {
         Nota nota3 = new Nota.Builder().setAno(ano).setCurso(curso).setUniversidade(universidade)
                 .build();
 
+        nota3.getAvaliacao().setConcluintesInscritos(14);
+        nota3.getAvaliacao().setConcluintesParticipantes(14);
+        nota3.getAvaliacao().setNotaBrutaCE(2.5);
+        nota3.getAvaliacao().setNotaBrutaFG(1.7);
+        nota3.getAvaliacao().setEnadeContinuo(3.553);
+        nota3.getAvaliacao().setEnadeFaixa(3);
+        
         List<Nota> notas = new ArrayList<>();
 
         notas.add(nota1);
@@ -374,4 +396,64 @@ public class NotaServiceTests extends BaseUnitTest {
         anos.add(this.notas.get(2));
         assertEquals(anos, this.notaService.filterByGenericAtribute(nfi));
     }
+    
+    @Test
+    public void caso1() {
+            
+        Ano ano = new Ano();
+        ano.setAno(2018);
+        Regiao regiao = new Regiao("NO");
+        Estado estado = new Estado("XD", regiao);
+        Municipio municipio = new Municipio(123L, estado, "Capoeira Grande");
+        Curso curso =
+                new Curso("Ciência da Computação", 41L, 2234234L, Modalidade.EDUCACAO_PRESENCIAL);
+        Universidade universidade = new Universidade(123123L, "UFCG", municipio,
+                CategoriaAdmin.PUBLICO, new HashSet<>());
+        universidade.getCursos().add(curso);
+
+        Nota nota = new Nota.Builder().setAno(ano).setCurso(curso).setUniversidade(universidade)
+                .build();
+        nota.getAvaliacao().setConcluintesInscritos(33);
+        nota.getAvaliacao().setConcluintesParticipantes(20);
+        nota.getAvaliacao().setNotaBrutaCE(2.2);
+        nota.getAvaliacao().setNotaBrutaFG(1.1);
+        nota.getAvaliacao().setEnadeContinuo(3.333);
+        nota.getAvaliacao().setEnadeFaixa(3);
+
+        this.notaService.save(nota);
+  
+        assertTrue(this.notaService.getAll().contains(nota));
+   
+    }
+    
+    @Test
+    public void caso2() {
+        
+        Ano ano1 = new Ano();
+        ano1.setAno(2017);
+        Regiao regiao1 = new Regiao("NE");
+        Estado estado1 = new Estado("PE", regiao1);
+        Municipio municipio1 = new Municipio(333L, estado1, "Recife");
+        this.municipioService.save(municipio1);
+        Curso curso1 =
+                new Curso("Ciência da Computação", 41L, 2234234L, Modalidade.EDUCACAO_PRESENCIAL);
+        Universidade universidade1 = new Universidade(11111L, "UFPE", municipio1,
+                CategoriaAdmin.PUBLICO, new HashSet<>());
+        universidade1.getCursos().add(curso1);
+
+        Nota nota1 = new Nota.Builder().setAno(ano1).setCurso(curso1).setUniversidade(universidade1)
+                .build();
+        
+        nota1.getAvaliacao().setConcluintesInscritos(50);
+        nota1.getAvaliacao().setConcluintesParticipantes(20);
+        nota1.getAvaliacao().setNotaBrutaCE(2.5);
+        nota1.getAvaliacao().setNotaBrutaFG(1.7);
+        nota1.getAvaliacao().setEnadeContinuo(3.553);
+        nota1.getAvaliacao().setEnadeFaixa(3);
+        
+        this.notaService.save(nota1);
+       
+        assertTrue(this.notaService.getAll().contains(this.notas.get(0)));
+              
+    } 
 }
