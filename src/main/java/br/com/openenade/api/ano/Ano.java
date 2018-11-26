@@ -9,7 +9,6 @@ public class Ano {
     @Id
     private Integer ano;
 
-
     public Integer getAno() {
         return this.ano;
     }

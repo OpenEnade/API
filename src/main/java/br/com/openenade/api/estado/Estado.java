@@ -23,8 +23,7 @@ public class Estado {
 
     }
 
-    public Estado(@NotBlank(message = "'siglaEstado' não pode ser vazio.") String siglaEstado,
-            Regiao regiaoEstado) {
+    public Estado(String siglaEstado, Regiao regiaoEstado) {
         super();
         this.sigla = siglaEstado;
         this.regiao = regiaoEstado;

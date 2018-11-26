@@ -10,6 +10,7 @@ import br.com.openenade.api.estado.EstadoRepository;
 import br.com.openenade.api.modalidade.Modalidade;
 import br.com.openenade.api.municipio.Municipio;
 import br.com.openenade.api.municipio.MunicipioRepository;
+import br.com.openenade.api.nota.Avaliacao;
 import br.com.openenade.api.nota.Nota;
 import br.com.openenade.api.nota.NotaService;
 import br.com.openenade.api.regiao.Regiao;
@@ -21,6 +22,7 @@ import br.com.openenade.api.universidade.UniversidadeId;
 import br.com.openenade.api.universidade.UniversidadeRepository;
 import org.springframework.boot.ApplicationArguments;
 import java.util.HashSet;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Component
@@ -68,6 +70,40 @@ public class StubDataCreator implements ApplicationRunner {
 
         Universidade universidades[] = this.addUniversidades(municipios, cursos);
 
+        Curso curso = new Curso("CIÊNCIA DA COMPUTAÇÃO", 11, 10, Modalidade.EDUCACAO_PRESENCIAL);
+        Set<Curso> cursoCollection = new HashSet<Curso>();
+        cursoCollection.add(curso);
+
+        Regiao regiao = new Regiao("NE");
+
+        Estado estado = new Estado("PB", regiao);
+
+        Municipio municipio = new Municipio(new Long(155), estado, "Campina Grande");
+
+        Universidade universidade =
+                new Universidade(new Long(155), "Universidade Federal de Campina Grande", municipio,
+                        CategoriaAdmin.PUBLICO, cursoCollection);
+
+        Ano ano1 = new Ano();
+        Ano ano2 = new Ano();
+        ano1.setAno(new Integer(2017));
+        ano2.setAno(new Integer(2014));
+
+        Nota nota1 = new Nota.Builder().setAno(ano1).setCurso(curso).setUniversidade(universidade)
+                .build();
+        Avaliacao av1 = new Avaliacao();
+        av1.setEnadeContinuo(4.85);
+        av1.setEnadeFaixa(5);
+        nota1.setAvaliacao(av1);
+        Nota nota2 = new Nota.Builder().setAno(ano2).setCurso(curso).setUniversidade(universidade)
+                .build();
+        Avaliacao av2 = new Avaliacao();
+        av2.setEnadeContinuo(4.75);
+        av2.setEnadeFaixa(5);
+        nota2.setAvaliacao(av2);
+
+        this.notaService.save(nota1);
+        this.notaService.save(nota2);
         this.addNotas(anos, cursos, universidades);
     }
 
