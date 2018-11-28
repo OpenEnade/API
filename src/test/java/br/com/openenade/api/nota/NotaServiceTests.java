@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,20 +34,12 @@ public class NotaServiceTests extends BaseUnitTest {
 
     private List<Nota> notas;
 
-    @After
-    public void deleteAll() {
-
-        this.notaService.deleteAll();
-    }
-
     @Before
     public void setUp() {
-
         this.notas = this.addAnos();
     }
 
     public List<Nota> addAnos() {
-
         Ano ano1 = new Ano();
         ano1.setAno(2017);
         Regiao regiao1 = new Regiao("NE");
@@ -299,7 +290,7 @@ public class NotaServiceTests extends BaseUnitTest {
     public void testFilterByCodigoCurso() {
 
         NotaFilterInterface nfi = new NotaFilterInterface();
-        nfi.setCurso(2234234L);
+        nfi.setCodigoArea(41L);
         assertEquals(this.notas, this.notaService.filterByGenericAtribute(nfi));
     }
 

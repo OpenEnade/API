@@ -80,7 +80,7 @@ public class NotaService {
 
         Optional<Universidade> optUniversidade = this.universidadeService.getOptUniversidadeById(
                 idInterface.getCodigoIES(), idInterface.getCodigoMunicipio());
-        CursoId cursoId = new CursoId(idInterface.getCodigoCurso(),
+        CursoId cursoId = new CursoId(idInterface.getCodigoArea(),
                 Modalidade.values()[idInterface.getModalidade()]);
         Optional<Curso> optCurso = this.cursoRepository.findById(cursoId);
 
