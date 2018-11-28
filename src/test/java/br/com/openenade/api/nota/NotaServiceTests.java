@@ -56,7 +56,7 @@ public class NotaServiceTests extends BaseUnitTest {
         Municipio municipio1 = new Municipio(333L, estado1, "Recife");
         this.municipioService.save(municipio1);
         Curso curso1 =
-                new Curso("Ciência da Computação", 41L, 2234234L, Modalidade.EDUCACAO_PRESENCIAL);
+                new Curso("Ciência da Computação", 41L, Modalidade.EDUCACAO_PRESENCIAL);
         Universidade universidade1 = new Universidade(11111L, "UFPE", municipio1,
                 CategoriaAdmin.PUBLICO, new HashSet<>());
         universidade1.getCursos().add(curso1);
@@ -72,7 +72,7 @@ public class NotaServiceTests extends BaseUnitTest {
         Municipio municipio2 = new Municipio(222L, estado2, "Minas Gerais");
         this.municipioService.save(municipio2);
         Curso curso2 =
-                new Curso("Ciência da Computação", 41L, 2234234L, Modalidade.EDUCACAO_PRESENCIAL);
+                new Curso("Ciência da Computação", 41L, Modalidade.EDUCACAO_PRESENCIAL);
         Universidade universidade2 = new Universidade(11111L, "UFMG", municipio2,
                 CategoriaAdmin.PUBLICO, new HashSet<>());
         universidade2.getCursos().add(curso2);
@@ -87,7 +87,7 @@ public class NotaServiceTests extends BaseUnitTest {
         Municipio municipio = new Municipio(123L, estado, "Campina Grande");
         this.municipioService.save(municipio);
         Curso curso =
-                new Curso("Ciência da Computação", 41L, 2234234L, Modalidade.EDUCACAO_PRESENCIAL);
+                new Curso("Ciência da Computação", 41L, Modalidade.EDUCACAO_PRESENCIAL);
         Universidade universidade = new Universidade(123123L, "UFCG", municipio,
                 CategoriaAdmin.PRIVADO, new HashSet<>());
         universidade.getCursos().add(curso);
@@ -116,7 +116,7 @@ public class NotaServiceTests extends BaseUnitTest {
         Estado estado = new Estado("XD", regiao);
         Municipio municipio = new Municipio(123L, estado, "Capoeira Grande");
         Curso curso =
-                new Curso("Ciência da Computação", 41L, 2234234L, Modalidade.EDUCACAO_PRESENCIAL);
+                new Curso("Ciência da Computação", 41L, Modalidade.EDUCACAO_PRESENCIAL);
         Universidade universidade = new Universidade(123123L, "UFCG", municipio,
                 CategoriaAdmin.PUBLICO, new HashSet<>());
         universidade.getCursos().add(curso);
@@ -146,9 +146,9 @@ public class NotaServiceTests extends BaseUnitTest {
         Estado estado = new Estado("XD", regiao);
         Municipio municipio = new Municipio(123L, estado, "Capoeira Grande");
         Curso cursoA =
-                new Curso("Ciência da Computação", 41L, 2234234L, Modalidade.EDUCACAO_PRESENCIAL);
+                new Curso("Ciência da Computação", 41L, Modalidade.EDUCACAO_PRESENCIAL);
         Curso cursoB =
-                new Curso("Ciência da Neurologia", 41L, 1112223L, Modalidade.EDUCACAO_PRESENCIAL);
+                new Curso("Ciência da Neurologia", 41L, Modalidade.EDUCACAO_PRESENCIAL);
 
 
         Universidade universidadeA = new Universidade(123123L, "UFCG", municipio,
@@ -187,7 +187,7 @@ public class NotaServiceTests extends BaseUnitTest {
         Estado estado = new Estado("PB", regiao);
         Municipio municipio = new Municipio(123L, estado, "Campina Grande");
         Curso curso =
-                new Curso("Ciência da Computação", 41L, 2234234L, Modalidade.EDUCACAO_PRESENCIAL);
+                new Curso("Ciência da Computação", 41L, Modalidade.EDUCACAO_PRESENCIAL);
         Universidade universidade = new Universidade(123123L, "UFCG", municipio,
                 CategoriaAdmin.PUBLICO, new HashSet<>());
         universidade.getCursos().add(curso);
@@ -202,7 +202,7 @@ public class NotaServiceTests extends BaseUnitTest {
         regiao = new Regiao("N");
         estado = new Estado("AM", regiao);
         municipio = new Municipio(333L, estado, "Leruado");
-        curso = new Curso("Engenharia dos Danones", 42L, 2334234L, Modalidade.EDUCACAO_PRESENCIAL);
+        curso = new Curso("Engenharia dos Danones", 42L, Modalidade.EDUCACAO_PRESENCIAL);
         universidade = new Universidade(123122L, "UFAM", municipio, CategoriaAdmin.PUBLICO,
                 new HashSet<>());
         universidade.getCursos().add(curso);
@@ -225,7 +225,7 @@ public class NotaServiceTests extends BaseUnitTest {
         Estado estado = new Estado("Ancapistão", regiao);
         Municipio municipio = new Municipio(123L, estado, "Paulo Kogos");
         Curso curso =
-                new Curso("Ciência da Computação", 41L, 2234234L, Modalidade.EDUCACAO_A_DISTANCIA);
+                new Curso("Ciência da Computação", 41L, Modalidade.EDUCACAO_A_DISTANCIA);
         Universidade universidade = new Universidade(123123L, "UCIP", municipio,
                 CategoriaAdmin.PRIVADO, new HashSet<>());
         universidade.getCursos().add(curso);
@@ -257,7 +257,7 @@ public class NotaServiceTests extends BaseUnitTest {
         Estado estado = new Estado("PE", regiao);
         Municipio municipio = new Municipio(123L, estado, "Campina Grande");
         Curso curso =
-                new Curso("Ciência da Computação", 41L, 2234234L, Modalidade.EDUCACAO_PRESENCIAL);
+                new Curso("Ciência da Computação", 41L, Modalidade.EDUCACAO_PRESENCIAL);
         Universidade universidade = new Universidade(123123L, "UFCG", municipio,
                 CategoriaAdmin.PUBLICO, new HashSet<>());
         universidade.getCursos().add(curso);

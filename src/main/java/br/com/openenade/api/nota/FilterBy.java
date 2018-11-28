@@ -75,16 +75,6 @@ public class FilterBy {
         return this;
     }
 
-    public FilterBy filterByCodigoCurso(Long codigoCurso) {
-
-        if (codigoCurso != null) {
-            this.notas = this.notas.stream()
-                    .filter(nota -> nota.getInfo().getCurso().getCodigoCurso().equals(codigoCurso))
-                    .collect(Collectors.toList());
-        }
-        return this;
-    }
-
     public FilterBy filterByCodigoArea(Long codigoArea) {
 
         if (codigoArea != null) {

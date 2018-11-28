@@ -116,7 +116,7 @@ public class StubDataCreator implements ApplicationRunner {
 
         Curso[] cursos = new Curso[cursoCodes.length];
         for (int i = 0; i < cursos.length; i++) {
-            cursos[i] = new Curso(cursoNames[i], cursoAreaCodes[i], cursoCodes[i], modalidades[i]);
+            cursos[i] = new Curso(cursoNames[i], cursoAreaCodes[i], modalidades[i]);
             this.cursoRepository.save(cursos[i]);
         }
 

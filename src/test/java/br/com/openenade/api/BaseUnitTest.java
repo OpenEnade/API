@@ -58,7 +58,7 @@ public class BaseUnitTest {
         }
         for (Curso curso : this.cursoService.getAll()) {
 
-            CursoId id = new CursoId(curso.getCodigoCurso(), curso.getModalidade());
+            CursoId id = new CursoId(curso.getCodigoArea(), curso.getModalidade());
             this.cursoService.deleteCursoById(id);
         }
         for (Ano ano : this.anoService.getAllAnos()) {

@@ -15,14 +15,10 @@ import javax.persistence.IdClass;
 @IdClass(CursoId.class)
 public class Curso {
 
-    @Id
-    @NotNull(message = "'codigoCurso' não pode ser nulo.")
-    private Long codigoCurso;
-
     @NotBlank(message = "'nome' não pode ser vazio.")
     private String nome;
 
-    @NotNull(message = "'codigoArea' não pode ser nulo.")
+    @Id
     @Positive(message = "'codigoArea' precisa ser positivo.")
     private Long codigoArea;
 
@@ -35,11 +31,10 @@ public class Curso {
 
     }
 
-    public Curso(String nome, long codigoArea, long codigoCurso, Modalidade modalidade) {
+    public Curso(String nome, long codigoArea, Modalidade modalidade) {
         super();
         this.nome = nome;
         this.codigoArea = codigoArea;
-        this.codigoCurso = codigoCurso;
         this.modalidade = modalidade;
     }
 
@@ -59,14 +54,6 @@ public class Curso {
         this.codigoArea = codigoArea;
     }
 
-    public Long getCodigoCurso() {
-        return codigoCurso;
-    }
-
-    public void setCodigoCurso(Long codigoCurso) {
-        this.codigoCurso = codigoCurso;
-    }
-
     public Modalidade getModalidade() {
         return modalidade;
     }
@@ -79,7 +66,7 @@ public class Curso {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((codigoCurso == null) ? 0 : codigoCurso.hashCode());
+        result = prime * result + ((codigoArea == null) ? 0 : codigoArea.hashCode());
         result = prime * result + ((modalidade == null) ? 0 : modalidade.hashCode());
         return result;
     }
@@ -93,17 +80,20 @@ public class Curso {
         if (getClass() != obj.getClass())
             return false;
         Curso other = (Curso) obj;
-        if (codigoCurso == null) {
-            if (other.codigoCurso != null)
+        if (codigoArea == null) {
+            if (other.codigoArea != null)
                 return false;
-        } else if (!codigoCurso.equals(other.codigoCurso))
+        } else if (!codigoArea.equals(other.codigoArea))
             return false;
-        return modalidade == other.modalidade;
+        if (modalidade != other.modalidade)
+            return false;
+        return true;
     }
 
     @Override
     public String toString() {
-        return "Curso [codigoCurso=" + codigoCurso + ", nome=" + nome + ", codigoArea=" + codigoArea
-                + ", modalidade=" + modalidade + "]";
+        return "Curso [nome=" + nome + ", codigoArea=" + codigoArea + ", modalidade=" + modalidade
+                + "]";
     }
+
 }

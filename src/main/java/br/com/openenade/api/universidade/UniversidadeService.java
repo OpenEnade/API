@@ -40,7 +40,7 @@ public class UniversidadeService {
 
     public Universidade addCurso2Universidade(Universidade universidade, Curso curso) {
         Optional<Curso> optCurso =
-                this.cursoService.getByCodigo(curso.getCodigoCurso(), curso.getModalidade());
+                this.cursoService.getByCodigo(curso.getCodigoArea(), curso.getModalidade());
         if (optCurso.isPresent()) {
             universidade.addCurso(optCurso.get());
             return this.repository.saveAndFlush(universidade);

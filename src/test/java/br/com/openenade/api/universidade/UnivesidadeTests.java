@@ -26,8 +26,8 @@ public class UnivesidadeTests {
         Municipio campus = new Municipio((long) 10, estado, null);
         
         Set<Curso> cursos = new HashSet<Curso>();
-        cursos.add(new Curso("CC", 13, 10, Modalidade.EDUCACAO_PRESENCIAL));
-        cursos.add(new Curso("EE", 13, 11, Modalidade.EDUCACAO_PRESENCIAL));
+        cursos.add(new Curso("CC", 13, Modalidade.EDUCACAO_PRESENCIAL));
+        cursos.add(new Curso("EE", 13, Modalidade.EDUCACAO_PRESENCIAL));
         
         Universidade univ = new Universidade((long) 10, null , campus, CategoriaAdmin.PUBLICO , cursos);
         
