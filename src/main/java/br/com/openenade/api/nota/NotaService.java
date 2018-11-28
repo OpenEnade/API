@@ -95,6 +95,7 @@ public class NotaService {
         return filter.filterByRegiao(nfi.getRegiao()).filterByEstado(nfi.getEstado())
                 .filterByMunicipio(nfi.getMunicipio()).filterByCategAdmin(nfi.getCategoria())
                 .filterByCodigoIES(nfi.getUniversidade()).filterByCodigoCurso(nfi.getCurso())
+                .filterByCodigoArea(nfi.getCodigoArea())
                 .filterByModalidadeEnsino(nfi.getModalidade())
                 .filterByIntervaloAno(nfi.getBeginAno(), nfi.getEndAno()).get();
     }

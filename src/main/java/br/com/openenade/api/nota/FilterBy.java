@@ -85,6 +85,16 @@ public class FilterBy {
         return this;
     }
 
+    public FilterBy filterByCodigoArea(Long codigoArea) {
+
+        if (codigoArea != null) {
+            this.notas = this.notas.stream()
+                    .filter(nota -> nota.getInfo().getCurso().getCodigoArea().equals(codigoArea))
+                    .collect(Collectors.toList());
+        }
+        return this;
+    }
+
     public FilterBy filterByModalidadeEnsino(Modalidade modalidade) {
 
         if (modalidade != null) {
