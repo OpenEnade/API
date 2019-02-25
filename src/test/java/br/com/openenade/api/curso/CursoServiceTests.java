@@ -20,20 +20,20 @@ public class CursoServiceTests extends BaseUnitTest {
 
     @Autowired
     private CursoRepository cursoRepository;
-    
+
     @Test
     public void testSaveBasic() {
-        this.cursoService.save(new Curso("CC", 13, 10, Modalidade.EDUCACAO_PRESENCIAL));
+        this.cursoService.save(new Curso("CC", 13, Modalidade.EDUCACAO_PRESENCIAL));
     }
 
     @Test
     public void testGetAllBasic() {
-        Curso a = new Curso("Ciência da Computação", 3, 2, Modalidade.EDUCACAO_PRESENCIAL);
-        Curso b = new Curso("Engenharia Mecânica", 5, 1, Modalidade.EDUCACAO_PRESENCIAL);
-        Curso c = new Curso("Engenharia Elétrica", 7, 3, Modalidade.EDUCACAO_PRESENCIAL);
-        Curso d = new Curso("História", 11, 4, Modalidade.EDUCACAO_A_DISTANCIA);
+        Curso a = new Curso("Ciência da Computação", 3, Modalidade.EDUCACAO_PRESENCIAL);
+        Curso b = new Curso("Engenharia Mecânica", 5, Modalidade.EDUCACAO_PRESENCIAL);
+        Curso c = new Curso("Engenharia Elétrica", 7, Modalidade.EDUCACAO_PRESENCIAL);
+        Curso d = new Curso("História", 11, Modalidade.EDUCACAO_A_DISTANCIA);
 
-        Curso e = new Curso("História", 13, 5, Modalidade.EDUCACAO_A_DISTANCIA);
+        Curso e = new Curso("História", 13, Modalidade.EDUCACAO_A_DISTANCIA);
 
         this.cursoService.save(a);
         this.cursoService.save(b);
@@ -54,25 +54,22 @@ public class CursoServiceTests extends BaseUnitTest {
 
     @Test
     public void testGetByCodigo() {
-        
+
         String[] cursos = {"Ciência da Computação", "Engenharia Mecânica", "Engenharia Elétrica"};
-        
-        Long[] codigos = {(long) 111,(long) 123,(long) 312};
-        
+
         Modalidade modalidade = Modalidade.EDUCACAO_PRESENCIAL;
 
-        
-        Curso a = new Curso(cursos[0], 3, codigos[0], modalidade);
-        Curso b = new Curso(cursos[1], 5, codigos[1], modalidade);
-        Curso c = new Curso(cursos[2], 7, codigos[2], modalidade);
-        
+        Curso a = new Curso(cursos[0], 3, modalidade);
+        Curso b = new Curso(cursos[1], 5, modalidade);
+        Curso c = new Curso(cursos[2], 7, modalidade);
+
         this.cursoService.save(a);
         this.cursoService.save(b);
         this.cursoService.save(c);
 
-        Curso aa = this.cursoService.getByCodigo(codigos[0], modalidade).get();
-        Curso bb = this.cursoService.getByCodigo(codigos[1], modalidade).get();
-        Curso cc = this.cursoService.getByCodigo(codigos[2], modalidade).get();
+        Curso aa = this.cursoService.getByCodigo(3L, modalidade).get();
+        Curso bb = this.cursoService.getByCodigo(5L, modalidade).get();
+        Curso cc = this.cursoService.getByCodigo(7L, modalidade).get();
 
         assertEquals(a, aa);
         assertEquals(b, bb);
@@ -81,17 +78,13 @@ public class CursoServiceTests extends BaseUnitTest {
 
     @Test
     public void testCursoIdClass() {
-        
-            
         String[] cursos = {"Ciência da Computação", "Engenharia Mecânica", "Engenharia Elétrica"};
-        
-        Long[] codigos = {(long) 111,(long) 123,(long) 312};
-        
-        Curso curso = new Curso(cursos[0], 3, codigos[0], Modalidade.EDUCACAO_A_DISTANCIA);
+
+        Curso curso = new Curso(cursos[0], 3L, Modalidade.EDUCACAO_A_DISTANCIA);
         this.cursoRepository.save(curso);
-        
-        CursoId id = new CursoId(codigos[0], Modalidade.EDUCACAO_A_DISTANCIA);
-        
+
+        CursoId id = new CursoId(3L, Modalidade.EDUCACAO_A_DISTANCIA);
+
         assertEquals(curso, this.cursoRepository.findById(id).get());
 
     }

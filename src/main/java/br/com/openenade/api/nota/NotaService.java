@@ -80,7 +80,7 @@ public class NotaService {
 
         Optional<Universidade> optUniversidade = this.universidadeService.getOptUniversidadeById(
                 idInterface.getCodigoIES(), idInterface.getCodigoMunicipio());
-        CursoId cursoId = new CursoId(idInterface.getCodigoCurso(),
+        CursoId cursoId = new CursoId(idInterface.getCodigoArea(),
                 Modalidade.values()[idInterface.getModalidade()]);
         Optional<Curso> optCurso = this.cursoRepository.findById(cursoId);
 
@@ -94,8 +94,7 @@ public class NotaService {
 
         return filter.filterByRegiao(nfi.getRegiao()).filterByEstado(nfi.getEstado())
                 .filterByMunicipio(nfi.getMunicipio()).filterByCategAdmin(nfi.getCategoria())
-                .filterByCodigoIES(nfi.getUniversidade()).filterByCodigoCurso(nfi.getCurso())
-                .filterByCodigoArea(nfi.getCodigoArea())
+                .filterByCodigoIES(nfi.getUniversidade()).filterByCodigoArea(nfi.getCodigoArea())
                 .filterByModalidadeEnsino(nfi.getModalidade())
                 .filterByIntervaloAno(nfi.getBeginAno(), nfi.getEndAno()).get();
     }

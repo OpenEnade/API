@@ -3,7 +3,7 @@ package br.com.openenade.api.nota;
 public class NotaIdInterface {
 
     private int ano;
-    private long codigoCurso;
+    private long codigoArea;
     private int modalidade;
     private long codigoIES;
     private long codigoMunicipio;
@@ -16,12 +16,12 @@ public class NotaIdInterface {
         this.ano = ano;
     }
 
-    public long getCodigoCurso() {
-        return codigoCurso;
+    public long getCodigoArea() {
+        return codigoArea;
     }
 
-    public void setCodigoCurso(long codigoCurso) {
-        this.codigoCurso = codigoCurso;
+    public void setCodigoArea(long codigoArea) {
+        this.codigoArea = codigoArea;
     }
 
     public int getModalidade() {

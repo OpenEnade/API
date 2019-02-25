@@ -53,8 +53,7 @@ public class NotaControllerTests extends BaseUnitTest {
         Estado estado = new Estado("XD", regiao);
         Municipio municipio = new Municipio(123L, estado, "Capoeira Grande");
         this.municipioService.save(municipio);
-        Curso curso =
-                new Curso("Ciência da Computação", 41L, 2234234L, Modalidade.EDUCACAO_PRESENCIAL);
+        Curso curso = new Curso("Ciência da Computação", 41L, Modalidade.EDUCACAO_PRESENCIAL);
         Universidade universidade = new Universidade(123123L, "UFCG", municipio,
                 CategoriaAdmin.PUBLICO, new HashSet<>());
         universidade.getCursos().add(curso);
@@ -86,8 +85,7 @@ public class NotaControllerTests extends BaseUnitTest {
         Estado estado = new Estado("GO", regiao);
         Municipio municipio = new Municipio(123L, estado, "Poeira Grande");
         this.municipioService.save(municipio);
-        Curso curso =
-                new Curso("Ciência da Computação", 33L, 9999L, Modalidade.EDUCACAO_PRESENCIAL);
+        Curso curso = new Curso("Ciência da Computação", 33L, Modalidade.EDUCACAO_PRESENCIAL);
         Universidade universidade = new Universidade(3213321L, "UFREI", municipio,
                 CategoriaAdmin.PUBLICO, new HashSet<>());
         universidade.getCursos().add(curso);
@@ -105,34 +103,34 @@ public class NotaControllerTests extends BaseUnitTest {
 
         String url = "/" + NotaController.ENDPOINT
                 + String.format("/%d-%d-%d-%d-%d", nota.getInfo().getAno().getAno(),
-                        nota.getInfo().getCurso().getCodigoCurso(),
+                        nota.getInfo().getCurso().getCodigoArea(),
                         nota.getInfo().getCurso().getModalidade().ordinal(),
                         nota.getInfo().getUniversidade().getCodigoIES(),
                         nota.getInfo().getUniversidade().getCampus().getCodigo());
 
         MvcResult result = mvc.perform(get(url)).andExpect(status().isOk()).andReturn();
-        
+
         assertEquals("application/json;charset=UTF-8", result.getResponse().getContentType());
-        
+
         JSONAssert.assertEquals(
-                "{\"info\":{\"ano\":{\"ano\":2018},\"curso\":{\"codigoCurso\":"
-                        + "9999,\"nome\":\"Ciência da Computação\",\"codigoArea\":33,\""
+                "{\"info\":{\"ano\":{\"ano\":2018},\"curso\":{\"nome\":"
+                        + "\"Ciência da Computação\",\"codigoArea\":33,\""
                         + "modalidade\":\"Educação Presencial\"},\"universidade\":{\"c"
                         + "odigoIES\":3213321,\"nome\":\"UFREI\",\"campus\":{\"codigo"
                         + "\":123,\"estado\":{\"sigla\":\"GO\",\"regiao\":{\"sigla\":"
                         + "\"NE\"}},\"nome\":\"Poeira Grande\"},\"categoriaAdmin\":\"P"
-                        + "ublico\",\"cursos\":[{\"codigoCurso\":9999,\"nome\":\"Ciênc"
+                        + "ublico\",\"cursos\":[{\"nome\":\"Ciênc"
                         + "ia da Computação\",\"codigoArea\":33,\"modalidade\":\"Educa"
                         + "ção Presencial\"}]}},\"avaliacao\":{\"concluintesInscritos"
                         + "\":3,\"concluintesParticipantes\":2,\"notaBrutaFG\":0.5,\""
                         + "notaPadronizadaFG\":0.0,\"notaBrutaCE\":2.1,\"notaPadroniz"
                         + "adaCE\":0.0,\"enadeContinuo\":3.666,\"enadeFaixa\":1}}",
                 result.getResponse().getContentAsString(), true);
-        
+
         assertTrue(this.notaService.getNotaById(nota.getInfo()).isPresent());
-        
+
         result = mvc.perform(delete(url)).andExpect(status().isOk()).andReturn();
-        
+
         assertFalse(this.notaService.getNotaById(nota.getInfo()).isPresent());
     }
 

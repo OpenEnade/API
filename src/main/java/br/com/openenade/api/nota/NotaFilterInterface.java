@@ -8,7 +8,6 @@ public class NotaFilterInterface {
     private Integer beginAno;
     private Integer endAno;
     private CategoriaAdmin categoria;
-    private Long curso;
     private Long codigoArea;
     private String estado;
     private Modalidade modalidade;
@@ -40,14 +39,6 @@ public class NotaFilterInterface {
         this.categoria = categoria;
     }
 
-    public Long getCurso() {
-        return curso;
-    }
-
-    public void setCurso(Long curso) {
-        this.curso = curso;
-    }
-    
     public Long getCodigoArea() {
         return codigoArea;
     }

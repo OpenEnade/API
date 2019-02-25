@@ -10,7 +10,7 @@ public class CursoId implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Long codigoCurso;
+	private Long codigoArea;
 
     private Modalidade modalidade;
 
@@ -18,18 +18,18 @@ public class CursoId implements Serializable {
 
     }
 
-    public CursoId(Long codigoCurso, Modalidade modalidade) {
+    public CursoId(Long codigoArea, Modalidade modalidade) {
         super();
-        this.codigoCurso = codigoCurso;
+        this.codigoArea = codigoArea;
         this.modalidade = modalidade;
     }
 
-    public Long getCodigoCurso() {
-        return codigoCurso;
+    public Long getCodigoArea() {
+        return codigoArea;
     }
 
-    public void setCodigoCurso(Long codigoCurso) {
-        this.codigoCurso = codigoCurso;
+    public void setCodigoArea(Long codigoArea) {
+        this.codigoArea = codigoArea;
     }
 
     public Modalidade getModalidade() {

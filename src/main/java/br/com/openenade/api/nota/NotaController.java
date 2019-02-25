@@ -38,7 +38,7 @@ public class NotaController {
     }
 
     @ResponseBody
-    @GetMapping(path = "/{ano}-{codigoCurso}-{modalidade}-{codigoIES}-{codigoMunicipio}")
+    @GetMapping(path = "/{ano}-{codigoArea}-{modalidade}-{codigoIES}-{codigoMunicipio}")
     public ResponseEntity<Nota> getNotaByIndex(NotaIdInterface notaIdInterface) {
 
         Optional<Nota> optNota = this.service.getNota(notaIdInterface);
@@ -46,7 +46,7 @@ public class NotaController {
         return new ResponseEntity<>(optNota.get(), HttpStatus.OK);
     }
 
-    @DeleteMapping(path = "/{ano}-{codigoCurso}-{modalidade}-{codigoIES}-{codigoMunicipio}")
+    @DeleteMapping(path = "/{ano}-{codigoArea}-{modalidade}-{codigoIES}-{codigoMunicipio}")
     public ResponseEntity<String> deleteNotaByIndex(NotaIdInterface notaIdInterface) {
 
         this.service.deleteNota(notaIdInterface);
