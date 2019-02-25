@@ -397,7 +397,7 @@ public class NotaServiceTests extends BaseUnitTest {
         Estado estado = new Estado("XD", regiao);
         Municipio municipio = new Municipio(123L, estado, "Capoeira Grande");
         Curso curso =
-                new Curso("Ciência da Computação", 41L, 2234234L, Modalidade.EDUCACAO_PRESENCIAL);
+                new Curso("Ciência da Computação", 2234234L, Modalidade.EDUCACAO_PRESENCIAL);
         Universidade universidade = new Universidade(123123L, "UFCG", municipio,
                 CategoriaAdmin.PUBLICO, new HashSet<>());
         universidade.getCursos().add(curso);
@@ -427,7 +427,7 @@ public class NotaServiceTests extends BaseUnitTest {
         Municipio municipio1 = new Municipio(333L, estado1, "Recife");
         this.municipioService.save(municipio1);
         Curso curso1 =
-                new Curso("Ciência da Computação", 41L, 2234234L, Modalidade.EDUCACAO_PRESENCIAL);
+                new Curso("Ciência da Computação", 41L, Modalidade.EDUCACAO_PRESENCIAL);
         Universidade universidade1 = new Universidade(11111L, "UFPE", municipio1,
                 CategoriaAdmin.PUBLICO, new HashSet<>());
         universidade1.getCursos().add(curso1);
