@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "*")
 @RequestMapping(path = CategoriaAdminController.ENDPOINT)
 public class CategoriaAdminController {
-    
+
     public static final String ENDPOINT = "/categorias-admin";
-    
+
     @RequestMapping(method = RequestMethod.GET)
     public @ResponseBody ResponseEntity<CategoriaAdmin[]> index() {
-        
+
         return new ResponseEntity<>(CategoriaAdmin.values(), HttpStatus.OK);
     }
-   
+
 }

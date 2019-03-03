@@ -113,13 +113,13 @@ public class NotaControllerTests extends BaseUnitTest {
         JSONAssert.assertEquals(
                 "{\"info\":{\"ano\":{\"ano\":2018},\"curso\":{\"nome\":"
                         + "\"Ciência da Computação\",\"codigoArea\":33,\""
-                        + "modalidade\":\"Educação Presencial\"},\"universidade\":{\"c"
+                        + "modalidade\":\"Educação Presencial - 0\"},\"universidade\":{\"c"
                         + "odigoIES\":3213321,\"nome\":\"UFREI\",\"campus\":{\"codigo"
                         + "\":123,\"estado\":{\"sigla\":\"GO\",\"regiao\":{\"sigla\":"
                         + "\"NE\"}},\"nome\":\"Poeira Grande\"},\"categoriaAdmin\":\"P"
                         + "ublico\",\"cursos\":[{\"nome\":\"Ciênc"
                         + "ia da Computação\",\"codigoArea\":33,\"modalidade\":\"Educa"
-                        + "ção Presencial\"}]}},\"avaliacao\":{\"concluintesInscritos"
+                        + "ção Presencial - 0\"}]}},\"avaliacao\":{\"concluintesInscritos"
                         + "\":3,\"concluintesParticipantes\":2,\"notaBrutaFG\":0.5,\""
                         + "notaPadronizadaFG\":0.0,\"notaBrutaCE\":2.1,\"notaPadroniz"
                         + "adaCE\":0.0,\"enadeContinuo\":3.666,\"enadeFaixa\":1}}",

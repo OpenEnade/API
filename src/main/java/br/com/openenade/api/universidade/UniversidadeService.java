@@ -39,14 +39,9 @@ public class UniversidadeService {
     }
 
     public Universidade addCurso2Universidade(Universidade universidade, Curso curso) {
-        Optional<Curso> optCurso =
-                this.cursoService.getByCodigo(curso.getCodigoArea(), curso.getModalidade());
-        if (optCurso.isPresent()) {
-            universidade.addCurso(optCurso.get());
-            return this.repository.saveAndFlush(universidade);
-        } else {
-            throw new ResourceNotFound(curso.toString());
-        }
+        curso = this.cursoService.getByCodigo(curso.getCodigoArea(), curso.getModalidade());
+        universidade.addCurso(curso);
+        return this.repository.saveAndFlush(universidade);
     }
 
     public Collection<Universidade> getAll() {
