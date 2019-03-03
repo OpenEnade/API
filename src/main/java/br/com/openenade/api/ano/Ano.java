@@ -9,6 +9,13 @@ public class Ano {
     @Id
     private Integer ano;
 
+    public Ano() {
+        
+    }
+    
+    public Ano(Integer ano) {
+        this.ano = ano;
+    }
 
     public Integer getAno() {
         return this.ano;
@@ -18,12 +25,10 @@ public class Ano {
         this.ano = ano;
     }
 
-
     @Override
     public String toString() {
         return "" + this.ano;
     }
-
 
     @Override
     public int hashCode() {

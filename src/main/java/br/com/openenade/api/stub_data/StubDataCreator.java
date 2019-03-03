@@ -128,8 +128,7 @@ public class StubDataCreator implements ApplicationRunner {
 
         Ano[] anos = new Ano[anosInt.length];
         for (int i = 0; i < anos.length; i++) {
-            anos[i] = new Ano();
-            anos[i].setAno(anosInt[i]);
+            anos[i] = new Ano(anosInt[i]);
             this.anoRepository.save(anos[i]);
         }
 
