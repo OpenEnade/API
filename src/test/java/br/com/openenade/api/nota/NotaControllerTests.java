@@ -47,8 +47,7 @@ public class NotaControllerTests extends BaseUnitTest {
 
     @Test
     public void postTestBasic() throws Exception {
-        Ano ano = new Ano();
-        ano.setAno(2018);
+        Ano ano = new Ano(2018);
         Regiao regiao = new Regiao("NO");
         Estado estado = new Estado("XD", regiao);
         Municipio municipio = new Municipio(123L, estado, "Capoeira Grande");
@@ -79,8 +78,7 @@ public class NotaControllerTests extends BaseUnitTest {
 
     @Test
     public void getTestBasicPlusDelete() throws Exception {
-        Ano ano = new Ano();
-        ano.setAno(2018);
+        Ano ano = new Ano(2018);
         Regiao regiao = new Regiao("NE");
         Estado estado = new Estado("GO", regiao);
         Municipio municipio = new Municipio(123L, estado, "Poeira Grande");

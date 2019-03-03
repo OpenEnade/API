@@ -40,8 +40,7 @@ public class NotaServiceTests extends BaseUnitTest {
     }
 
     public List<Nota> addAnos() {
-        Ano ano1 = new Ano();
-        ano1.setAno(2017);
+        Ano ano1 = new Ano(2017);
         Regiao regiao1 = new Regiao("NE");
         Estado estado1 = new Estado("PE", regiao1);
         Municipio municipio1 = new Municipio(333L, estado1, "Recife");
@@ -64,8 +63,7 @@ public class NotaServiceTests extends BaseUnitTest {
         nota1.getAvaliacao().setEnadeFaixa(3);
 
 
-        Ano ano2 = new Ano();
-        ano2.setAno(2018);
+        Ano ano2 = new Ano(2018);
         Regiao regiao2 = new Regiao("CO");
         Estado estado2 = new Estado("MG", regiao2);
         Municipio municipio2 = new Municipio(222L, estado2, "Minas Gerais");
@@ -86,8 +84,7 @@ public class NotaServiceTests extends BaseUnitTest {
         nota2.getAvaliacao().setEnadeContinuo(3.551);
         nota2.getAvaliacao().setEnadeFaixa(4);
 
-        Ano ano = new Ano();
-        ano.setAno(2019);
+        Ano ano = new Ano(2019);
         Regiao regiao = new Regiao("NE");
         Estado estado = new Estado("PB", regiao);
         Municipio municipio = new Municipio(123L, estado, "Campina Grande");
@@ -123,8 +120,7 @@ public class NotaServiceTests extends BaseUnitTest {
 
     @Test
     public void save() {
-        Ano ano = new Ano();
-        ano.setAno(2018);
+        Ano ano = new Ano(2018);
         Regiao regiao = new Regiao("NO");
         Estado estado = new Estado("XD", regiao);
         Municipio municipio = new Municipio(123L, estado, "Capoeira Grande");
@@ -153,8 +149,7 @@ public class NotaServiceTests extends BaseUnitTest {
     }
 
     public void saveUnivDuplicated() {
-        Ano ano = new Ano();
-        ano.setAno(2018);
+        Ano ano = new Ano(2018);
         Regiao regiao = new Regiao("NO");
         Estado estado = new Estado("XD", regiao);
         Municipio municipio = new Municipio(123L, estado, "Capoeira Grande");
@@ -194,8 +189,7 @@ public class NotaServiceTests extends BaseUnitTest {
 
     @Test
     public void getAll() {
-        Ano ano = new Ano();
-        ano.setAno(2017);
+        Ano ano = new Ano(2017);
         Regiao regiao = new Regiao("NE");
         Estado estado = new Estado("PB", regiao);
         Municipio municipio = new Municipio(123L, estado, "Campina Grande");
@@ -210,8 +204,7 @@ public class NotaServiceTests extends BaseUnitTest {
 
         nota3 = this.notaService.save(nota3);
 
-        ano = new Ano();
-        ano.setAno(2017);
+        ano = new Ano(2017);
         regiao = new Regiao("N");
         estado = new Estado("AM", regiao);
         municipio = new Municipio(333L, estado, "Leruado");
@@ -232,8 +225,7 @@ public class NotaServiceTests extends BaseUnitTest {
 
     @Test
     public void getById() {
-        Ano ano = new Ano();
-        ano.setAno(2049);
+        Ano ano = new Ano(2049);
         Regiao regiao = new Regiao("C");
         Estado estado = new Estado("Ancapistão", regiao);
         Municipio municipio = new Municipio(123L, estado, "Paulo Kogos");
@@ -264,8 +256,7 @@ public class NotaServiceTests extends BaseUnitTest {
 
     @Test
     public void deleteById() {
-        Ano ano = new Ano();
-        ano.setAno(2019);
+        Ano ano = new Ano(2019);
         Regiao regiao = new Regiao("NE");
         Estado estado = new Estado("PE", regiao);
         Municipio municipio = new Municipio(123L, estado, "Campina Grande");
@@ -390,9 +381,7 @@ public class NotaServiceTests extends BaseUnitTest {
     
     @Test
     public void caso1() {
-            
-        Ano ano = new Ano();
-        ano.setAno(2018);
+        Ano ano = new Ano(2018);
         Regiao regiao = new Regiao("NO");
         Estado estado = new Estado("XD", regiao);
         Municipio municipio = new Municipio(123L, estado, "Capoeira Grande");
@@ -419,9 +408,7 @@ public class NotaServiceTests extends BaseUnitTest {
     
     @Test
     public void caso2() {
-        
-        Ano ano1 = new Ano();
-        ano1.setAno(2017);
+        Ano ano1 = new Ano(2017);
         Regiao regiao1 = new Regiao("NE");
         Estado estado1 = new Estado("PE", regiao1);
         Municipio municipio1 = new Municipio(333L, estado1, "Recife");

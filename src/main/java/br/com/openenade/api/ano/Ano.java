@@ -9,6 +9,14 @@ public class Ano {
     @Id
     private Integer ano;
 
+    public Ano() {
+        
+    }
+    
+    public Ano(Integer ano) {
+        this.ano = ano;
+    }
+
     public Integer getAno() {
         return this.ano;
     }

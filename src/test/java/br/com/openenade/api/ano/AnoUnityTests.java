@@ -22,9 +22,7 @@ public class AnoUnityTests extends BaseUnitTest {
     
     @Test
     public void addAnoTest() {
-        Ano ano = new Ano();
-
-        ano.setAno(2016);
+        Ano ano = new Ano(2016);
 
         this.service.addAno(ano);
         assertEquals(ano, service.getAno(2016));
@@ -33,11 +31,8 @@ public class AnoUnityTests extends BaseUnitTest {
 
     @Test
     public void addAnosTests() {
-        Ano ano1 = new Ano();
-        Ano ano2 = new Ano();
-
-        ano1.setAno(2016);
-        ano2.setAno(2017);
+        Ano ano1 = new Ano(2016);
+        Ano ano2 = new Ano(2017);
 
         List<Ano> list = new ArrayList<>();
 
@@ -52,9 +47,7 @@ public class AnoUnityTests extends BaseUnitTest {
 
     @Test(expected = ResourceNotFound.class)
     public void deleteAnoTest() {
-        Ano ano1 = new Ano();
-
-        ano1.setAno(2016);
+        Ano ano1 = new Ano(2016);
 
         this.service.addAno(ano1);
 
