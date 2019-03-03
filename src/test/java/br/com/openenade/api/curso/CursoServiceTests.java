@@ -67,9 +67,9 @@ public class CursoServiceTests extends BaseUnitTest {
         this.cursoService.addCurso(b);
         this.cursoService.addCurso(c);
 
-        Curso aa = this.cursoService.getByCodigo(3L, modalidade);
-        Curso bb = this.cursoService.getByCodigo(5L, modalidade);
-        Curso cc = this.cursoService.getByCodigo(7L, modalidade);
+        Curso aa = this.cursoService.getCursoByCodigo(3L, modalidade);
+        Curso bb = this.cursoService.getCursoByCodigo(5L, modalidade);
+        Curso cc = this.cursoService.getCursoByCodigo(7L, modalidade);
 
         assertEquals(a, aa);
         assertEquals(b, bb);

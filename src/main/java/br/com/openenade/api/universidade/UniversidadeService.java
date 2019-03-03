@@ -25,7 +25,7 @@ public class UniversidadeService {
     @Autowired
     private MunicipioService municipioService;
 
-    public Universidade save(Universidade universidade) {
+    public Universidade addUniversidade(Universidade universidade) {
         Optional<Municipio> optMunicipio =
                 this.municipioService.getOptionalByCodigo(universidade.getCampus().getCodigo());
         Municipio newCampus;
@@ -39,7 +39,7 @@ public class UniversidadeService {
     }
 
     public Universidade addCurso2Universidade(Universidade universidade, Curso curso) {
-        curso = this.cursoService.getByCodigo(curso.getCodigoArea(), curso.getModalidade());
+        curso = this.cursoService.getCursoByCodigo(curso.getCodigoArea(), curso.getModalidade());
         universidade.addCurso(curso);
         return this.repository.saveAndFlush(universidade);
     }

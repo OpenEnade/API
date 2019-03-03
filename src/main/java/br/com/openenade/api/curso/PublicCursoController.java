@@ -30,7 +30,7 @@ public class PublicCursoController {
     @GetMapping(path = "/{codigo}/{modalidade}")
     public Curso getCursoByCodigo(@PathVariable(name = "codigo") Long codigo,
             @PathVariable(name = "modalidade") Integer modalidadeId) {
-        return this.service.getByCodigo(codigo, ModalidadeService.getModalidadeById(modalidadeId));
+        return this.service.getCursoByCodigo(codigo, ModalidadeService.getModalidadeById(modalidadeId));
     }
 
 }

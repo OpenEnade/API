@@ -22,6 +22,7 @@ import br.com.openenade.api.ano.Ano;
 import br.com.openenade.api.categoriaadmin.CategoriaAdmin;
 import br.com.openenade.api.curso.Curso;
 import br.com.openenade.api.estado.Estado;
+import br.com.openenade.api.exceptions.ResourceNotFound;
 import br.com.openenade.api.modalidade.Modalidade;
 import br.com.openenade.api.municipio.Municipio;
 import br.com.openenade.api.municipio.MunicipioService;
@@ -66,7 +67,7 @@ public class NotaControllerTests extends BaseUnitTest {
         nota.getAvaliacao().setEnadeContinuo(3.333);
         nota.getAvaliacao().setEnadeFaixa(3);
 
-        String url = "/" + NotaController.ENDPOINT;
+        String url = "/" + PublicNotaController.ENDPOINT;
 
         assertFalse(notaService.getAll().contains(nota));
 
@@ -76,7 +77,7 @@ public class NotaControllerTests extends BaseUnitTest {
         assertTrue(notaService.getAll().contains(nota));
     }
 
-    @Test
+    @Test(expected = ResourceNotFound.class)
     public void getTestBasicPlusDelete() throws Exception {
         Ano ano = new Ano(2018);
         Regiao regiao = new Regiao("NE");
@@ -97,12 +98,12 @@ public class NotaControllerTests extends BaseUnitTest {
         nota.getAvaliacao().setEnadeContinuo(3.666);
         nota.getAvaliacao().setEnadeFaixa(1);
 
-        this.notaService.save(nota);
+        this.notaService.addNota(nota);
 
-        String url = "/" + NotaController.ENDPOINT
+        String url = "/" + PublicNotaController.ENDPOINT
                 + String.format("/%d-%d-%d-%d-%d", nota.getInfo().getAno().getAno(),
                         nota.getInfo().getCurso().getCodigoArea(),
-                        nota.getInfo().getCurso().getModalidade().ordinal(),
+                        nota.getInfo().getCurso().getModalidade().getId(),
                         nota.getInfo().getUniversidade().getCodigoIES(),
                         nota.getInfo().getUniversidade().getCampus().getCodigo());
 
@@ -125,11 +126,11 @@ public class NotaControllerTests extends BaseUnitTest {
                         + "adaCE\":0.0,\"enadeContinuo\":3.666,\"enadeFaixa\":1}}",
                 result.getResponse().getContentAsString(), true);
 
-        assertTrue(this.notaService.getNotaById(nota.getInfo()).isPresent());
+        assertNotNull(this.notaService.getNotaById(nota.getInfo()));
 
         result = mvc.perform(delete(url)).andExpect(status().isOk()).andReturn();
 
-        assertFalse(this.notaService.getNotaById(nota.getInfo()).isPresent());
+        this.notaService.getNotaById(nota.getInfo());
     }
 
 }

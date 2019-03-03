@@ -29,7 +29,7 @@ public class UniversidadeController {
 
     @PostMapping
     public void addUniversidade(@Valid @RequestBody Universidade universidade) {
-        this.service.save(universidade);
+        this.service.addUniversidade(universidade);
     }
 
     @ResponseBody

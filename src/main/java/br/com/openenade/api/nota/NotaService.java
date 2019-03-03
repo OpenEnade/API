@@ -10,6 +10,7 @@ import br.com.openenade.api.ano.AnoRepository;
 import br.com.openenade.api.curso.Curso;
 import br.com.openenade.api.curso.CursoId;
 import br.com.openenade.api.curso.CursoRepository;
+import br.com.openenade.api.exceptions.ResourceNotFound;
 import br.com.openenade.api.modalidade.Modalidade;
 import br.com.openenade.api.universidade.Universidade;
 import br.com.openenade.api.universidade.UniversidadeService;
@@ -30,32 +31,36 @@ public class NotaService {
     @Autowired
     private UniversidadeService universidadeService;
 
-    public Nota save(Nota nota) {
-        this.anoRepository.save(nota.getInfo().getAno());
+    public Nota addNota(Nota nota) {
+        Ano ano = this.anoRepository.save(nota.getInfo().getAno());
+        Curso curso = this.cursoRepository.save(nota.getInfo().getCurso());
 
-        this.cursoRepository.save(nota.getInfo().getCurso());
-
-        Universidade universidadeA = nota.getInfo().getUniversidade();
-
-        Optional<Universidade> optUniB = this.universidadeService.getOptUniversidadeById(
-                universidadeA.getCodigoIES(), universidadeA.getCampus().getCodigo());
-
-        if (optUniB.isPresent()) {
-            Universidade universidadeB = optUniB.get();
-
-            universidadeA.getCursos().addAll(universidadeB.getCursos());
+        Universidade uni = nota.getInfo().getUniversidade();
+        Optional<Universidade> optUni = this.universidadeService
+                .getOptUniversidadeById(uni.getCodigoIES(), uni.getCampus().getCodigo());
+        if (optUni.isPresent()) {
+            uni = optUni.get();
+        } else {
+            uni = this.universidadeService.addUniversidade(uni);
         }
 
-        this.universidadeService.save(universidadeA);
-
+        nota.getInfo().setAno(ano);
+        nota.getInfo().setCurso(curso);
+        nota.getInfo().setUniversidade(uni);
         return this.notaRepository.save(nota);
     }
 
-    public Optional<Nota> getNotaById(NotaId id) {
-        return this.notaRepository.findById(id);
+    public Nota getNotaById(NotaId id) {
+        Optional<Nota> optNota = this.notaRepository.findById(id);
+        if (optNota.isPresent()) {
+            return optNota.get();
+        } else {
+            throw new ResourceNotFound("Cannot find Nota by Id " + id.toString());
+        }
     }
 
     public void deleteNotaById(NotaId id) {
+        this.getNotaById(id);
         this.notaRepository.deleteById(id);
     }
 
@@ -63,16 +68,15 @@ public class NotaService {
         return this.notaRepository.findAll();
     }
 
-    public Optional<Nota> getNota(NotaIdInterface id) {
+    public Nota getNota(NotaIdInterface id) {
         NotaId notaId = makeNotaIdFromInterface(id);
-
-        return this.notaRepository.findById(notaId);
+        return this.getNotaById(notaId);
     }
 
     public void deleteNota(NotaIdInterface id) {
         NotaId notaId = makeNotaIdFromInterface(id);
 
-        this.notaRepository.deleteById(notaId);
+        this.deleteNotaById(notaId);
     }
 
     private NotaId makeNotaIdFromInterface(NotaIdInterface idInterface) {
@@ -88,7 +92,7 @@ public class NotaService {
     }
 
 
-    public List<Nota> filterByGenericAtribute(NotaFilterInterface nfi) {
+    public List<Nota> filterByGenericAttribute(NotaFilterInterface nfi) {
 
         FilterBy filter = new FilterBy(this.getAll());
 
@@ -99,9 +103,4 @@ public class NotaService {
                 .filterByIntervaloAno(nfi.getBeginAno(), nfi.getEndAno()).get();
     }
 
-    public void deleteAll() {
-
-        this.notaRepository.deleteAll();
-
-    }
 }

@@ -20,6 +20,10 @@ public enum Modalidade {
         this.value = value;
         this.id = id;
     }
+    
+    public Integer getId() {
+        return this.id;
+    }
 
     @JsonValue
     public String getValue() {
