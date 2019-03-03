@@ -6,7 +6,7 @@ public class ModalidadeService {
 
     public static Modalidade getModalidadeById(Integer id) {
         Modalidade[] modalidades = Modalidade.values();
-        if (id < 0 || id > modalidades.length) {
+        if (id < 0 || id >= modalidades.length) {
             throw new ResourceNotFound(
                     "Cannot find Modalidade with Id [" + Integer.toString(id) + "]");
         } else {
