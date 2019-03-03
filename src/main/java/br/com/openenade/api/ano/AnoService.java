@@ -19,9 +19,9 @@ public class AnoService {
     }
 
     public Ano getAno(Integer ano) {
-        Optional<Ano> anoo = this.repository.findById(ano);
-        if (anoo.isPresent()) {
-            return anoo.get();
+        Optional<Ano> optAno = this.repository.findById(ano);
+        if (optAno.isPresent()) {
+            return optAno.get();
         } else {
             throw new ResourceNotFound("" + ano);
         }

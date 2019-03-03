@@ -21,6 +21,8 @@ import br.com.openenade.api.universidade.UniversidadeService;
 
 public class BaseUnitTest {
 
+    public static final String BASE_URI = "/api";
+    
     @Autowired
     private AnoService anoService;
 
