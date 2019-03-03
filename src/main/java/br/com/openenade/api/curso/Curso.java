@@ -4,27 +4,24 @@ import javax.persistence.Id;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.NotBlank;
 import br.com.openenade.api.modalidade.Modalidade;
 import javax.persistence.IdClass;
 
-
 @Entity
 @IdClass(CursoId.class)
 public class Curso {
 
-    @NotBlank(message = "'nome' não pode ser vazio.")
+    @NotBlank(message = "Curso 'nome' nao pode ser vazio")
     private String nome;
 
     @Id
-    @Positive(message = "'codigoArea' precisa ser positivo.")
+    @Positive(message = "Curso 'codigoArea' precisa ser positivo")
     private Long codigoArea;
 
     @Id
-    @Enumerated(EnumType.STRING)
-    @NotNull(message = "Você precisa especificar uma 'modalidade' de ensino.")
+    @Enumerated(EnumType.ORDINAL)
     private Modalidade modalidade;
 
     public Curso() {
