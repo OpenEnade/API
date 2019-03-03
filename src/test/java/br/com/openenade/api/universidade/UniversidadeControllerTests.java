@@ -88,9 +88,9 @@ public class UniversidadeControllerTests extends BaseUnitTest {
     private Set<Curso> createCursos() {
         Set<Curso> cursos = new HashSet<Curso>();
         Curso cursoCC =
-                this.cursoService.save(new Curso("CC", 13, Modalidade.EDUCACAO_PRESENCIAL));
+                this.cursoService.addCurso(new Curso("CC", 13, Modalidade.EDUCACAO_PRESENCIAL));
         Curso cursoEE =
-                this.cursoService.save(new Curso("EE", 14, Modalidade.EDUCACAO_PRESENCIAL));
+                this.cursoService.addCurso(new Curso("EE", 14, Modalidade.EDUCACAO_PRESENCIAL));
         cursos.add(cursoCC);
         cursos.add(cursoEE);
         return cursos;

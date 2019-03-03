@@ -23,7 +23,7 @@ public class CursoServiceTests extends BaseUnitTest {
 
     @Test
     public void testSaveBasic() {
-        this.cursoService.save(new Curso("CC", 13, Modalidade.EDUCACAO_PRESENCIAL));
+        this.cursoService.addCurso(new Curso("CC", 13, Modalidade.EDUCACAO_PRESENCIAL));
     }
 
     @Test
@@ -35,10 +35,10 @@ public class CursoServiceTests extends BaseUnitTest {
 
         Curso e = new Curso("História", 13, Modalidade.EDUCACAO_A_DISTANCIA);
 
-        this.cursoService.save(a);
-        this.cursoService.save(b);
-        this.cursoService.save(c);
-        this.cursoService.save(d);
+        this.cursoService.addCurso(a);
+        this.cursoService.addCurso(b);
+        this.cursoService.addCurso(c);
+        this.cursoService.addCurso(d);
 
         List<Curso> cursos = this.cursoService.getAll();
 
@@ -63,13 +63,13 @@ public class CursoServiceTests extends BaseUnitTest {
         Curso b = new Curso(cursos[1], 5, modalidade);
         Curso c = new Curso(cursos[2], 7, modalidade);
 
-        this.cursoService.save(a);
-        this.cursoService.save(b);
-        this.cursoService.save(c);
+        this.cursoService.addCurso(a);
+        this.cursoService.addCurso(b);
+        this.cursoService.addCurso(c);
 
-        Curso aa = this.cursoService.getByCodigo(3L, modalidade).get();
-        Curso bb = this.cursoService.getByCodigo(5L, modalidade).get();
-        Curso cc = this.cursoService.getByCodigo(7L, modalidade).get();
+        Curso aa = this.cursoService.getCursoByCodigo(3L, modalidade);
+        Curso bb = this.cursoService.getCursoByCodigo(5L, modalidade);
+        Curso cc = this.cursoService.getCursoByCodigo(7L, modalidade);
 
         assertEquals(a, aa);
         assertEquals(b, bb);

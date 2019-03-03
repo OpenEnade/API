@@ -163,7 +163,7 @@ public class StubDataCreator implements ApplicationRunner {
             Nota nota = new Nota.Builder().setAno(anos[i]).setCurso(cursos[i])
                     .setUniversidade(universidades[i]).build();
 
-            this.notaService.save(nota);
+            this.notaService.addNota(nota);
         }
     }
 

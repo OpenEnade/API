@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,6 +15,7 @@ import br.com.openenade.api.ano.Ano;
 import br.com.openenade.api.categoriaadmin.CategoriaAdmin;
 import br.com.openenade.api.curso.Curso;
 import br.com.openenade.api.estado.Estado;
+import br.com.openenade.api.exceptions.ResourceNotFound;
 import br.com.openenade.api.modalidade.Modalidade;
 import br.com.openenade.api.municipio.Municipio;
 import br.com.openenade.api.municipio.MunicipioService;
@@ -45,16 +45,14 @@ public class NotaServiceTests extends BaseUnitTest {
         Estado estado1 = new Estado("PE", regiao1);
         Municipio municipio1 = new Municipio(333L, estado1, "Recife");
         this.municipioService.save(municipio1);
-        Curso curso1 =
-                new Curso("Ciência da Computação", 41L, Modalidade.EDUCACAO_PRESENCIAL);
+        Curso curso1 = new Curso("Ciência da Computação", 41L, Modalidade.EDUCACAO_PRESENCIAL);
         Universidade universidade1 = new Universidade(11111L, "UFPE", municipio1,
                 CategoriaAdmin.PUBLICO, new HashSet<>());
         universidade1.getCursos().add(curso1);
 
         Nota nota1 = new Nota.Builder().setAno(ano1).setCurso(curso1).setUniversidade(universidade1)
                 .build();
-        
-        
+
         nota1.getAvaliacao().setConcluintesInscritos(50);
         nota1.getAvaliacao().setConcluintesParticipantes(20);
         nota1.getAvaliacao().setNotaBrutaCE(2.5);
@@ -68,15 +66,14 @@ public class NotaServiceTests extends BaseUnitTest {
         Estado estado2 = new Estado("MG", regiao2);
         Municipio municipio2 = new Municipio(222L, estado2, "Minas Gerais");
         this.municipioService.save(municipio2);
-        Curso curso2 =
-                new Curso("Ciência da Computação", 41L, Modalidade.EDUCACAO_PRESENCIAL);
+        Curso curso2 = new Curso("Ciência da Computação", 41L, Modalidade.EDUCACAO_PRESENCIAL);
         Universidade universidade2 = new Universidade(11111L, "UFMG", municipio2,
                 CategoriaAdmin.PUBLICO, new HashSet<>());
         universidade2.getCursos().add(curso2);
 
         Nota nota2 = new Nota.Builder().setAno(ano2).setCurso(curso2).setUniversidade(universidade2)
                 .build();
-        
+
         nota2.getAvaliacao().setConcluintesInscritos(60);
         nota2.getAvaliacao().setConcluintesParticipantes(60);
         nota2.getAvaliacao().setNotaBrutaCE(2.9);
@@ -89,8 +86,7 @@ public class NotaServiceTests extends BaseUnitTest {
         Estado estado = new Estado("PB", regiao);
         Municipio municipio = new Municipio(123L, estado, "Campina Grande");
         this.municipioService.save(municipio);
-        Curso curso =
-                new Curso("Ciência da Computação", 41L, Modalidade.EDUCACAO_PRESENCIAL);
+        Curso curso = new Curso("Ciência da Computação", 41L, Modalidade.EDUCACAO_PRESENCIAL);
         Universidade universidade = new Universidade(123123L, "UFCG", municipio,
                 CategoriaAdmin.PRIVADO, new HashSet<>());
         universidade.getCursos().add(curso);
@@ -104,16 +100,16 @@ public class NotaServiceTests extends BaseUnitTest {
         nota3.getAvaliacao().setNotaBrutaFG(1.7);
         nota3.getAvaliacao().setEnadeContinuo(3.553);
         nota3.getAvaliacao().setEnadeFaixa(3);
-        
+
         List<Nota> notas = new ArrayList<>();
 
         notas.add(nota1);
         notas.add(nota2);
         notas.add(nota3);
 
-        this.notaService.save(nota1);
-        this.notaService.save(nota2);
-        this.notaService.save(nota3);
+        this.notaService.addNota(nota1);
+        this.notaService.addNota(nota2);
+        this.notaService.addNota(nota3);
 
         return notas;
     }
@@ -124,8 +120,7 @@ public class NotaServiceTests extends BaseUnitTest {
         Regiao regiao = new Regiao("NO");
         Estado estado = new Estado("XD", regiao);
         Municipio municipio = new Municipio(123L, estado, "Capoeira Grande");
-        Curso curso =
-                new Curso("Ciência da Computação", 41L, Modalidade.EDUCACAO_PRESENCIAL);
+        Curso curso = new Curso("Ciência da Computação", 41L, Modalidade.EDUCACAO_PRESENCIAL);
         Universidade universidade = new Universidade(123123L, "UFCG", municipio,
                 CategoriaAdmin.PUBLICO, new HashSet<>());
         universidade.getCursos().add(curso);
@@ -139,13 +134,13 @@ public class NotaServiceTests extends BaseUnitTest {
         nota.getAvaliacao().setEnadeContinuo(3.333);
         nota.getAvaliacao().setEnadeFaixa(3);
 
-        this.notaService.save(nota);
+        this.notaService.addNota(nota);
 
-        assertTrue(this.notaService.getNotaById(nota.getInfo()).isPresent());
+        assertNotNull(this.notaService.getNotaById(nota.getInfo()));
 
-        this.notaService.save(nota);
+        this.notaService.addNota(nota);
 
-        assertTrue(this.notaService.getNotaById(nota.getInfo()).isPresent());
+        assertNotNull(this.notaService.getNotaById(nota.getInfo()));
     }
 
     public void saveUnivDuplicated() {
@@ -153,10 +148,8 @@ public class NotaServiceTests extends BaseUnitTest {
         Regiao regiao = new Regiao("NO");
         Estado estado = new Estado("XD", regiao);
         Municipio municipio = new Municipio(123L, estado, "Capoeira Grande");
-        Curso cursoA =
-                new Curso("Ciência da Computação", 41L, Modalidade.EDUCACAO_PRESENCIAL);
-        Curso cursoB =
-                new Curso("Ciência da Neurologia", 41L, Modalidade.EDUCACAO_PRESENCIAL);
+        Curso cursoA = new Curso("Ciência da Computação", 41L, Modalidade.EDUCACAO_PRESENCIAL);
+        Curso cursoB = new Curso("Ciência da Neurologia", 41L, Modalidade.EDUCACAO_PRESENCIAL);
 
 
         Universidade universidadeA = new Universidade(123123L, "UFCG", municipio,
@@ -170,16 +163,16 @@ public class NotaServiceTests extends BaseUnitTest {
         Nota nota = new Nota.Builder().setAno(ano).setCurso(cursoA).setUniversidade(universidadeA)
                 .build();
 
-        this.notaService.save(nota);
+        this.notaService.addNota(nota);
 
         nota = new Nota.Builder().setAno(ano).setCurso(cursoB).setUniversidade(universidadeB)
                 .build();
 
-        this.notaService.save(nota);
+        this.notaService.addNota(nota);
 
-        assertTrue(this.notaService.getNotaById(nota.getInfo()).isPresent());
+        assertNotNull(this.notaService.getNotaById(nota.getInfo()));
 
-        nota = this.notaService.getNotaById(nota.getInfo()).get();
+        nota = this.notaService.getNotaById(nota.getInfo());
 
         assertEquals(2, nota.getInfo().getUniversidade().getCursos().size());
 
@@ -193,8 +186,7 @@ public class NotaServiceTests extends BaseUnitTest {
         Regiao regiao = new Regiao("NE");
         Estado estado = new Estado("PB", regiao);
         Municipio municipio = new Municipio(123L, estado, "Campina Grande");
-        Curso curso =
-                new Curso("Ciência da Computação", 41L, Modalidade.EDUCACAO_PRESENCIAL);
+        Curso curso = new Curso("Ciência da Computação", 41L, Modalidade.EDUCACAO_PRESENCIAL);
         Universidade universidade = new Universidade(123123L, "UFCG", municipio,
                 CategoriaAdmin.PUBLICO, new HashSet<>());
         universidade.getCursos().add(curso);
@@ -202,7 +194,7 @@ public class NotaServiceTests extends BaseUnitTest {
         Nota nota3 = new Nota.Builder().setAno(ano).setCurso(curso).setUniversidade(universidade)
                 .build();
 
-        nota3 = this.notaService.save(nota3);
+        nota3 = this.notaService.addNota(nota3);
 
         ano = new Ano(2017);
         regiao = new Regiao("N");
@@ -216,7 +208,7 @@ public class NotaServiceTests extends BaseUnitTest {
         Nota nota4 = new Nota.Builder().setAno(ano).setCurso(curso).setUniversidade(universidade)
                 .build();
 
-        nota4 = this.notaService.save(nota4);
+        nota4 = this.notaService.addNota(nota4);
 
         List<Nota> notas = this.notaService.getAll();
         assertTrue(notas.contains(nota3));
@@ -229,8 +221,7 @@ public class NotaServiceTests extends BaseUnitTest {
         Regiao regiao = new Regiao("C");
         Estado estado = new Estado("Ancapistão", regiao);
         Municipio municipio = new Municipio(123L, estado, "Paulo Kogos");
-        Curso curso =
-                new Curso("Ciência da Computação", 41L, Modalidade.EDUCACAO_A_DISTANCIA);
+        Curso curso = new Curso("Ciência da Computação", 41L, Modalidade.EDUCACAO_A_DISTANCIA);
         Universidade universidade = new Universidade(123123L, "UCIP", municipio,
                 CategoriaAdmin.PRIVADO, new HashSet<>());
         universidade.getCursos().add(curso);
@@ -238,13 +229,12 @@ public class NotaServiceTests extends BaseUnitTest {
         Nota nota3 = new Nota.Builder().setAno(ano).setCurso(curso).setUniversidade(universidade)
                 .build();
 
-        nota3 = this.notaService.save(nota3);
+        nota3 = this.notaService.addNota(nota3);
 
-        Optional<Nota> optNota = this.notaService.getNotaById(nota3.getInfo());
+        Nota nota = this.notaService.getNotaById(nota3.getInfo());
 
-        assertTrue(optNota.isPresent());
+        assertNotNull(nota);
 
-        Nota nota = optNota.get();
         assertEquals(nota3, nota);
 
         assertEquals(nota3.hashCode(), nota.hashCode());
@@ -254,14 +244,13 @@ public class NotaServiceTests extends BaseUnitTest {
         assertEquals(universidade, nota.getInfo().getUniversidade());
     }
 
-    @Test
+    @Test(expected = ResourceNotFound.class)
     public void deleteById() {
         Ano ano = new Ano(2019);
         Regiao regiao = new Regiao("NE");
         Estado estado = new Estado("PE", regiao);
         Municipio municipio = new Municipio(123L, estado, "Campina Grande");
-        Curso curso =
-                new Curso("Ciência da Computação", 41L, Modalidade.EDUCACAO_PRESENCIAL);
+        Curso curso = new Curso("Ciência da Computação", 41L, Modalidade.EDUCACAO_PRESENCIAL);
         Universidade universidade = new Universidade(123123L, "UFCG", municipio,
                 CategoriaAdmin.PUBLICO, new HashSet<>());
         universidade.getCursos().add(curso);
@@ -269,11 +258,11 @@ public class NotaServiceTests extends BaseUnitTest {
         Nota nota3 = new Nota.Builder().setAno(ano).setCurso(curso).setUniversidade(universidade)
                 .build();
 
-        nota3 = this.notaService.save(nota3);
+        nota3 = this.notaService.addNota(nota3);
 
         this.notaService.deleteNotaById(nota3.getInfo());
 
-        assertFalse(this.notaService.getNotaById(nota3.getInfo()).isPresent());
+        this.notaService.getNotaById(nota3.getInfo());
     }
 
 
@@ -283,7 +272,7 @@ public class NotaServiceTests extends BaseUnitTest {
         NotaFilterInterface nfi = new NotaFilterInterface();
         nfi.setBeginAno(2017);
         nfi.setEndAno(2017);
-        assertEquals(this.notas.get(0), this.notaService.filterByGenericAtribute(nfi).get(0));
+        assertEquals(this.notas.get(0), this.notaService.filterByGenericAttribute(nfi).get(0));
     }
 
     @Test
@@ -296,7 +285,7 @@ public class NotaServiceTests extends BaseUnitTest {
 
         NotaFilterInterface nfi = new NotaFilterInterface();
         nfi.setCategoria(CategoriaAdmin.PUBLICO);
-        assertEquals(publica, this.notaService.filterByGenericAtribute(nfi));
+        assertEquals(publica, this.notaService.filterByGenericAttribute(nfi));
     }
 
     @Test
@@ -304,7 +293,7 @@ public class NotaServiceTests extends BaseUnitTest {
 
         NotaFilterInterface nfi = new NotaFilterInterface();
         nfi.setCodigoArea(41L);
-        assertEquals(this.notas, this.notaService.filterByGenericAtribute(nfi));
+        assertEquals(this.notas, this.notaService.filterByGenericAttribute(nfi));
     }
 
     @Test
@@ -312,7 +301,7 @@ public class NotaServiceTests extends BaseUnitTest {
 
         NotaFilterInterface nfi = new NotaFilterInterface();
         nfi.setEstado("PB");
-        assertEquals(this.notas.get(2), this.notaService.filterByGenericAtribute(nfi).get(0));
+        assertEquals(this.notas.get(2), this.notaService.filterByGenericAttribute(nfi).get(0));
     }
 
     @Test
@@ -320,7 +309,7 @@ public class NotaServiceTests extends BaseUnitTest {
 
         NotaFilterInterface nfi = new NotaFilterInterface();
         nfi.setModalidade(Modalidade.EDUCACAO_PRESENCIAL);
-        assertEquals(this.notas, this.notaService.filterByGenericAtribute(nfi));
+        assertEquals(this.notas, this.notaService.filterByGenericAttribute(nfi));
     }
 
     @Test
@@ -328,7 +317,7 @@ public class NotaServiceTests extends BaseUnitTest {
 
         NotaFilterInterface nfi = new NotaFilterInterface();
         nfi.setMunicipio(123L);
-        assertEquals(this.notas.get(2), this.notaService.filterByGenericAtribute(nfi).get(0));
+        assertEquals(this.notas.get(2), this.notaService.filterByGenericAttribute(nfi).get(0));
     }
 
     @Test
@@ -340,7 +329,7 @@ public class NotaServiceTests extends BaseUnitTest {
 
         NotaFilterInterface nfi = new NotaFilterInterface();
         nfi.setRegiao("NE");
-        assertEquals(nordeste, this.notaService.filterByGenericAtribute(nfi));
+        assertEquals(nordeste, this.notaService.filterByGenericAttribute(nfi));
     }
 
     @Test
@@ -353,13 +342,13 @@ public class NotaServiceTests extends BaseUnitTest {
 
         NotaFilterInterface nfi = new NotaFilterInterface();
         nfi.setUniversidade(11111L);
-        assertEquals(byIES, this.notaService.filterByGenericAtribute(nfi));
+        assertEquals(byIES, this.notaService.filterByGenericAttribute(nfi));
     }
 
     @Test
     public void testFilterByNothing() {
         NotaFilterInterface nfi = new NotaFilterInterface();
-        assertEquals(this.notas, this.notaService.filterByGenericAtribute(nfi));
+        assertEquals(this.notas, this.notaService.filterByGenericAttribute(nfi));
     }
 
     @Test
@@ -372,21 +361,20 @@ public class NotaServiceTests extends BaseUnitTest {
         NotaFilterInterface nfi = new NotaFilterInterface();
         nfi.setBeginAno(2017);
         nfi.setEndAno(2018);
-        assertEquals(anos, this.notaService.filterByGenericAtribute(nfi));
+        assertEquals(anos, this.notaService.filterByGenericAttribute(nfi));
 
         nfi.setEndAno(2019);
         anos.add(this.notas.get(2));
-        assertEquals(anos, this.notaService.filterByGenericAtribute(nfi));
+        assertEquals(anos, this.notaService.filterByGenericAttribute(nfi));
     }
-    
+
     @Test
     public void caso1() {
         Ano ano = new Ano(2018);
         Regiao regiao = new Regiao("NO");
         Estado estado = new Estado("XD", regiao);
         Municipio municipio = new Municipio(123L, estado, "Capoeira Grande");
-        Curso curso =
-                new Curso("Ciência da Computação", 2234234L, Modalidade.EDUCACAO_PRESENCIAL);
+        Curso curso = new Curso("Ciência da Computação", 2234234L, Modalidade.EDUCACAO_PRESENCIAL);
         Universidade universidade = new Universidade(123123L, "UFCG", municipio,
                 CategoriaAdmin.PUBLICO, new HashSet<>());
         universidade.getCursos().add(curso);
@@ -400,12 +388,12 @@ public class NotaServiceTests extends BaseUnitTest {
         nota.getAvaliacao().setEnadeContinuo(3.333);
         nota.getAvaliacao().setEnadeFaixa(3);
 
-        this.notaService.save(nota);
-  
+        this.notaService.addNota(nota);
+
         assertTrue(this.notaService.getAll().contains(nota));
-   
+
     }
-    
+
     @Test
     public void caso2() {
         Ano ano1 = new Ano(2017);
@@ -413,25 +401,24 @@ public class NotaServiceTests extends BaseUnitTest {
         Estado estado1 = new Estado("PE", regiao1);
         Municipio municipio1 = new Municipio(333L, estado1, "Recife");
         this.municipioService.save(municipio1);
-        Curso curso1 =
-                new Curso("Ciência da Computação", 41L, Modalidade.EDUCACAO_PRESENCIAL);
+        Curso curso1 = new Curso("Ciência da Computação", 41L, Modalidade.EDUCACAO_PRESENCIAL);
         Universidade universidade1 = new Universidade(11111L, "UFPE", municipio1,
                 CategoriaAdmin.PUBLICO, new HashSet<>());
         universidade1.getCursos().add(curso1);
 
         Nota nota1 = new Nota.Builder().setAno(ano1).setCurso(curso1).setUniversidade(universidade1)
                 .build();
-        
+
         nota1.getAvaliacao().setConcluintesInscritos(50);
         nota1.getAvaliacao().setConcluintesParticipantes(20);
         nota1.getAvaliacao().setNotaBrutaCE(2.5);
         nota1.getAvaliacao().setNotaBrutaFG(1.7);
         nota1.getAvaliacao().setEnadeContinuo(3.553);
         nota1.getAvaliacao().setEnadeFaixa(3);
-        
-        this.notaService.save(nota1);
-       
+
+        this.notaService.addNota(nota1);
+
         assertTrue(this.notaService.getAll().contains(this.notas.get(0)));
-              
-    } 
+
+    }
 }

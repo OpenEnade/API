@@ -1,6 +1,5 @@
 package br.com.openenade.api.estado;
 
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -12,19 +11,18 @@ import br.com.openenade.api.regiao.Regiao;
 public class Estado {
 
     @Id
-    @NotBlank(message = "'siglaEstado' não pode ser vazio.")
+    @NotBlank(message = "Estado 'sigla' não pode ser vazio.")
     private String sigla;
 
     @ManyToOne(optional = false)
-    @NotNull(message = "'regiaoEstado' não pode ser nulo.")
+    @NotNull(message = "Estado 'regiao' não pode ser nulo.")
     private Regiao regiao;
 
     public Estado() {
 
     }
 
-    public Estado(@NotBlank(message = "'siglaEstado' não pode ser vazio.") String siglaEstado,
-            Regiao regiaoEstado) {
+    public Estado(String siglaEstado, Regiao regiaoEstado) {
         super();
         this.sigla = siglaEstado;
         this.regiao = regiaoEstado;
@@ -81,7 +79,5 @@ public class Estado {
     public String toString() {
         return "Estado [siglaEstado=" + sigla + ", regiaoEstado=" + regiao + "]";
     }
-
-
 
 }

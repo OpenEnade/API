@@ -45,7 +45,7 @@ public class UniversidadeServiceTests extends BaseUnitTest {
         Universidade ufcg =
                 new Universidade((long) 10, "UFCG", campus, CategoriaAdmin.PUBLICO, cursos);
 
-        this.service.save(ufcg);
+        this.service.addUniversidade(ufcg);
         Universidade aux =
                 this.service.getUniversidadeById(ufcg.getCodigoIES(), ufcg.getCampus().getCodigo());
         assertEquals("UFCG", aux.getNome());
@@ -64,8 +64,8 @@ public class UniversidadeServiceTests extends BaseUnitTest {
         Universidade Nassau =
                 new Universidade((long) 12, "UEPB", campus, CategoriaAdmin.PRIVADO, cursos);
 
-        this.service.save(UFCG);
-        this.service.save(UFPB);
+        this.service.addUniversidade(UFCG);
+        this.service.addUniversidade(UFPB);
 
         Collection<Universidade> universidades = this.service.getAll();
 
@@ -86,8 +86,8 @@ public class UniversidadeServiceTests extends BaseUnitTest {
         Universidade Nassau =
                 new Universidade((long) 12, "UEPB", campus, CategoriaAdmin.PRIVADO, cursos);
 
-        this.service.save(UFPB);
-        this.service.save(Nassau);
+        this.service.addUniversidade(UFPB);
+        this.service.addUniversidade(Nassau);
 
         Collection<Universidade> actual = this.service.getAllByCodigoIES((long) 10);
         assertEquals(actual.size(), 1);
@@ -101,7 +101,7 @@ public class UniversidadeServiceTests extends BaseUnitTest {
         Universidade UFCG =
                 new Universidade((long) 10, "UFCG", campus, CategoriaAdmin.PUBLICO, cursos);
 
-        this.service.save(UFCG);
+        this.service.addUniversidade(UFCG);
 
         this.service.deleteUniversidadesByCodigoIES((long) 10);
 
@@ -111,9 +111,9 @@ public class UniversidadeServiceTests extends BaseUnitTest {
     private Set<Curso> createCursos() {
         Set<Curso> cursos = new HashSet<Curso>();
         Curso cursoCC =
-                this.cursoService.save(new Curso("CC", 13, Modalidade.EDUCACAO_PRESENCIAL));
+                this.cursoService.addCurso(new Curso("CC", 13, Modalidade.EDUCACAO_PRESENCIAL));
         Curso cursoEE =
-                this.cursoService.save(new Curso("EE", 14, Modalidade.EDUCACAO_PRESENCIAL));
+                this.cursoService.addCurso(new Curso("EE", 14, Modalidade.EDUCACAO_PRESENCIAL));
         cursos.add(cursoCC);
         cursos.add(cursoEE);
         return cursos;
@@ -126,7 +126,7 @@ public class UniversidadeServiceTests extends BaseUnitTest {
         Universidade ufcg =
                 new Universidade((long) 10, "UFCG", campus, CategoriaAdmin.PUBLICO, cursos);
 
-        this.service.save(ufcg);
+        this.service.addUniversidade(ufcg);
         assertEquals(ufcg, this.service.getUniversidadeById(ufcg.getCodigoIES(),
                 ufcg.getCampus().getCodigo()));
     }
@@ -142,9 +142,9 @@ public class UniversidadeServiceTests extends BaseUnitTest {
         Universidade ufpb =
                 new Universidade((long) 12, "UFPB", campus, CategoriaAdmin.PUBLICO, cursosEmpty);
 
-        this.service.save(uepb);
-        this.service.save(ufcg);
-        this.service.save(ufpb);
+        this.service.addUniversidade(uepb);
+        this.service.addUniversidade(ufcg);
+        this.service.addUniversidade(ufpb);
 
         Collection<Universidade> expect = new ArrayList<Universidade>();
         expect.add(uepb);
@@ -162,7 +162,7 @@ public class UniversidadeServiceTests extends BaseUnitTest {
         Universidade ufcg =
                 new Universidade((long) 10, "UFCG", campus, CategoriaAdmin.PUBLICO, cursos);
 
-        this.service.save(ufcg);
+        this.service.addUniversidade(ufcg);
 
         assertEquals(ufcg, this.service.getUniversidadeById(ufcg.getCodigoIES(),
                 ufcg.getCampus().getCodigo()));

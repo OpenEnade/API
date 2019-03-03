@@ -16,8 +16,8 @@ public class ModalidadeController {
     public static final String ENDPOINT = "/modalidades";
 
     @RequestMapping(method = RequestMethod.GET)
-    public @ResponseBody ResponseEntity<Modalidade[]> index() {
+    public @ResponseBody ResponseEntity<Modalidade[]> getAllModalidades() {
         return new ResponseEntity<>(Modalidade.values(), HttpStatus.OK);
     }
-
+    
 }
